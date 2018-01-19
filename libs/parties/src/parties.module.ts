@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { partiesReducer } from './+state/parties.reducer';
 import { partiesInitialState } from './+state/parties.init';
 import { PartiesEffects } from './+state/parties.effects';
+import { PartyItemComponent } from './party-item/party-item.component';
 
 export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
@@ -15,7 +16,7 @@ export const partiesRoutes: Route[] = [
 
 @NgModule({
   imports: [CommonModule, RouterModule, StoreModule.forFeature('parties', partiesReducer, {initialState: partiesInitialState}), EffectsModule.forFeature([PartiesEffects])],
-  declarations: [SuggestedPartiesComponent],
+  declarations: [SuggestedPartiesComponent, PartyItemComponent],
   providers: [PartiesEffects]
 })
 export class PartiesModule {
