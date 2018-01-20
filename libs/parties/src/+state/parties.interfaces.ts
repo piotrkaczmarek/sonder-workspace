@@ -1,9 +1,6 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
+import { Party } from "../models/party.model"
 
-export interface Party {
-  id: number;
-  name: string;
-}
 export interface SuggestedPartiesState {
   entities: { [id: number]: Party };
   loaded: boolean;

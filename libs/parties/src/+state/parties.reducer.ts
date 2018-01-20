@@ -1,9 +1,9 @@
 import {Parties} from './parties.interfaces';
-import {PartiesAction} from './parties.actions';
+import * as fromPartiesActions from './parties.actions';
 
-export function partiesReducer(state: Parties, action: PartiesAction): Parties {
+export function partiesReducer(state: Parties, action: fromPartiesActions.PartiesAction): Parties {
   switch (action.type) {
-    case 'DATA_LOADED': {
+    case fromPartiesActions.SUGGESTED_PARTIES_LOADED: {
       return {...state, ...action.payload};
     }
     default: {

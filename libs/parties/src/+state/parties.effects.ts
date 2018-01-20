@@ -4,19 +4,19 @@ import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
 import {PartiesState} from './parties.interfaces';
-import {LoadData, DataLoaded} from './parties.actions';
+import * as fromPartiesAction from './parties.actions';
 
 @Injectable()
 export class PartiesEffects {
-  @Effect() loadData = this.dataPersistence.fetch('LOAD_DATA', {
-    run: (action: LoadData, state: PartiesState) => {
+  @Effect() loadData = this.dataPersistence.fetch(fromPartiesAction.LOAD_SUGGESTED_PARTIES, {
+    run: (action: fromPartiesAction.LoadSuggestedParties, state: PartiesState) => {
       return {
-        type: 'DATA_LOADED',
+        type: fromPartiesAction.SUGGESTED_PARTIES_LOADED,
         payload: {}
       };
     },
 
-    onError: (action: LoadData, error) => {
+    onError: (action: fromPartiesAction.LoadSuggestedParties, error) => {
       console.error('Error', error);
     }
   });
