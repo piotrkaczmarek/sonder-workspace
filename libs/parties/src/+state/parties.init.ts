@@ -2,15 +2,23 @@ import {Parties} from './parties.interfaces';
 
 export const partiesInitialState: Parties = {
   // fill it initial state here
-  suggested: [
-    {
-      id: 5,
-      name: 'Team A'
+  suggested: {
+    entities: {
+      1: {
+        id: 5,
+        name: 'Team A'
+      },
+      2: {
+        id: 6,
+        name: 'The Cherries'
+      }
     },
-    {
-      id: 6,
-      name: 'The Cherries'
-    }
-  ],
-  accepted: []
+    loaded: true,
+    loading: false
+  },
+  accepted: {
+    entities: {},
+    loaded: true,
+    loading: false
+  }
 };

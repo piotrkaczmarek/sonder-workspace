@@ -4,11 +4,20 @@ export interface Party {
   id: number;
   name: string;
 }
-
+export interface SuggestedPartiesState {
+  entities: { [id: number]: Party };
+  loaded: boolean;
+  loading: boolean;
+}
+export interface AcceptedPartiesState {
+  entities: { [id: number]: Party };
+  loaded: boolean;
+  loading: boolean;
+}
 export interface Parties {
   // define state here
-  suggested: Party[];
-  accepted: Party[];
+  suggested: SuggestedPartiesState;
+  accepted: AcceptedPartiesState;
 }
 
 export interface PartiesState {
@@ -16,4 +25,6 @@ export interface PartiesState {
 }
 
 export const getAllParties = createSelector(createFeatureSelector<PartiesState>("parties"), state => state);
-export const getSuggestedParties = createSelector(getAllParties, (state: any) => state.suggested)
+export const getSuggestedPartiesEntities = createSelector(getAllParties, (state: any) => {
+  return Object.keys(state.suggested.entities).map(id => state.suggested.entities[parseInt(id, 10)]);
+})
