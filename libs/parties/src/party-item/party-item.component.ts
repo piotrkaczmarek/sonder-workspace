@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'party-item',
+  selector: 'app-party-item',
   templateUrl: './party-item.component.html',
   styleUrls: ['./party-item.component.css']
 })
 export class PartyItemComponent implements OnInit {
-
+  @Input() party: any;
   constructor() { }
 
   ngOnInit() {

@@ -1,3 +1,3 @@
-<p>
-  suggested-parties works!
-</p>
+<div>
+  <app-party-item *ngFor="let party of (suggested$ | async)" [party]="party"></app-party-item>
+</div>

@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
+import { PartiesState, getAllParties, getSuggestedParties } from "../+state/parties.interfaces";
 
 @Component({
-  selector: 'suggested-parties',
+  selector: 'app-suggested-parties',
   templateUrl: './suggested-parties.component.html',
   styleUrls: ['./suggested-parties.component.css']
 })
 export class SuggestedPartiesComponent implements OnInit {
+  public suggested$: Observable<any>;
 
-  constructor() { }
+  constructor(private store: Store<PartiesState>) { }
 
   ngOnInit() {
+    this.suggested$ = this.store.select(getSuggestedParties);
   }
 
 }
