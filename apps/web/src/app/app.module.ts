@@ -12,10 +12,11 @@ import { AppEffects } from './+state/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { authRoutes } from '@sonder-workspace/auth';
+import { authRoutes, AuthModule } from '@sonder-workspace/auth';
 
 const routes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "parties" },
+  { path: "login", children: authRoutes },
   { path: "parties", children: partiesRoutes }
 ];
 
@@ -25,6 +26,7 @@ const routes: Route[] = [
   BrowserModule,
   NxModule.forRoot(),
   RouterModule.forRoot(routes, {initialNavigation: 'enabled'}),
+  AuthModule,
   PartiesModule,
   StoreModule.forRoot({app: appReducer}, {initialState: {app: appInitialState}}),
   EffectsModule.forRoot([AppEffects]),
