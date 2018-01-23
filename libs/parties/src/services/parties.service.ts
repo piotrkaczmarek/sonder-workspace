@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { Party } from '../models/party.model';
+import { HttpHeaders } from '@angular/common/http/src/headers';
 
 @Injectable()
 export class PartiesService {
@@ -13,7 +14,7 @@ export class PartiesService {
 
   getParties(): Observable<Party[]> {
     return this.http
-      .get<Party[]>(`/api/parties`)
+      .get<Party[]>(`http://0.0.0.0:4000/api/parties`, { headers: this.headers() })
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
@@ -34,4 +35,11 @@ export class PartiesService {
   //     .delete<any>(`/api/pizzas/${payload.id}`)
   //     .pipe(catchError((error: any) => Observable.throw(error.json())));
   // }
+
+  private headers() {
+    return {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+  }
 }

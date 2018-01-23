@@ -12,16 +12,16 @@ export interface AcceptedPartiesState {
   loading: boolean;
 }
 export interface Parties {
-  // define state here
   suggested: SuggestedPartiesState;
   accepted: AcceptedPartiesState;
 }
-
 export interface PartiesState {
   readonly parties: Parties;
 }
 
 export const getAllParties = createSelector(createFeatureSelector<PartiesState>("parties"), state => state);
-export const getSuggestedPartiesEntities = createSelector(getAllParties, (state: any) => {
-  return Object.keys(state.suggested.entities).map(id => state.suggested.entities[parseInt(id, 10)]);
+export const getSuggestedParties = createSelector(getAllParties, (parties: any) => parties.suggested);
+export const getSuggestedPartiesLoaded = createSelector(getSuggestedParties, suggestedParties => suggestedParties.loaded);
+export const getSuggestedPartiesEntities = createSelector(getSuggestedParties, (suggestedParties: any) => {
+  return Object.keys(suggestedParties.entities).map(id => suggestedParties.entities[parseInt(id, 10)]);
 })

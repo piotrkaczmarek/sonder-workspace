@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { PartiesState, getAllParties, getSuggestedPartiesEntities } from "../+state/parties.interfaces";
+import { PartiesState, getSuggestedPartiesEntities } from "../+state/parties.interfaces";
 
 @Component({
   selector: 'app-suggested-parties',
