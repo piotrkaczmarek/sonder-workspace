@@ -12,6 +12,7 @@ import { AppEffects } from './+state/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { authRoutes } from '@sonder-workspace/auth';
 
 const routes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "parties" },

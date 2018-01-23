@@ -71,6 +71,12 @@
       }
     },
     {
+      "name": "auth",
+      "root": "libs/auth/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
       "name": "parties",
       "root": "libs/parties/src",
       "test": "../../../test.js",
