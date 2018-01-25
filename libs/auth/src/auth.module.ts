@@ -7,6 +7,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { authReducer } from './+state/auth.reducer';
 import { authInitialState } from './+state/auth.init';
 import { AuthEffects } from './+state/auth.effects';
+import { AuthService } from './services/auth.service';
+import { FacebookService } from 'ngx-facebook';
 
 export const authRoutes: Route[] = [
   {
@@ -17,9 +19,14 @@ export const authRoutes: Route[] = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, StoreModule.forFeature('auth', authReducer, {initialState: authInitialState}), EffectsModule.forFeature([AuthEffects])],
+  imports: [
+    CommonModule,
+    RouterModule,
+    StoreModule.forFeature('auth', authReducer, {initialState: authInitialState}),
+    EffectsModule.forFeature([AuthEffects])
+  ],
   declarations: [LoginPageComponent],
-  providers: [AuthEffects]
+  providers: [AuthEffects, AuthService, FacebookService]
 })
 export class AuthModule {
 }

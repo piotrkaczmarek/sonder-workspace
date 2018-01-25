@@ -1,10 +1,26 @@
 import {Auth} from './auth.interfaces';
-import {AuthAction} from './auth.actions';
+import * as fromAuthActions from './auth.actions';
 
-export function authReducer(state: Auth, action: AuthAction): Auth {
+export function authReducer(state: Auth, action: fromAuthActions.AuthAction): Auth {
   switch (action.type) {
-    case 'DATA_LOADED': {
-      return {...state, ...action.payload};
+    case fromAuthActions.FACEBOOK_AUTHENTICATED: {
+      return {
+        ...state,
+        ...{
+          accessToken: action.payload,
+          loading: true,
+          loggedIn: false
+        }
+      };
+    }
+    case fromAuthActions.LOGGED_IN: {
+      return {
+        ...state,
+        ...{
+          loading: false,
+          loggedIn: true
+        }
+      };
     }
     default: {
       return state;
