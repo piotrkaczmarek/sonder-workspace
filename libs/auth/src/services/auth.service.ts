@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { map, catchError } from 'rxjs/operators';
 import { FacebookService, InitParams, AuthResponse } from 'ngx-facebook';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class AuthService {
@@ -17,11 +18,11 @@ export class AuthService {
   }
 
   facebookLogIn(): Observable<any> {
-    return fromPromise(this.facebookService.login())
-            .pipe(
-              map(data => data.authResponse.accessToken),
-              catchError((error: any) => Observable.throw(error.json()))
-            )
+    return fromPromise(this.facebookService.getLoginStatus())
+      .switchMap(data => data.status === "connected" ? of(data) : fromPromise(this.facebookService.login()))
+      .pipe(map(data => data.authResponse.accessToken), catchError(
+          (error: any) => Observable.throw(error.json())
+        ));
   }
 
   authenticateBackend(accessToken): Observable<any> {

@@ -3,6 +3,25 @@ import * as fromAuthActions from './auth.actions';
 
 export function authReducer(state: Auth, action: fromAuthActions.AuthAction): Auth {
   switch (action.type) {
+    case fromAuthActions.LOG_IN: {
+      return {
+        ...state,
+        ...{
+          loading: true,
+          loggedIn: false
+        }
+      }
+    }
+    case fromAuthActions.AUTHENTICATION_FAILED: {
+      return {
+        ...state,
+        ...{
+          accessToken: null,
+          loading: false,
+          loggedIn: false
+        }
+      }
+    }
     case fromAuthActions.FACEBOOK_AUTHENTICATED: {
       return {
         ...state,
