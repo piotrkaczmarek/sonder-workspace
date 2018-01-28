@@ -1,10 +1,10 @@
 import { Action } from "@ngrx/store";
 
-export const LOG_IN = "LOG_IN";
-export const AUTHENTICATION_FAILED = "AUTHENTICATION_FAILED";
-export const LOGGED_IN = "LOGGED_IN";
-export const FACEBOOK_AUTHENTICATED = "FACEBOOK_AUTHENTICATED";
-export const AUTHENTICATE_BACKEND = "AUTHENTICATE_BACKEND";
+export const LOG_IN = "[Auth] Log In";
+export const AUTHENTICATION_FAILED = "[Auth] Authentication Failed";
+export const LOGGED_IN = "[Auth] Logged In";
+export const FACEBOOK_AUTHENTICATED = "[Auth] Facebook Authenticated";
+export const AUTHENTICATE_BACKEND = "[Auth] Authenticate Backend";
 
 export class LogIn implements Action {
   readonly type = LOG_IN;

@@ -1,7 +1,7 @@
 import { Action } from "@ngrx/store";
 
-export const LOAD_SUGGESTED_PARTIES = "LOAD_SUGGESTED_PARTIES";
-export const SUGGESTED_PARTIES_LOADED = "SUGGESTED_PARTIES_LOADED";
+export const LOAD_SUGGESTED_PARTIES = "[Parties] Load Suggested Parties";
+export const SUGGESTED_PARTIES_LOADED = "[Parties] Suggested Parties Loaded";
 
 export class LoadSuggestedParties implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
