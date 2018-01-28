@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
 import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
-import { map, catchError } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import {AuthState} from './auth.interfaces';
 import * as fromAuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { Store } from "@ngrx/store";
+import * as fromAppRouter from "@sonder-workspace/router";
 
 @Injectable()
 export class AuthEffects {
@@ -24,7 +25,7 @@ export class AuthEffects {
     },
 
     onError: (action: fromAuthActions.LogIn, error) => {
-      this.store.dispatch(new fromAuthActions.AuthenticationFailed);
+      this.store.dispatch(new fromAuthActions.AuthenticationFailed());
       console.error("Error", error);
     }
   });
@@ -40,10 +41,34 @@ export class AuthEffects {
       },
 
       onError: (action: fromAuthActions.LogIn, error) => {
-        this.store.dispatch(new fromAuthActions.AuthenticationFailed);
+        this.store.dispatch(new fromAuthActions.AuthenticationFailed());
         console.error("Error", error);
       }
     }
+  );
+
+  @Effect({ dispatch: false })
+  loggedIn = this.actions.ofType(fromAuthActions.LOGGED_IN).pipe(
+    map((action: fromAuthActions.LoggedIn) => action.payload),
+    tap(({ path, query: queryParams, extras }) =>
+      this.store.dispatch(
+        new fromAppRouter.Go({
+          path: ["/"]
+        })
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  authenticationFailed = this.actions.ofType(fromAuthActions.AUTHENTICATION_FAILED).pipe(
+    map((action: fromAuthActions.LoggedIn) => action.payload),
+    tap(({ path, query: queryParams, extras }) =>
+      this.store.dispatch(
+        new fromAppRouter.Go({
+          path: ["/login"]
+        })
+      )
+    )
   );
 
   constructor(

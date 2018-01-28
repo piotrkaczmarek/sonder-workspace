@@ -16,5 +16,4 @@ export class SuggestedPartiesComponent implements OnInit {
   ngOnInit() {
     this.suggested$ = this.store.select(getSuggestedPartiesEntities);
   }
-
 }

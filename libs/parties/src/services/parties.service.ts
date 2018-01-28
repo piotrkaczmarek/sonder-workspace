@@ -7,15 +7,26 @@ import 'rxjs/add/observable/throw';
 
 import { Party } from '../models/party.model';
 import { HttpHeaders } from '@angular/common/http/src/headers';
+import { Store } from "@ngrx/store";
+import { AuthState, getAccessToken } from "@sonder-workspace/auth";
+import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class PartiesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store<AuthState>) {}
 
   getParties(): Observable<Party[]> {
-    return this.http
-      .get<Party[]>(`http://0.0.0.0:4000/api/parties`, { headers: this.headers() })
-      .pipe(catchError((error: any) => Observable.throw(error.json())));
+    return this.store.select(getAccessToken).pipe(
+      switchMap((accessToken) => {
+        return this.http
+          .get<Party[]>(`http://0.0.0.0:4000/api/parties`, {
+            headers: this.headers(accessToken)
+          })
+          .pipe(catchError((error: any) =>
+              Observable.throw(error.json())
+            ));
+      })
+    )
   }
 
   // createParty(payload: Party): Observable<Party> {
@@ -36,10 +47,7 @@ export class PartiesService {
   //     .pipe(catchError((error: any) => Observable.throw(error.json())));
   // }
 
-  private headers() {
-    return {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    };
+  private headers(accessToken) {
+    return { "Content-Type": "application/json", Accept: "application/json", Authorization: accessToken };
   }
 }

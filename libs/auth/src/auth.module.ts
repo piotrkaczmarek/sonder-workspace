@@ -9,6 +9,7 @@ import { authInitialState } from './+state/auth.init';
 import { AuthEffects } from './+state/auth.effects';
 import { AuthService } from './services/auth.service';
 import { FacebookService } from 'ngx-facebook';
+import { AuthenticatedGuard } from "./guards/authenticated.guard";
 
 export const authRoutes: Route[] = [
   {
@@ -22,11 +23,12 @@ export const authRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule,
-    StoreModule.forFeature('auth', authReducer, {initialState: authInitialState}),
+    StoreModule.forFeature("auth", authReducer, {
+      initialState: authInitialState
+    }),
     EffectsModule.forFeature([AuthEffects])
   ],
   declarations: [LoginPageComponent],
-  providers: [AuthEffects, AuthService, FacebookService]
+  providers: [AuthEffects, AuthService, FacebookService, AuthenticatedGuard]
 })
-export class AuthModule {
-}
+export class AuthModule {}
