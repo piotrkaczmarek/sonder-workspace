@@ -1,25 +1,31 @@
-import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
-import {DataPersistence} from '@nrwl/nx';
-import {of} from 'rxjs/observable/of';
-import 'rxjs/add/operator/switchMap';
-import {RouterState} from './router.interfaces';
-import {LoadData, DataLoaded} from './router.actions';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { Effect, Actions } from "@ngrx/effects";
+import { map, tap } from "rxjs/operators";
+import * as fromRouterActions from "./router.actions";
 
 @Injectable()
 export class RouterEffects {
-  @Effect() loadData = this.dataPersistence.fetch('LOAD_DATA', {
-    run: (action: LoadData, state: RouterState) => {
-      return {
-        type: 'DATA_LOADED',
-        payload: {}
-      };
-    },
+  @Effect({ dispatch: false })
+  navigate$ = this.actions$.ofType(fromRouterActions.GO).pipe(
+    map((action: fromRouterActions.Go) => action.payload),
+    tap(({ path, query: queryParams, extras }) => this.router.navigate(path, { queryParams, ...extras }))
+  );
 
-    onError: (action: LoadData, error) => {
-      console.error('Error', error);
-    }
-  });
+  @Effect({ dispatch: false })
+  navigateBack$ = this.actions$.ofType(fromRouterActions.BACK).pipe(
+    tap(() => this.location.back())
+  );
 
-  constructor(private actions: Actions, private dataPersistence: DataPersistence<RouterState>) {}
+  @Effect({ dispatch: false })
+  navigateForward$ = this.actions$.ofType(fromRouterActions.FORWARD).pipe(
+    tap(() => this.location.forward())
+  );
+
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private location: Location
+  ) {}
 }

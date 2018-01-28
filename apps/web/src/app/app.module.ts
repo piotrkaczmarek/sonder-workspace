@@ -11,8 +11,9 @@ import { appInitialState } from './+state/app.init';
 import { AppEffects } from './+state/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, routerReducer, RouterStateSerializer } from '@ngrx/router-store';
 import { authRoutes, AuthModule } from '@sonder-workspace/auth';
+import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 
 const routes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "parties" },
@@ -20,20 +21,28 @@ const routes: Route[] = [
   { path: "parties", children: partiesRoutes }
 ];
 
-
 @NgModule({
   imports: [
-  BrowserModule,
-  NxModule.forRoot(),
-  RouterModule.forRoot(routes, {initialNavigation: 'enabled'}),
-  AuthModule,
-  PartiesModule,
-  StoreModule.forRoot({app: appReducer}, {initialState: {app: appInitialState}}),
-  EffectsModule.forRoot([AppEffects]),
-  !environment.production ? StoreDevtoolsModule.instrument() : [],
-  StoreRouterConnectingModule],
+    BrowserModule,
+    NxModule.forRoot(),
+    RouterModule.forRoot(routes, { initialNavigation: "enabled" }),
+    AuthModule,
+    PartiesModule,
+    AppRouterModule,
+    StoreModule.forRoot(
+      { app: appReducer, router: routerReducer }
+    ),
+    EffectsModule.forRoot([AppEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot({
+      stateKey: "router"
+    })
+  ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  providers: [AppEffects]
+  providers: [
+    AppEffects,
+    { provide: RouterStateSerializer, useClass: CustomSerializer }
+  ]
 })
-export class AppModule { }
+export class AppModule {}
