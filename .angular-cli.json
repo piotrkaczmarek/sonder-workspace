@@ -81,6 +81,12 @@
       "root": "libs/parties/src",
       "test": "../../../test.js",
       "appRoot": ""
+    },
+    {
+      "name": "router",
+      "root": "libs/router/src",
+      "test": "../../../test.js",
+      "appRoot": ""
     }
   ]
 }
