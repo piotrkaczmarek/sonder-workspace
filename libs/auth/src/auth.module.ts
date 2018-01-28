@@ -8,6 +8,7 @@ import { authReducer } from './+state/auth.reducer';
 import { authInitialState } from './+state/auth.init';
 import { AuthEffects } from './+state/auth.effects';
 import { AuthService } from './services/auth.service';
+import { BackendService } from "./services/backend.service";
 import { FacebookService } from 'ngx-facebook';
 import { AuthenticatedGuard } from "./guards/authenticated.guard";
 
@@ -29,6 +30,6 @@ export const authRoutes: Route[] = [
     EffectsModule.forFeature([AuthEffects])
   ],
   declarations: [LoginPageComponent],
-  providers: [AuthEffects, AuthService, FacebookService, AuthenticatedGuard]
+  providers: [AuthEffects, AuthService, BackendService, FacebookService, AuthenticatedGuard]
 })
 export class AuthModule {}

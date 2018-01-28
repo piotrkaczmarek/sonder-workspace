@@ -6,6 +6,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 import {AuthState} from './auth.interfaces';
 import * as fromAuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
+import { BackendService } from '../services/backend.service';
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
 
@@ -35,8 +36,8 @@ export class AuthEffects {
     fromAuthActions.FACEBOOK_AUTHENTICATED,
     {
       run: (action: fromAuthActions.LogIn, state: AuthState) => {
-        return this.authService
-          .authenticateBackend(state.auth.accessToken)
+        return this.backend
+          .authenticate(state.auth.accessToken)
           .pipe(map((data: any) => new fromAuthActions.LoggedIn(data)));
       },
 
@@ -75,6 +76,7 @@ export class AuthEffects {
     private actions: Actions,
     private dataPersistence: DataPersistence<AuthState>,
     private authService: AuthService,
+    private backend: BackendService,
     private store: Store<AuthState>
   ) {}
 }

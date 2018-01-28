@@ -24,24 +24,4 @@ export class AuthService {
           (error: any) => Observable.throw(error.json())
         ));
   }
-
-  authenticateBackend(accessToken): Observable<any> {
-    return this.http
-      .post(
-        'http://0.0.0.0:4000/api/authenticate',
-        { access_token: accessToken },
-        { headers: this.backendHeaders()}
-      ).pipe(
-        map((response: any) => response.data),
-        catchError((error: any) => Observable.throw(error.json()))
-      )
-  }
-
-
-  private backendHeaders() {
-    return {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    };
-  }
 }

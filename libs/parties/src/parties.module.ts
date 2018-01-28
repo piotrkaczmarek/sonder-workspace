@@ -11,7 +11,7 @@ import { PartiesEffects } from './+state/parties.effects';
 import { PartyItemComponent } from './party-item/party-item.component';
 import { SuggestedPartiesGuard } from "./guards/suggested-parties.guard";
 import { PartiesService } from './services/parties.service';
-import { AuthenticatedGuard } from '@sonder-workspace/auth';
+import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
 
 export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
@@ -37,7 +37,8 @@ export const partiesRoutes: Route[] = [
     PartiesEffects,
     SuggestedPartiesGuard,
     PartiesService,
-    AuthenticatedGuard
+    AuthenticatedGuard,
+    BackendService
   ]
 })
 export class PartiesModule {}

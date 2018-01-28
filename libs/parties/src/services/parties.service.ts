@@ -6,27 +6,20 @@ import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { Party } from '../models/party.model';
-import { HttpHeaders } from '@angular/common/http/src/headers';
 import { Store } from "@ngrx/store";
-import { AuthState, getAccessToken } from "@sonder-workspace/auth";
+import {
+  AuthState,
+  getAccessToken,
+  BackendService
+} from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class PartiesService {
-  constructor(private http: HttpClient, private store: Store<AuthState>) {}
+  constructor(private http: HttpClient, private store: Store<AuthState>, private backend: BackendService) {}
 
-  getParties(): Observable<Party[]> {
-    return this.store.select(getAccessToken).pipe(
-      switchMap((accessToken) => {
-        return this.http
-          .get<Party[]>(`http://0.0.0.0:4000/api/parties`, {
-            headers: this.headers(accessToken)
-          })
-          .pipe(catchError((error: any) =>
-              Observable.throw(error.json())
-            ));
-      })
-    )
+  getParties(): Observable<any> {
+    return this.backend.get("/parties");
   }
 
   // createParty(payload: Party): Observable<Party> {
@@ -46,8 +39,4 @@ export class PartiesService {
   //     .delete<any>(`/api/pizzas/${payload.id}`)
   //     .pipe(catchError((error: any) => Observable.throw(error.json())));
   // }
-
-  private headers(accessToken) {
-    return { "Content-Type": "application/json", Accept: "application/json", Authorization: accessToken };
-  }
 }
