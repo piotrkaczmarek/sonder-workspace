@@ -12,6 +12,7 @@ import { PartyItemComponent } from './party-item/party-item.component';
 import { SuggestedPartiesGuard } from "./guards/suggested-parties.guard";
 import { PartiesService } from './services/parties.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
+import { NewPartyPageComponent } from './new-party-page/new-party-page.component';
 
 export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
@@ -32,7 +33,7 @@ export const partiesRoutes: Route[] = [
     }),
     EffectsModule.forFeature([PartiesEffects])
   ],
-  declarations: [SuggestedPartiesComponent, PartyItemComponent],
+  declarations: [SuggestedPartiesComponent, PartyItemComponent, NewPartyPageComponent],
   providers: [
     PartiesEffects,
     SuggestedPartiesGuard,
