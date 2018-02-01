@@ -17,6 +17,11 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       };
     }
+    case fromPartiesActions.PARTY_CREATED: {
+      return {
+        ...state
+      }
+    }
     default: {
       return state;
     }

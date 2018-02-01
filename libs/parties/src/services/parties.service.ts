@@ -19,14 +19,16 @@ export class PartiesService {
   constructor(private http: HttpClient, private store: Store<AuthState>, private backend: BackendService) {}
 
   getParties(): Observable<any> {
-    return this.backend.get("/parties");
+    return this.backend
+      .get("/parties")
+      .pipe(catchError((error: any) => Observable.throw(error)));;
   }
 
-  // createParty(payload: Party): Observable<Party> {
-  //   return this.http
-  //     .post<Party>(`/api/pizzas`, payload)
-  //     .pipe(catchError((error: any) => Observable.throw(error.json())));
-  // }
+  createParty(party: Party): Observable<Party> {
+    return this.backend
+      .post("/parties", { party })
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
 
   // updateParty(payload: Party): Observable<Party> {
   //   return this.http

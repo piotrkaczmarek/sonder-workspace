@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from "@angular/forms";
 import { SuggestedPartiesComponent } from './suggested-parties/suggested-parties.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,6 +21,11 @@ export const partiesRoutes: Route[] = [
     path: "suggested",
     canActivate: [AuthenticatedGuard, SuggestedPartiesGuard],
     component: SuggestedPartiesComponent
+  },
+  {
+    path: "new",
+    canActivate: [AuthenticatedGuard],
+    component: NewPartyPageComponent
   }
 ];
 
@@ -28,6 +34,7 @@ export const partiesRoutes: Route[] = [
     CommonModule,
     RouterModule,
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forFeature("parties", partiesReducer, {
       initialState: partiesInitialState
     }),

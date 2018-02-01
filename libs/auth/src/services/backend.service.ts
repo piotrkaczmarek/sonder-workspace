@@ -11,22 +11,19 @@ import { AuthenticationFailed } from '../+state/auth.actions';
 export class BackendService {
   constructor(private http: HttpClient, private store: Store<AuthState>) {}
 
-  get(path: string) {
-    return this.store.select(getAccessToken).pipe(
-      switchMap((accessToken) => {
-        return this.http.get(this.url(path), this.headers(accessToken)).pipe(
-          catchError((error: any) => {
-            if(error.status === '401') {
-              this.store.dispatch(new AuthenticationFailed());
-            }
-            return Observable.throw(error);
-          })
-        );
-      })
-    );
+  get(path: string): Observable<any> {
+    return this.makeAuthenticatedRequest((headers) => {
+      return this.http.get(this.url(path), headers);
+    });
   }
 
-  authenticate(accessToken: string) {
+  post(path: string, data: any): Observable<any> {
+    return this.makeAuthenticatedRequest((headers) => {
+      return this.http.post(this.url(path), data, headers);
+    });
+  }
+
+  authenticate(accessToken: string): Observable<any> {
     return this.http
       .post(
         this.url("/authenticate"),
@@ -37,6 +34,21 @@ export class BackendService {
         map((response: any) => response.data),
         catchError(error => Observable.throw(error.json()))
       );
+  }
+
+  private makeAuthenticatedRequest(requestMethod): Observable<any> {
+    return this.store.select(getAccessToken).pipe(
+      switchMap((accessToken) => {
+        return requestMethod(this.headers(accessToken)).pipe(
+          catchError((error: any) => {
+            if(error.status === '401') {
+              this.store.dispatch(new AuthenticationFailed());
+            }
+            return Observable.throw(error);
+          })
+        )
+      })
+    )
   }
 
   private url(path) {
