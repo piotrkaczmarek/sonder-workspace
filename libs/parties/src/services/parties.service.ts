@@ -30,6 +30,12 @@ export class PartiesService {
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
+  applyToParty(partyId: number): Observable<Party> {
+    return this.backend
+      .put(`/parties/${partyId}/apply`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
   // updateParty(payload: Party): Observable<Party> {
   //   return this.http
   //     .put<Party>(`/api/pizzas/${payload.id}`, payload)

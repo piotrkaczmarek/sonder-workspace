@@ -55,6 +55,25 @@ export class PartiesEffects {
     }
   );
 
+  @Effect()
+  applyToParty = this.dataPersistence.pessimisticUpdate(
+    fromPartiesActions.APPLY_TO_PARTY,
+    {
+      run: (action: fromPartiesActions.ApplyToParty, state: PartiesState) => {
+        return this.partiesService
+          .applyToParty(action.payload)
+          .pipe(
+            map((response: any) => response.data),
+            map((data: any) => new fromPartiesActions.PartyCreated(data))
+          );
+      },
+
+      onError: (action: fromPartiesActions.ApplyToParty, error) => {
+        console.error("Error", error);
+      }
+    }
+  );
+
   @Effect({ dispatch: false })
   loggedIn = this.actions.ofType(fromPartiesActions.PARTY_CREATED).pipe(
     map((action: fromPartiesActions.PartyCreated) => action.payload),

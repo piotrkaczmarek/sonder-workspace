@@ -12,14 +12,20 @@ export class BackendService {
   constructor(private http: HttpClient, private store: Store<AuthState>) {}
 
   get(path: string): Observable<any> {
-    return this.makeAuthenticatedRequest((headers) => {
+    return this.makeAuthenticatedRequest(headers => {
       return this.http.get(this.url(path), headers);
     });
   }
 
   post(path: string, data: any): Observable<any> {
-    return this.makeAuthenticatedRequest((headers) => {
+    return this.makeAuthenticatedRequest(headers => {
       return this.http.post(this.url(path), data, headers);
+    });
+  }
+
+  put(path: string, data: any = {}): Observable<any> {
+    return this.makeAuthenticatedRequest(headers => {
+      return this.http.put(this.url(path), data, headers);
     });
   }
 
@@ -38,17 +44,18 @@ export class BackendService {
 
   private makeAuthenticatedRequest(requestMethod): Observable<any> {
     return this.store.select(getAccessToken).pipe(
-      switchMap((accessToken) => {
-        return requestMethod(this.headers(accessToken)).pipe(
+      switchMap(accessToken => {
+        requestMethod.bind(this);
+        return requestMethod.call(this.headers(accessToken)).pipe(
           catchError((error: any) => {
-            if(error.status === '401') {
+            if (error.status == "401") {
               this.store.dispatch(new AuthenticationFailed());
             }
             return Observable.throw(error);
           })
-        )
+        );
       })
-    )
+    );
   }
 
   private url(path) {
@@ -56,14 +63,14 @@ export class BackendService {
   }
 
   private apiRoot(): string {
-    return 'http://0.0.0.0:4000/api';
+    return "http://0.0.0.0:4000/api";
   }
 
   private staticHeaders() {
     return {
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       }
     };
   }

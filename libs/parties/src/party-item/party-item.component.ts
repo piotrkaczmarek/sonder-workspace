@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { PartiesState } from "../+state/parties.interfaces";
+import * as fromPartiesActions from "../+state/parties.actions";
 
 @Component({
   selector: 'app-party-item',
@@ -7,9 +10,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PartyItemComponent implements OnInit {
   @Input() party: any;
-  constructor() { }
+  constructor(private store: Store<PartiesState>) { }
 
   ngOnInit() {
   }
 
+  applyToParty() {
+    this.store.dispatch(new fromPartiesActions.ApplyToParty(this.party.id));
+  }
 }

@@ -4,6 +4,8 @@ export const LOAD_SUGGESTED_PARTIES = "[Parties] Load Suggested Parties";
 export const SUGGESTED_PARTIES_LOADED = "[Parties] Suggested Parties Loaded";
 export const CREATE_PARTY = "[Parties] Create Party";
 export const PARTY_CREATED = "[Parties] Party Created";
+export const APPLY_TO_PARTY = "[Parties] Apply To Party";
+export const DISMISS_PARTY = "[Parties] Dismiss Party";
 
 export class LoadSuggestedParties implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
@@ -19,10 +21,25 @@ export class CreateParty implements Action {
   constructor(public payload: any) {}
 }
 
-
 export class PartyCreated implements Action {
   readonly type = PARTY_CREATED;
   constructor(public payload: any) {}
 }
 
-export type PartiesAction = LoadSuggestedParties | SuggestedPartiesLoaded | CreateParty | PartyCreated;
+export class ApplyToParty implements Action {
+  readonly type = APPLY_TO_PARTY;
+  constructor(public payload: any) {}
+}
+
+export class DismissParty implements Action {
+  readonly type = DISMISS_PARTY;
+  constructor(public payload: any) {}
+}
+
+export type PartiesAction =
+  | LoadSuggestedParties
+  | SuggestedPartiesLoaded
+  | CreateParty
+  | PartyCreated
+  | ApplyToParty
+  | DismissParty;
