@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { HttpClient } from "@angular/common/http";
-import { AuthState, getAccessToken} from '../+state/auth.interfaces';
+import { AuthState, getBackendAuthToken} from '../+state/auth.interfaces';
 import { switchMap } from "rxjs/operators/switchMap";
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, concat, mergeMap } from "rxjs/operators";
 import { AuthenticationFailed } from '../+state/auth.actions';
 
 @Injectable()
@@ -12,19 +12,19 @@ export class BackendService {
   constructor(private http: HttpClient, private store: Store<AuthState>) {}
 
   get(path: string): Observable<any> {
-    return this.makeAuthenticatedRequest(headers => {
+    return this.performAuthenticatedRequest(headers => {
       return this.http.get(this.url(path), headers);
     });
   }
 
   post(path: string, data: any): Observable<any> {
-    return this.makeAuthenticatedRequest(headers => {
+    return this.performAuthenticatedRequest(headers => {
       return this.http.post(this.url(path), data, headers);
     });
   }
 
   put(path: string, data: any = {}): Observable<any> {
-    return this.makeAuthenticatedRequest(headers => {
+    return this.performAuthenticatedRequest(headers => {
       return this.http.put(this.url(path), data, headers);
     });
   }
@@ -37,17 +37,16 @@ export class BackendService {
         this.staticHeaders()
       )
       .pipe(
-        map((response: any) => response.data),
+        map((response: any) => response.auth_token),
         catchError(error => Observable.throw(error.json()))
       );
   }
 
-  private makeAuthenticatedRequest(requestMethod): Observable<any> {
-    return this.store.select(getAccessToken).pipe(
-      switchMap(accessToken => {
-        requestMethod.bind(this);
-        return requestMethod.call(this.headers(accessToken)).pipe(
-          catchError((error: any) => {
+  private performAuthenticatedRequest(requestMethod): Observable<any> {
+    return this.store.select(getBackendAuthToken).pipe(
+      switchMap((token: string) => {
+        return requestMethod(this.headers(token)).pipe(
+          catchError(error => {
             if (error.status == "401") {
               this.store.dispatch(new AuthenticationFailed());
             }

@@ -6,17 +6,12 @@ import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { Party } from '../models/party.model';
-import { Store } from "@ngrx/store";
-import {
-  AuthState,
-  getAccessToken,
-  BackendService
-} from "@sonder-workspace/auth";
+import { BackendService } from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class PartiesService {
-  constructor(private http: HttpClient, private store: Store<AuthState>, private backend: BackendService) {}
+  constructor(private http: HttpClient, private backend: BackendService) {}
 
   getParties(): Observable<any> {
     return this.backend

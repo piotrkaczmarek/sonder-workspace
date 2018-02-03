@@ -37,7 +37,7 @@ export class AuthEffects {
     {
       run: (action: fromAuthActions.LogIn, state: AuthState) => {
         return this.backend
-          .authenticate(state.auth.accessToken)
+          .authenticate(state.auth.facebookAccessToken)
           .pipe(map((data: any) => new fromAuthActions.LoggedIn(data)));
       },
 

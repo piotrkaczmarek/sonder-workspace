@@ -16,7 +16,7 @@ export function authReducer(state: Auth, action: fromAuthActions.AuthAction): Au
       return {
         ...state,
         ...{
-          accessToken: null,
+          facebookAccessToken: null,
           loading: false,
           loggedIn: false
         }
@@ -26,7 +26,7 @@ export function authReducer(state: Auth, action: fromAuthActions.AuthAction): Au
       return {
         ...state,
         ...{
-          accessToken: action.payload,
+          facebookAccessToken: action.payload,
           loading: true,
           loggedIn: false
         }
@@ -36,6 +36,7 @@ export function authReducer(state: Auth, action: fromAuthActions.AuthAction): Au
       return {
         ...state,
         ...{
+          backendAuthToken: action.payload,
           loading: false,
           loggedIn: true
         }
