@@ -63,8 +63,10 @@ export class PartiesEffects {
         return this.partiesService
           .applyToParty(action.payload)
           .pipe(
-            map((response: any) => response.data),
-            map((data: any) => new fromPartiesActions.PartyCreated(data))
+            map(
+              (data: any) =>
+                new fromPartiesActions.PartyAppliedTo(action.payload)
+            )
           );
       },
 
@@ -74,8 +76,29 @@ export class PartiesEffects {
     }
   );
 
+  @Effect()
+  dismissParty = this.dataPersistence.pessimisticUpdate(
+    fromPartiesActions.DISMISS_PARTY,
+    {
+      run: (action: fromPartiesActions.DismissParty, state: PartiesState) => {
+        return this.partiesService
+          .dismissParty(action.payload)
+          .pipe(
+            map(
+              (data: any) =>
+                new fromPartiesActions.PartyDismissed(action.payload)
+            )
+          );
+      },
+
+      onError: (action: fromPartiesActions.DismissParty, error) => {
+        console.error("Error", error);
+      }
+    }
+  );
+
   @Effect({ dispatch: false })
-  loggedIn = this.actions.ofType(fromPartiesActions.PARTY_CREATED).pipe(
+  partyCreated = this.actions.ofType(fromPartiesActions.PARTY_CREATED).pipe(
     map((action: fromPartiesActions.PartyCreated) => action.payload),
     tap(({ path, query: queryParams, extras }) =>
       this.store.dispatch(

@@ -25,12 +25,17 @@ export class PartiesService {
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  applyToParty(partyId: number): Observable<Party> {
+  applyToParty(partyId: number): Observable<any> {
     return this.backend
       .put(`/parties/${partyId}/apply`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
+  dismissParty(partyId: number): Observable<any> {
+    return this.backend
+      .put(`/parties/${partyId}/dismiss`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
   // updateParty(payload: Party): Observable<Party> {
   //   return this.http
   //     .put<Party>(`/api/pizzas/${payload.id}`, payload)
