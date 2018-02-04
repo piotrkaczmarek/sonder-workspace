@@ -10,7 +10,7 @@ import { partiesReducer } from './+state/parties.reducer';
 import { partiesInitialState } from './+state/parties.init';
 import { PartiesEffects } from './+state/parties.effects';
 
-import { SuggestedPartiesGuard } from "./guards/suggested-parties.guard";
+import { SuggestedPartiesLoadedGuard } from "./guards/suggested-parties-loaded.guard";
 import { PartiesService } from './services/parties.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
 
@@ -23,8 +23,13 @@ export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
   {
     path: "suggested",
-    canActivate: [AuthenticatedGuard, SuggestedPartiesGuard],
+    canActivate: [AuthenticatedGuard, SuggestedPartiesLoadedGuard],
     component: SuggestedPartiesComponent
+  },
+  {
+    path: "accepted",
+    canActivate: [AuthenticatedGuard],
+    component: AcceptedPartiesComponent
   },
   {
     path: "new",
@@ -44,10 +49,15 @@ export const partiesRoutes: Route[] = [
     }),
     EffectsModule.forFeature([PartiesEffects])
   ],
-  declarations: [SuggestedPartiesComponent, PartyItemComponent, NewPartyPageComponent, AcceptedPartiesComponent],
+  declarations: [
+    SuggestedPartiesComponent,
+    PartyItemComponent,
+    NewPartyPageComponent,
+    AcceptedPartiesComponent
+  ],
   providers: [
     PartiesEffects,
-    SuggestedPartiesGuard,
+    SuggestedPartiesLoadedGuard,
     PartiesService,
     AuthenticatedGuard,
     BackendService

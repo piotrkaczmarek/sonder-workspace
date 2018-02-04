@@ -20,8 +20,15 @@ export interface PartiesState {
 }
 
 export const getAllParties = createSelector(createFeatureSelector<PartiesState>("parties"), state => state);
+
 export const getSuggestedParties = createSelector(getAllParties, (parties: any) => parties.suggested);
 export const getSuggestedPartiesLoaded = createSelector(getSuggestedParties, suggestedParties => suggestedParties.loaded);
 export const getSuggestedPartiesEntities = createSelector(getSuggestedParties, (suggestedParties: any) => {
   return Object.keys(suggestedParties.entities).map(id => suggestedParties.entities[parseInt(id, 10)]);
+})
+
+export const getAcceptedParties = createSelector(getAllParties, (parties: any) => parties.accepted);
+export const getAcceptedPartiesLoaded = createSelector(getAcceptedParties, acceptedParties => acceptedParties.loaded);
+export const getAcceptedPartiesEntities = createSelector(getAcceptedParties, (acceptedParties: any) => {
+  return Object.keys(acceptedParties.entities).map(id => acceptedParties.entities[parseInt(id, 10)]);
 })

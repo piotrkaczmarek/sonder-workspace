@@ -10,7 +10,7 @@ import { PartiesState, getSuggestedPartiesLoaded } from '../+state/parties.inter
 import { LoadSuggestedParties } from '../+state/parties.actions';
 
 @Injectable()
-export class SuggestedPartiesGuard implements CanActivate {
+export class SuggestedPartiesLoadedGuard implements CanActivate {
   constructor(private store: Store<PartiesState>) {}
 
   canActivate(): Observable<boolean> {

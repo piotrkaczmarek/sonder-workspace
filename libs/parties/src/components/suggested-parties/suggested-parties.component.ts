@@ -9,11 +9,11 @@ import { PartiesState, getSuggestedPartiesEntities } from "../../+state/parties.
   styleUrls: ['./suggested-parties.component.css']
 })
 export class SuggestedPartiesComponent implements OnInit {
-  public suggested$: Observable<any>;
+  public suggestedParties$: Observable<any>;
 
   constructor(private store: Store<PartiesState>) { }
 
   ngOnInit() {
-    this.suggested$ = this.store.select(getSuggestedPartiesEntities);
+    this.suggestedParties$ = this.store.select(getSuggestedPartiesEntities);
   }
 }
