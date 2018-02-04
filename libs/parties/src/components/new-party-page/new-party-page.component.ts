@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
-import { PartiesState } from "../+state/parties.interfaces";
-import { CreateParty } from "../+state/parties.actions";
+import { PartiesState } from "../../+state/parties.interfaces";
+import { CreateParty } from "../../+state/parties.actions";
 
 @Component({
   selector: "new-party-page",
