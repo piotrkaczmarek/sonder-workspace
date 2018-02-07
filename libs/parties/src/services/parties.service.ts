@@ -15,7 +15,7 @@ export class PartiesService {
 
   getSuggestedParties(): Observable<any> {
     return this.backend
-      .get("/parties")
+      .get("/parties/suggested")
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 

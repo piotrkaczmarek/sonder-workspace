@@ -25,7 +25,7 @@ const routes: Route[] = [
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ["auth", "router", "parties"], rehydrate: true })(reducer);
+  return localStorageSync({ keys: ["auth"], rehydrate: true })(reducer);
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
