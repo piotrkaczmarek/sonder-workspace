@@ -17,6 +17,40 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       };
     }
+    case fromPartiesActions.LOAD_SUGGESTED_PARTIES: {
+      return {
+        ...state,
+        ...{
+          suggested: {
+            ...state.suggested,
+            loading: true
+          }
+        }
+      };
+    }
+    case fromPartiesActions.ACCEPTED_PARTIES_LOADED: {
+      return {
+        ...state,
+        ...{
+          accepted: {
+            entities: {...state.accepted.entities, ...action.payload },
+            loaded: true,
+            loading: false
+          }
+        }
+      };
+    }
+    case fromPartiesActions.LOAD_ACCEPTED_PARTIES: {
+      return {
+        ...state,
+        ...{
+          accepted: {
+            ...state.accepted,
+            loading: true
+          }
+        }
+      };
+    }
     case fromPartiesActions.PARTY_CREATED: {
       return {
         ...state

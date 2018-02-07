@@ -13,7 +13,7 @@ import * as fromAppRouter from "@sonder-workspace/router";
 @Injectable()
 export class PartiesEffects {
   @Effect()
-  loadData = this.dataPersistence.fetch(
+  loadSuggestedParties = this.dataPersistence.fetch(
     fromPartiesActions.LOAD_SUGGESTED_PARTIES,
     {
       run: (
@@ -21,7 +21,7 @@ export class PartiesEffects {
         state: PartiesState
       ) => {
         return this.partiesService
-          .getParties()
+          .getSuggestedParties()
           .pipe(
             map((response: any) => response.data),
             map(
@@ -31,6 +31,30 @@ export class PartiesEffects {
       },
 
       onError: (action: fromPartiesActions.LoadSuggestedParties, error) => {
+        console.error("Error", error);
+      }
+    }
+  );
+
+  @Effect()
+  loadAcceptedParties = this.dataPersistence.fetch(
+    fromPartiesActions.LOAD_ACCEPTED_PARTIES,
+    {
+      run: (
+        action: fromPartiesActions.LoadAcceptedParties,
+        state: PartiesState
+      ) => {
+        return this.partiesService
+          .getAcceptedParties()
+          .pipe(
+            map((response: any) => response.data),
+            map(
+              (data: any) => new fromPartiesActions.AcceptedPartiesLoaded(data)
+            )
+          );
+      },
+
+      onError: (action: fromPartiesActions.LoadAcceptedParties, error) => {
         console.error("Error", error);
       }
     }

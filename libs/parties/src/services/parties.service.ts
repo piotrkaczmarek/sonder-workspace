@@ -13,10 +13,16 @@ import { switchMap } from 'rxjs/operators/switchMap';
 export class PartiesService {
   constructor(private http: HttpClient, private backend: BackendService) {}
 
-  getParties(): Observable<any> {
+  getSuggestedParties(): Observable<any> {
     return this.backend
       .get("/parties")
-      .pipe(catchError((error: any) => Observable.throw(error)));;
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  getAcceptedParties(): Observable<any> {
+    return this.backend
+      .get("/parties/accepted")
+      .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   createParty(party: Party): Observable<Party> {
