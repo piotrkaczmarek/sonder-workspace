@@ -14,7 +14,8 @@ import { PartiesService } from './services/parties.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
 
 import {
-  PartyItemComponent,
+  SuggestedPartyItemComponent,
+  AcceptedPartyItemComponent,
   NewPartyPageComponent,
   AcceptedPartiesComponent,
   SuggestedPartiesComponent
@@ -51,10 +52,11 @@ export const partiesRoutes: Route[] = [
     EffectsModule.forFeature([PartiesEffects])
   ],
   declarations: [
-    SuggestedPartiesComponent,
-    PartyItemComponent,
     NewPartyPageComponent,
-    AcceptedPartiesComponent
+    SuggestedPartiesComponent,
+    SuggestedPartyItemComponent,
+    AcceptedPartiesComponent,
+    AcceptedPartyItemComponent
   ],
   providers: [
     PartiesEffects,

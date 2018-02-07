@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PartyItemComponent } from './party-item.component';
+import { PartyItemComponent } from './suggested-party-item.component';
 
 describe('PartyItemComponent', () => {
   let component: PartyItemComponent;

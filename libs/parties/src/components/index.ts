@@ -1,12 +1,13 @@
-import { PartyItemComponent } from "./party-item/party-item.component";
 import { NewPartyPageComponent } from "./new-party-page/new-party-page.component";
-import { AcceptedPartiesComponent } from "./accepted-parties/accepted-parties.component";
 import { SuggestedPartiesComponent } from "./suggested-parties/suggested-parties.component";
+import { SuggestedPartyItemComponent } from "./suggested-party-item/suggested-party-item.component";
+import { AcceptedPartiesComponent } from "./accepted-parties/accepted-parties.component";
+import { AcceptedPartyItemComponent } from "./accepted-party-item/accepted-party-item.component";
 
-export const components: any[] = [PartyItemComponent, NewPartyPageComponent, AcceptedPartiesComponent, SuggestedPartiesComponent];
+export const components: any[] = [SuggestedPartyItemComponent, NewPartyPageComponent, AcceptedPartiesComponent, AcceptedPartyItemComponent, SuggestedPartiesComponent];
 
-export * from "./party-item/party-item.component";
 export * from "./new-party-page/new-party-page.component";
-export * from "./accepted-parties/accepted-parties.component";
 export * from "./suggested-parties/suggested-parties.component";
-
+export * from "./suggested-party-item/suggested-party-item.component";
+export * from "./accepted-parties/accepted-parties.component";
+export * from"./accepted-party-item/accepted-party-item.component";
