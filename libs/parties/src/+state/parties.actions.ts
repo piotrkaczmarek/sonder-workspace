@@ -2,15 +2,21 @@ import { Action } from "@ngrx/store";
 
 export const LOAD_SUGGESTED_PARTIES = "[Parties] Load Suggested Parties";
 export const SUGGESTED_PARTIES_LOADED = "[Parties] Suggested Parties Loaded";
+
 export const LOAD_ACCEPTED_PARTIES = "[Parties] Load Accepted Parties";
 export const ACCEPTED_PARTIES_LOADED = "[Parties] Accepted Parties Loaded";
 
 export const CREATE_PARTY = "[Parties] Create Party";
 export const PARTY_CREATED = "[Parties] Party Created";
+
 export const APPLY_TO_PARTY = "[Parties] Apply To Party";
 export const PARTY_APPLIED_TO = "[Parties] Party Applied To";
+
 export const DISMISS_PARTY = "[Parties] Dismiss Party";
 export const PARTY_DISMISSED = "[Parties] Party Dismissed";
+
+export const LEAVE_PARTY = "[Parties] Leave Party";
+export const PARTY_LEFT = "[Parties] Party Left";
 
 export class LoadSuggestedParties implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
@@ -60,6 +66,16 @@ export class PartyDismissed implements Action {
   constructor(public payload: any) {}
 }
 
+export class LeaveParty implements Action {
+  readonly type = LEAVE_PARTY;
+  constructor(public payload: any) {}
+}
+
+export class PartyLeft implements Action {
+  readonly type = PARTY_LEFT;
+  constructor(public payload: any) {}
+}
+
 export type PartiesAction =
   | LoadSuggestedParties
   | SuggestedPartiesLoaded
@@ -70,4 +86,6 @@ export type PartiesAction =
   | ApplyToParty
   | PartyAppliedTo
   | DismissParty
-  | PartyDismissed;
+  | PartyDismissed
+  | LeaveParty
+  | PartyLeft;

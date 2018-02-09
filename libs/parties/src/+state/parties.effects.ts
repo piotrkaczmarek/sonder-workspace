@@ -61,22 +61,28 @@ export class PartiesEffects {
   );
 
   @Effect()
-  createParty = this.dataPersistence.pessimisticUpdate(
-    fromPartiesActions.CREATE_PARTY,
-    {
-      run: (action: fromPartiesActions.CreateParty, state: PartiesState) => {
-        return this.partiesService
-          .createParty(action.payload)
-          .pipe(
-            map((response: any) => response.data),
-            map((data: any) => new fromPartiesActions.PartyCreated(data))
-          );
-      },
+  createParty = this.actions.ofType(fromPartiesActions.CREATE_PARTY).pipe(
+    map((action: fromPartiesActions.CreateParty) => action.payload),
+    switchMap(partyAttributes => {
+      return this.partiesService
+        .createParty(partyAttributes)
+        .pipe(
+        map((response: any) => response.data),
+        map(data => new fromPartiesActions.PartyCreated(data))
+        );
+    })
+  );
 
-      onError: (action: fromPartiesActions.CreateParty, error) => {
-        console.error("Error", error);
-      }
-    }
+  @Effect({ dispatch: false })
+  partyCreated = this.actions.ofType(fromPartiesActions.PARTY_CREATED).pipe(
+    map((action: fromPartiesActions.PartyCreated) => action.payload),
+    tap(({ path, query: queryParams, extras }) =>
+      this.store.dispatch(
+        new fromAppRouter.Go({
+          path: ["parties/accepted"]
+        })
+      )
+    )
   );
 
   @Effect()
@@ -101,36 +107,27 @@ export class PartiesEffects {
   );
 
   @Effect()
-  dismissParty = this.dataPersistence.pessimisticUpdate(
-    fromPartiesActions.DISMISS_PARTY,
-    {
-      run: (action: fromPartiesActions.DismissParty, state: PartiesState) => {
-        return this.partiesService
-          .dismissParty(action.payload)
-          .pipe(
-            map(
-              (data: any) =>
-                new fromPartiesActions.PartyDismissed(action.payload)
-            )
-          );
-      },
-
-      onError: (action: fromPartiesActions.DismissParty, error) => {
-        console.error("Error", error);
-      }
-    }
+  dismissParty = this.actions.ofType(fromPartiesActions.DISMISS_PARTY).pipe(
+    map((action: fromPartiesActions.DismissParty) => action.payload),
+    switchMap(partyId => {
+      return this.partiesService
+        .dismissParty(partyId)
+        .pipe(
+        map(data => new fromPartiesActions.PartyDismissed(partyId))
+        );
+    })
   );
 
-  @Effect({ dispatch: false })
-  partyCreated = this.actions.ofType(fromPartiesActions.PARTY_CREATED).pipe(
-    map((action: fromPartiesActions.PartyCreated) => action.payload),
-    tap(({ path, query: queryParams, extras }) =>
-      this.store.dispatch(
-        new fromAppRouter.Go({
-          path: ["/"]
-        })
-      )
-    )
+  @Effect()
+  leaveParty = this.actions.ofType(fromPartiesActions.LEAVE_PARTY).pipe(
+    map((action: fromPartiesActions.LeaveParty) => action.payload),
+    switchMap(partyId => {
+      return this.partiesService
+        .dismissParty(partyId)
+        .pipe(
+        map(data => new fromPartiesActions.PartyLeft(partyId))
+        );
+    })
   );
 
   constructor(

@@ -14,7 +14,7 @@ export class AcceptedPartyItemComponent implements OnInit {
 
   ngOnInit() {}
 
-  dismissParty() {
-    this.store.dispatch(new fromPartiesActions.DismissParty(this.party.id));
+  leaveParty() {
+    this.store.dispatch(new fromPartiesActions.LeaveParty(this.party.id));
   }
 }

@@ -94,6 +94,16 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
+    case fromPartiesActions.PARTY_LEFT: {
+      const { [action.payload]: removed, ...entities } = state.accepted.entities;
+      return {
+        ...state,
+        accepted: {
+          ...state.accepted,
+          entities: entities
+        }
+      }
+    }
     case fromPartiesActions.PARTY_APPLIED_TO: {
       const { [action.payload]: removed, ...entities } = state.suggested.entities;
       return {
