@@ -21,6 +21,7 @@ import {
   SuggestedPartiesComponent
 } from "./components";
 import { AcceptedPartyShowComponent } from './components/accepted-party-show/accepted-party-show.component';
+import { ApplicantsComponent } from './applicants/applicants.component';
 
 export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
@@ -63,7 +64,8 @@ export const partiesRoutes: Route[] = [
     SuggestedPartyItemComponent,
     AcceptedPartiesComponent,
     AcceptedPartyItemComponent,
-    AcceptedPartyShowComponent
+    AcceptedPartyShowComponent,
+    ApplicantsComponent
   ],
   providers: [
     PartiesEffects,
