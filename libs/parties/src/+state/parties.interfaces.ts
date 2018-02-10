@@ -1,5 +1,6 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { Party } from "../models/party.model"
+import * as fromAppRouter from "@sonder-workspace/router";
 
 export interface SuggestedPartiesState {
   entities: { [id: number]: Party };
@@ -32,3 +33,11 @@ export const getAcceptedPartiesLoaded = createSelector(getAcceptedParties, accep
 export const getAcceptedPartiesEntities = createSelector(getAcceptedParties, (acceptedParties: any) => {
   return Object.keys(acceptedParties.entities).map(id => acceptedParties.entities[parseInt(id, 10)]);
 })
+
+export const getSelectedAcceptedParty = createSelector(
+  getAcceptedParties,
+  fromAppRouter.getRouterState,
+  (parties, router) => {
+    return router.state && parties.entities[router.state.params.partyId];
+  }
+)

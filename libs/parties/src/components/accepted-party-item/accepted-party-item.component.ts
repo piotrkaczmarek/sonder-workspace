@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
+import { Party } from "../../models/party.model";
 import { PartiesState } from "../../+state/parties.interfaces";
 import * as fromPartiesActions from "../../+state/parties.actions";
 
@@ -9,7 +10,7 @@ import * as fromPartiesActions from "../../+state/parties.actions";
   styleUrls: ["./accepted-party-item.component.css"]
 })
 export class AcceptedPartyItemComponent implements OnInit {
-  @Input() party: any;
+  @Input() party: Party;
   constructor(private store: Store<PartiesState>) {}
 
   ngOnInit() {}

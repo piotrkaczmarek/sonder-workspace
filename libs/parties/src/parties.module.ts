@@ -20,7 +20,7 @@ import {
   AcceptedPartiesComponent,
   SuggestedPartiesComponent
 } from "./components";
-import { AcceptedPartyShowComponent } from './accepted-party-show/accepted-party-show.component';
+import { AcceptedPartyShowComponent } from './components/accepted-party-show/accepted-party-show.component';
 
 export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
@@ -28,6 +28,11 @@ export const partiesRoutes: Route[] = [
     path: "suggested",
     canActivate: [AuthenticatedGuard, SuggestedPartiesLoadedGuard],
     component: SuggestedPartiesComponent
+  },
+  {
+    path: "accepted/:partyId",
+    canActivate: [AuthenticatedGuard, AcceptedPartiesLoadedGuard],
+    component: AcceptedPartyShowComponent
   },
   {
     path: "accepted",

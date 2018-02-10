@@ -1,6 +1,13 @@
 <div>
-  {{ party.id }}: {{ party.name }} / {{ party.size }}
-  <span>
-    <button (click)="leaveParty()">Leave</button>
-  </span>
+  <div>
+    {{ party.id }}: {{ party.name }} / {{ party.size }}
+    <span>
+      <button (click)="leaveParty()">Leave</button>
+    </span>
+  </div>
+  <div>
+    <div *ngFor="let member of party.members">
+      {{ member.id }}: {{ member.first_name }}
+    </div>
+  </div>
 </div>
