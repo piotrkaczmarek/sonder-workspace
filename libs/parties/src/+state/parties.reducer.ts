@@ -1,5 +1,5 @@
 import {Parties} from './parties.interfaces';
-import { Party } from '../models/party.model';
+import { Party, Person } from '../models';
 
 import * as fromPartiesActions from './parties.actions';
 
@@ -111,6 +111,37 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         suggested: {
           ...state.suggested,
           entities: entities
+        }
+      }
+    }
+    case fromPartiesActions.APPLICANTS_LOADED: {
+      let partyApplicantsEntities = action.data;
+      if (partyApplicantsEntities.length > 0) {
+        partyApplicantsEntities = action.data.reduce(
+          (entities: { [id: number]: Person }, person: Person) => {
+            return {
+              ...entities,
+              [person.id]: person
+            };
+          },
+          { // replace instead of appending
+          }
+        );
+      }
+      return {
+        ...state,
+        applicants: {
+          ...state.applicants,
+          entities: {
+            ...state.applicants.entities,
+            ...{
+              [action.partyId]: {
+                loaded: true,
+                loading: false,
+                entities: partyApplicantsEntities
+              }
+            }
+          }
         }
       }
     }

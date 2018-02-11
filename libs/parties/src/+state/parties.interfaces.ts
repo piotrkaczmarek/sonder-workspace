@@ -1,7 +1,10 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { Party } from "../models/party.model"
+import { Party, Person } from "../models"
 import * as fromAppRouter from "@sonder-workspace/router";
 
+export interface PartiesState {
+  readonly parties: Parties;
+}
 export interface SuggestedPartiesState {
   entities: { [id: number]: Party };
   loaded: boolean;
@@ -15,9 +18,15 @@ export interface AcceptedPartiesState {
 export interface Parties {
   suggested: SuggestedPartiesState;
   accepted: AcceptedPartiesState;
+  applicants: ApplicantsState;
 }
-export interface PartiesState {
-  readonly parties: Parties;
+export interface ApplicantsState {
+  entities: { [partyId: number]: PartyApplicantsState }
+}
+export interface PartyApplicantsState {
+  entities: { [personId: number]: Person };
+  loaded: boolean;
+  loading: boolean;
 }
 
 export const getAllParties = createSelector(createFeatureSelector<PartiesState>("parties"), state => state);
@@ -41,3 +50,32 @@ export const getSelectedAcceptedParty = createSelector(
     return router.state && parties.entities[router.state.params.partyId];
   }
 )
+
+export const getApplicants = createSelector(getAllParties, (parties: any) => parties.applicants);
+
+export const getPartyApplicants = createSelector(
+  getApplicants,
+  fromAppRouter.getRouterState,
+  (applicants, router) => {
+    return router.state && applicants.entities[router.state.params.partyId];
+  }
+)
+
+export const getPartyApplicantsEntities = createSelector(
+  getPartyApplicants,
+  (applicants: any) => Object.keys(applicants.entities).map(id => applicants.entities[parseInt(id, 10)])
+)
+
+export const getPartyApplicantsLoaded = createSelector(
+  getPartyApplicants, (applicants) => applicants === undefined ? false : applicants.loaded
+)
+
+export const getPartyApplicantsByPartyId = (partyId) => {
+  return createSelector(getApplicants, (applicants) => applicants.entities[partyId])
+}
+
+export const getPartyApplicantsLoadedByPartyId = (partyId) => {
+  return createSelector(
+    getPartyApplicantsByPartyId(partyId),
+    (applicants) => applicants === undefined ? false : applicants.loaded)
+}

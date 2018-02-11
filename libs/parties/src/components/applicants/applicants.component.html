@@ -1,0 +1,4 @@
+<h1>Applicants</h1>
+<div *ngFor="let applicant of (applicants$ | async)">
+  {{ applicant.first_name }}
+</div>

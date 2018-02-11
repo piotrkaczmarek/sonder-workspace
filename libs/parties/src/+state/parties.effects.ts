@@ -130,6 +130,31 @@ export class PartiesEffects {
     })
   );
 
+
+  @Effect()
+  loadApplicants = this.dataPersistence.fetch(
+    fromPartiesActions.LOAD_APPLICANTS,
+    {
+      run: (
+        action: fromPartiesActions.LoadApplicants,
+        state: PartiesState
+      ) => {
+        return this.partiesService
+          .getApplicants(action.partyId)
+          .pipe(
+          map((response: any) => response.data),
+          map(
+            (data: any) => new fromPartiesActions.ApplicantsLoaded(data, action.partyId)
+          )
+          );
+      },
+
+      onError: (action: fromPartiesActions.LoadApplicants, error) => {
+        console.error("Error", error);
+      }
+    }
+  );
+
   constructor(
     private actions: Actions,
     private dataPersistence: DataPersistence<PartiesState>,

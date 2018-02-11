@@ -18,6 +18,9 @@ export const PARTY_DISMISSED = "[Parties] Party Dismissed";
 export const LEAVE_PARTY = "[Parties] Leave Party";
 export const PARTY_LEFT = "[Parties] Party Left";
 
+export const LOAD_APPLICANTS = "[Parties] Load Applicants";
+export const APPLICANTS_LOADED = "[Parties] Applicants Loaded";
+
 export class LoadSuggestedParties implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
 }
@@ -76,6 +79,16 @@ export class PartyLeft implements Action {
   constructor(public payload: any) {}
 }
 
+export class LoadApplicants implements Action {
+  readonly type = LOAD_APPLICANTS;
+  constructor(public partyId: number) { }
+}
+
+export class ApplicantsLoaded implements Action {
+  readonly type = APPLICANTS_LOADED;
+  constructor(public data: any, public partyId: number) { }
+}
+
 export type PartiesAction =
   | LoadSuggestedParties
   | SuggestedPartiesLoaded
@@ -88,4 +101,6 @@ export type PartiesAction =
   | DismissParty
   | PartyDismissed
   | LeaveParty
-  | PartyLeft;
+  | PartyLeft
+  | LoadApplicants
+  | ApplicantsLoaded;

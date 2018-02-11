@@ -8,7 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { partiesReducer, partiesInitialState, PartiesEffects } from "./+state";
 
-import { AcceptedPartiesLoadedGuard, SuggestedPartiesLoadedGuard } from "./guards";
+import { AcceptedPartiesLoadedGuard, SuggestedPartiesLoadedGuard, ApplicantsLoadedGuard } from "./guards";
 
 import { PartiesService } from './services/parties.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
@@ -18,22 +18,22 @@ import {
   AcceptedPartyItemComponent,
   NewPartyPageComponent,
   AcceptedPartiesComponent,
-  SuggestedPartiesComponent
+  SuggestedPartiesComponent,
+  AcceptedPartyShowComponent,
+  ApplicantsComponent
 } from "./components";
-import { AcceptedPartyShowComponent } from './components/accepted-party-show/accepted-party-show.component';
-import { ApplicantsComponent } from './applicants/applicants.component';
 
 export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
   {
+    path: "new",
+    canActivate: [AuthenticatedGuard],
+    component: NewPartyPageComponent
+  },
+  {
     path: "suggested",
     canActivate: [AuthenticatedGuard, SuggestedPartiesLoadedGuard],
     component: SuggestedPartiesComponent
-  },
-  {
-    path: "accepted/:partyId",
-    canActivate: [AuthenticatedGuard, AcceptedPartiesLoadedGuard],
-    component: AcceptedPartyShowComponent
   },
   {
     path: "accepted",
@@ -41,9 +41,14 @@ export const partiesRoutes: Route[] = [
     component: AcceptedPartiesComponent
   },
   {
-    path: "new",
-    canActivate: [AuthenticatedGuard],
-    component: NewPartyPageComponent
+    path: "accepted/:partyId",
+    canActivate: [AuthenticatedGuard, AcceptedPartiesLoadedGuard],
+    component: AcceptedPartyShowComponent
+  },
+  {
+    path: "accepted/:partyId/applicants",
+    canActivate: [AuthenticatedGuard, ApplicantsLoadedGuard],
+    component: ApplicantsComponent
   }
 ];
 
@@ -71,6 +76,7 @@ export const partiesRoutes: Route[] = [
     PartiesEffects,
     SuggestedPartiesLoadedGuard,
     AcceptedPartiesLoadedGuard,
+    ApplicantsLoadedGuard,
     PartiesService,
     AuthenticatedGuard,
     BackendService

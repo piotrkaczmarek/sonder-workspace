@@ -42,6 +42,12 @@ export class PartiesService {
       .put(`/parties/${partyId}/dismiss`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
+
+  getApplicants(partyId: number): Observable<any> {
+    return this.backend
+      .get(`/parties/${partyId}/applicants`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
   // updateParty(payload: Party): Observable<Party> {
   //   return this.http
   //     .put<Party>(`/api/pizzas/${payload.id}`, payload)

@@ -11,5 +11,9 @@ export const partiesInitialState: Parties = {
     entities: {},
     loaded: false,
     loading: false
+  },
+  applicants: {
+    entities: {
+    }
   }
 };
