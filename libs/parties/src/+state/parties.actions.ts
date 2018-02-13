@@ -21,6 +21,12 @@ export const PARTY_LEFT = "[Parties] Party Left";
 export const LOAD_APPLICANTS = "[Parties] Load Applicants";
 export const APPLICANTS_LOADED = "[Parties] Applicants Loaded";
 
+export const ACCEPT_APPLICANT = "[Parties] Accept Applicant";
+export const APPLICANT_ACCEPTED = "[Parties] Applicant Accepted";
+
+export const REJECT_APPLICANT = "[Parties] Reject Applicant";
+export const APPLICANT_REJECTED = "[Parties] Applicant Rejected";
+
 export class LoadSuggestedParties implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
 }
@@ -89,6 +95,25 @@ export class ApplicantsLoaded implements Action {
   constructor(public data: any, public partyId: number) { }
 }
 
+export class AcceptApplicant implements Action {
+  readonly type = ACCEPT_APPLICANT;
+  constructor(public payload: any) { }
+}
+
+export class ApplicantAccepted implements Action {
+  readonly type = APPLICANT_ACCEPTED;
+  constructor(public payload: any) { }
+}
+
+export class RejectApplicant implements Action {
+  readonly type = REJECT_APPLICANT;
+  constructor(public payload: any) { }
+}
+
+export class ApplicantRejected implements Action {
+  readonly type = APPLICANT_REJECTED;
+  constructor(public payload: any) { }
+}
 export type PartiesAction =
   | LoadSuggestedParties
   | SuggestedPartiesLoaded
@@ -103,4 +128,8 @@ export type PartiesAction =
   | LeaveParty
   | PartyLeft
   | LoadApplicants
-  | ApplicantsLoaded;
+  | ApplicantsLoaded
+  | AcceptApplicant
+  | ApplicantAccepted
+  | RejectApplicant
+  | ApplicantRejected;

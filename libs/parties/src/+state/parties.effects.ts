@@ -119,6 +119,30 @@ export class PartiesEffects {
   );
 
   @Effect()
+  acceptApplicant = this.actions.ofType(fromPartiesActions.ACCEPT_APPLICANT).pipe(
+    map((action: fromPartiesActions.AcceptApplicant) => action.payload),
+    switchMap(payload => {
+      return this.partiesService
+        .acceptApplicant(payload.partyId, payload.applicantId)
+        .pipe(
+        map(data => new fromPartiesActions.ApplicantAccepted(payload))
+        );
+    })
+  );
+
+  @Effect()
+  rejectApplicant = this.actions.ofType(fromPartiesActions.REJECT_APPLICANT).pipe(
+    map((action: fromPartiesActions.RejectApplicant) => action.payload),
+    switchMap((payload) => {
+      return this.partiesService
+        .rejectApplicant(payload.partyId, payload.applicantId)
+        .pipe(
+        map(data => new fromPartiesActions.ApplicantRejected(payload))
+        );
+    })
+  );
+
+  @Effect()
   leaveParty = this.actions.ofType(fromPartiesActions.LEAVE_PARTY).pipe(
     map((action: fromPartiesActions.LeaveParty) => action.payload),
     switchMap(partyId => {
