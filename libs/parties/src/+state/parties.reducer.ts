@@ -166,6 +166,40 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
+    case fromPartiesActions.APPLICANT_ACCEPTED: {
+      const partyId = action.payload.partyId;
+      const applicantId = action.payload.applicantId;
+      const {
+        [applicantId]: acceptedApplicant,
+        ...remainingApplicants
+      } = state.applicants.entities[partyId].entities;
+      return {
+        ...state,
+        accepted: {
+          ...state.accepted,
+          entities: {
+            ...state.accepted.entities,
+            [partyId]: {
+              ...state.accepted.entities[partyId],
+              members: [
+                ...state.accepted.entities[partyId].members,
+                acceptedApplicant
+              ]
+            }
+          }
+        },
+        applicants: {
+          ...state.applicants,
+          entities: {
+            ...state.applicants.entities,
+            [partyId]: {
+              ...state.applicants.entities[partyId],
+              entities: remainingApplicants
+            }
+          }
+        }
+      }
+    }
     default: {
       return state;
     }
