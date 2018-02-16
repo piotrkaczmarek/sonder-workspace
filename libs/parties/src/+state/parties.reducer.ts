@@ -145,6 +145,27 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
+    case fromPartiesActions.APPLICANT_REJECTED: {
+      const partyId = action.payload.partyId;
+      const applicantId = action.payload.applicantId;
+      const {
+        [applicantId]: removed,
+        ...remainingApplicants
+      } = state.applicants.entities[partyId].entities;
+      return {
+        ...state,
+        applicants: {
+          ...state.applicants,
+          entities: {
+            ...state.applicants.entities,
+            [partyId]: {
+              ...state.applicants.entities[partyId],
+              entities: remainingApplicants
+            }
+          }
+        }
+      }
+    }
     default: {
       return state;
     }
