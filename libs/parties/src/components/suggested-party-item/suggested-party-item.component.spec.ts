@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { LoginPageComponent } from './login-page.component';
+// import { PartyItemComponent } from './suggested-party-item.component';
 
-// describe('LoginPageComponent', () => {
-//   let component: LoginPageComponent;
-//   let fixture: ComponentFixture<LoginPageComponent>;
+// describe('PartyItemComponent', () => {
+//   let component: PartyItemComponent;
+//   let fixture: ComponentFixture<PartyItemComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ LoginPageComponent ]
+//       declarations: [ PartyItemComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(LoginPageComponent);
+//     fixture = TestBed.createComponent(PartyItemComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

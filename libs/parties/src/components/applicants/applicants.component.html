@@ -1,0 +1,8 @@
+<h1>Applicants</h1>
+<div *ngFor="let applicant of (applicants$ | async)">
+  {{ applicant.first_name }}
+  <span>
+    <button (click)="acceptApplicant(applicant.id)">Accept</button>
+    <button (click)="rejectApplicant(applicant.id)">Reject</button>
+  </span>
+</div>

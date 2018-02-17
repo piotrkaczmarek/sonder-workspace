@@ -3,29 +3,52 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
-import { SuggestedPartiesComponent } from './suggested-parties/suggested-parties.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { partiesReducer } from './+state/parties.reducer';
-import { partiesInitialState } from './+state/parties.init';
-import { PartiesEffects } from './+state/parties.effects';
-import { PartyItemComponent } from './party-item/party-item.component';
-import { SuggestedPartiesGuard } from "./guards/suggested-parties.guard";
+
+import { partiesReducer, partiesInitialState, PartiesEffects } from "./+state";
+
+import { AcceptedPartiesLoadedGuard, SuggestedPartiesLoadedGuard, ApplicantsLoadedGuard } from "./guards";
+
 import { PartiesService } from './services/parties.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
-import { NewPartyPageComponent } from './new-party-page/new-party-page.component';
+
+import {
+  SuggestedPartyItemComponent,
+  AcceptedPartyItemComponent,
+  NewPartyPageComponent,
+  AcceptedPartiesComponent,
+  SuggestedPartiesComponent,
+  AcceptedPartyShowComponent,
+  ApplicantsComponent
+} from "./components";
 
 export const partiesRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
   {
-    path: "suggested",
-    canActivate: [AuthenticatedGuard, SuggestedPartiesGuard],
-    component: SuggestedPartiesComponent
-  },
-  {
     path: "new",
     canActivate: [AuthenticatedGuard],
     component: NewPartyPageComponent
+  },
+  {
+    path: "suggested",
+    canActivate: [AuthenticatedGuard, SuggestedPartiesLoadedGuard],
+    component: SuggestedPartiesComponent
+  },
+  {
+    path: "accepted",
+    canActivate: [AuthenticatedGuard, AcceptedPartiesLoadedGuard],
+    component: AcceptedPartiesComponent
+  },
+  {
+    path: "accepted/:partyId",
+    canActivate: [AuthenticatedGuard, AcceptedPartiesLoadedGuard],
+    component: AcceptedPartyShowComponent
+  },
+  {
+    path: "accepted/:partyId/applicants",
+    canActivate: [AuthenticatedGuard, ApplicantsLoadedGuard],
+    component: ApplicantsComponent
   }
 ];
 
@@ -40,10 +63,20 @@ export const partiesRoutes: Route[] = [
     }),
     EffectsModule.forFeature([PartiesEffects])
   ],
-  declarations: [SuggestedPartiesComponent, PartyItemComponent, NewPartyPageComponent],
+  declarations: [
+    NewPartyPageComponent,
+    SuggestedPartiesComponent,
+    SuggestedPartyItemComponent,
+    AcceptedPartiesComponent,
+    AcceptedPartyItemComponent,
+    AcceptedPartyShowComponent,
+    ApplicantsComponent
+  ],
   providers: [
     PartiesEffects,
-    SuggestedPartiesGuard,
+    SuggestedPartiesLoadedGuard,
+    AcceptedPartiesLoadedGuard,
+    ApplicantsLoadedGuard,
     PartiesService,
     AuthenticatedGuard,
     BackendService

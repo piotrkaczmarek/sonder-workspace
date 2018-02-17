@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { LoginPageComponent } from './login-page.component';
+// import { SuggestedPartiesComponent } from './suggested-parties.component';
 
-// describe('LoginPageComponent', () => {
-//   let component: LoginPageComponent;
-//   let fixture: ComponentFixture<LoginPageComponent>;
+// describe('SuggestedPartiesComponent', () => {
+//   let component: SuggestedPartiesComponent;
+//   let fixture: ComponentFixture<SuggestedPartiesComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ LoginPageComponent ]
+//       declarations: [ SuggestedPartiesComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(LoginPageComponent);
+//     fixture = TestBed.createComponent(SuggestedPartiesComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

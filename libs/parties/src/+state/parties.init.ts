@@ -9,7 +9,11 @@ export const partiesInitialState: Parties = {
   },
   accepted: {
     entities: {},
-    loaded: true,
+    loaded: false,
     loading: false
+  },
+  applicants: {
+    entities: {
+    }
   }
 };

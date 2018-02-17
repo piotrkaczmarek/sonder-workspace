@@ -1,0 +1,15 @@
+<div>
+  <div>
+    <span routerLink="./{{party.id}}">
+      {{ party.id }}: {{ party.name }} / {{ party.size }}
+    </span>
+    <span>
+      <button (click)="leaveParty()">Leave</button>
+    </span>
+  </div>
+  <div>
+    <div *ngFor="let member of party.members">
+      {{ member.id }}: {{ member.first_name }}
+    </div>
+  </div>
+</div>

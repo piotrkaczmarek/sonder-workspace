@@ -1,7 +1,7 @@
-import { PartiesModule } from './parties.module';
+// import { PartiesModule } from './parties.module';
 
-describe('PartiesModule', () => {
-  it('should work', () => {
-    expect(new PartiesModule()).toBeDefined();
-  });
-});
+// describe('PartiesModule', () => {
+//   it('should work', () => {
+//     expect(new PartiesModule()).toBeDefined();
+//   });
+// });

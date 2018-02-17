@@ -2,12 +2,30 @@ import { Action } from "@ngrx/store";
 
 export const LOAD_SUGGESTED_PARTIES = "[Parties] Load Suggested Parties";
 export const SUGGESTED_PARTIES_LOADED = "[Parties] Suggested Parties Loaded";
+
+export const LOAD_ACCEPTED_PARTIES = "[Parties] Load Accepted Parties";
+export const ACCEPTED_PARTIES_LOADED = "[Parties] Accepted Parties Loaded";
+
 export const CREATE_PARTY = "[Parties] Create Party";
 export const PARTY_CREATED = "[Parties] Party Created";
+
 export const APPLY_TO_PARTY = "[Parties] Apply To Party";
 export const PARTY_APPLIED_TO = "[Parties] Party Applied To";
+
 export const DISMISS_PARTY = "[Parties] Dismiss Party";
 export const PARTY_DISMISSED = "[Parties] Party Dismissed";
+
+export const LEAVE_PARTY = "[Parties] Leave Party";
+export const PARTY_LEFT = "[Parties] Party Left";
+
+export const LOAD_APPLICANTS = "[Parties] Load Applicants";
+export const APPLICANTS_LOADED = "[Parties] Applicants Loaded";
+
+export const ACCEPT_APPLICANT = "[Parties] Accept Applicant";
+export const APPLICANT_ACCEPTED = "[Parties] Applicant Accepted";
+
+export const REJECT_APPLICANT = "[Parties] Reject Applicant";
+export const APPLICANT_REJECTED = "[Parties] Applicant Rejected";
 
 export class LoadSuggestedParties implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
@@ -15,6 +33,15 @@ export class LoadSuggestedParties implements Action {
 
 export class SuggestedPartiesLoaded implements Action {
   readonly type = SUGGESTED_PARTIES_LOADED;
+  constructor(public payload: any) {}
+}
+
+export class LoadAcceptedParties implements Action {
+  readonly type = LOAD_ACCEPTED_PARTIES;
+}
+
+export class AcceptedPartiesLoaded implements Action {
+  readonly type = ACCEPTED_PARTIES_LOADED;
   constructor(public payload: any) {}
 }
 
@@ -48,12 +75,61 @@ export class PartyDismissed implements Action {
   constructor(public payload: any) {}
 }
 
+export class LeaveParty implements Action {
+  readonly type = LEAVE_PARTY;
+  constructor(public payload: any) {}
+}
+
+export class PartyLeft implements Action {
+  readonly type = PARTY_LEFT;
+  constructor(public payload: any) {}
+}
+
+export class LoadApplicants implements Action {
+  readonly type = LOAD_APPLICANTS;
+  constructor(public partyId: number) { }
+}
+
+export class ApplicantsLoaded implements Action {
+  readonly type = APPLICANTS_LOADED;
+  constructor(public data: any, public partyId: number) { }
+}
+
+export class AcceptApplicant implements Action {
+  readonly type = ACCEPT_APPLICANT;
+  constructor(public payload: any) { }
+}
+
+export class ApplicantAccepted implements Action {
+  readonly type = APPLICANT_ACCEPTED;
+  constructor(public payload: any) { }
+}
+
+export class RejectApplicant implements Action {
+  readonly type = REJECT_APPLICANT;
+  constructor(public payload: any) { }
+}
+
+export class ApplicantRejected implements Action {
+  readonly type = APPLICANT_REJECTED;
+  constructor(public payload: any) { }
+}
 export type PartiesAction =
   | LoadSuggestedParties
   | SuggestedPartiesLoaded
+  | LoadAcceptedParties
+  | AcceptedPartiesLoaded
   | CreateParty
   | PartyCreated
   | ApplyToParty
   | PartyAppliedTo
   | DismissParty
-  | PartyDismissed;
+  | PartyDismissed
+  | LeaveParty
+  | PartyLeft
+  | LoadApplicants
+  | ApplicantsLoaded
+  | AcceptApplicant
+  | ApplicantAccepted
+  | RejectApplicant
+  | ApplicantRejected;

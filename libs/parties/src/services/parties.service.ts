@@ -13,10 +13,16 @@ import { switchMap } from 'rxjs/operators/switchMap';
 export class PartiesService {
   constructor(private http: HttpClient, private backend: BackendService) {}
 
-  getParties(): Observable<any> {
+  getSuggestedParties(): Observable<any> {
     return this.backend
-      .get("/parties")
-      .pipe(catchError((error: any) => Observable.throw(error)));;
+      .get("/parties/suggested")
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  getAcceptedParties(): Observable<any> {
+    return this.backend
+      .get("/parties/accepted")
+      .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   createParty(party: Party): Observable<Party> {
@@ -34,6 +40,24 @@ export class PartiesService {
   dismissParty(partyId: number): Observable<any> {
     return this.backend
       .put(`/parties/${partyId}/dismiss`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  getApplicants(partyId: number): Observable<any> {
+    return this.backend
+      .get(`/parties/${partyId}/applicants`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  acceptApplicant(partyId: number, applicantId: number) {
+    return this.backend
+      .put(`/parties/${partyId}/applicants/${applicantId}/accept`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  rejectApplicant(partyId: number, applicantId: number) {
+    return this.backend
+      .put(`/parties/${partyId}/applicants/${applicantId}/reject`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
   // updateParty(payload: Party): Observable<Party> {

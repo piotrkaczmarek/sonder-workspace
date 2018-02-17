@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { PartiesState, getSuggestedPartiesEntities } from "../+state/parties.interfaces";
+import { PartiesState, getSuggestedPartiesEntities } from "../../+state/parties.interfaces";
 
 @Component({
   selector: 'app-suggested-parties',
@@ -9,11 +9,11 @@ import { PartiesState, getSuggestedPartiesEntities } from "../+state/parties.int
   styleUrls: ['./suggested-parties.component.css']
 })
 export class SuggestedPartiesComponent implements OnInit {
-  public suggested$: Observable<any>;
+  public suggestedParties$: Observable<any>;
 
   constructor(private store: Store<PartiesState>) { }
 
   ngOnInit() {
-    this.suggested$ = this.store.select(getSuggestedPartiesEntities);
+    this.suggestedParties$ = this.store.select(getSuggestedPartiesEntities);
   }
 }
