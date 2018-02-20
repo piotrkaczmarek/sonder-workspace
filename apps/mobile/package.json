@@ -4,7 +4,10 @@
   "readme": "NativeScript Application",
   "repository": "<fill-your-repository-here>",
   "nativescript": {
-    "id": "org.nativescript.mobile"
+    "id": "org.nativescript.mobile",
+    "tns-ios": {
+      "version": "3.4.1"
+    }
   },
   "dependencies": {
     "@angular/animations": "file:../../node_modules/@angular/animations",
