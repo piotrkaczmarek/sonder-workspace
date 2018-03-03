@@ -11,7 +11,6 @@ import {
   AuthState,
   getLoggedIn
 } from "../+state/auth.interfaces";
-import * as fromAppRouter from "@sonder-workspace/router";
 import { ErrorObservable } from "rxjs/observable/ErrorObservable";
 
 @Injectable()
@@ -22,7 +21,7 @@ export class AuthenticatedGuard implements CanActivate {
     return this.checkStore().pipe(
       switchMap(() => of(true)),
       catchError(() => {
-        this.store.dispatch(new fromAppRouter.Go({ path: ["/login"] }));
+        this.router.navigate(["/login"]);
         return of(false);
       }));
   }

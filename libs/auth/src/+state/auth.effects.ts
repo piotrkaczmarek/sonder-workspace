@@ -8,7 +8,7 @@ import * as fromAuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
 import { BackendService } from '../services/backend.service';
 import { Store } from "@ngrx/store";
-import * as fromAppRouter from "@sonder-workspace/router";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthEffects {
@@ -49,34 +49,31 @@ export class AuthEffects {
   );
 
   @Effect({ dispatch: false })
-  loggedIn = this.actions.ofType(fromAuthActions.LOGGED_IN).pipe(
-    map((action: fromAuthActions.LoggedIn) => action.payload),
-    tap(({ path, query: queryParams, extras }) =>
-      this.store.dispatch(
-        new fromAppRouter.Go({
-          path: ["/"]
-        })
+  loggedIn = this.actions
+    .ofType(fromAuthActions.LOGGED_IN)
+    .pipe(
+      map((action: fromAuthActions.LoggedIn) => action.payload),
+      tap(({ path, query: queryParams, extras }) =>
+        this.router.navigate(["/"])
       )
-    )
-  );
+    );
 
   @Effect({ dispatch: false })
-  authenticationFailed = this.actions.ofType(fromAuthActions.AUTHENTICATION_FAILED).pipe(
-    map((action: fromAuthActions.LoggedIn) => action.payload),
-    tap(({ path, query: queryParams, extras }) =>
-      this.store.dispatch(
-        new fromAppRouter.Go({
-          path: ["/login"]
-        })
+  authenticationFailed = this.actions
+    .ofType(fromAuthActions.AUTHENTICATION_FAILED)
+    .pipe(
+      map((action: fromAuthActions.LoggedIn) => action.payload),
+      tap(({ path, query: queryParams, extras }) =>
+        this.router.navigate(["/login"])
       )
-    )
-  );
+    );
 
   constructor(
     private actions: Actions,
     private dataPersistence: DataPersistence<AuthState>,
     private authService: AuthService,
     private backend: BackendService,
+    private router: Router,
     private store: Store<AuthState>
   ) {}
 }
