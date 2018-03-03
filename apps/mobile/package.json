@@ -22,6 +22,8 @@
     "@ngrx/router-store": "file:../../node_modules/@ngrx/router-store",
     "@ngrx/store": "file:../../node_modules/@ngrx/store",
     "@nrwl/nx": "file:../../node_modules/@nrwl/nx",
+    "@sonder-workspace/auth": "file:../../libs/auth",
+    "@sonder-workspace/router": "file:../../libs/router",
     "nativescript-angular": "~5.1.0",
     "nativescript-ngx-fonticon": "~4.0.0",
     "nativescript-theme-core": "~1.0.4",
