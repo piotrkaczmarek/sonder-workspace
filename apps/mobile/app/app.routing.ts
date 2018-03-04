@@ -7,7 +7,7 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
 // app
 import { SharedModule } from './modules/shared/shared.module';
-import { authRoutes } from "@sonder-workspace/auth";
+// import { authRoutes } from "@sonder-workspace/auth";
 // import { authRoutes } from "../../../libs/auth";
 
 
@@ -25,9 +25,13 @@ const routes: Routes = [
   //   redirectTo: "/items",
   //   pathMatch: "full"
   // },
+  // {
+  //   path: "login",
+  //   loadChildren: "../libs/auth/src/auth.module#AuthModule"
+  // },
   {
     path: "login",
-    loadChildren: "../libs/auth/src/auth.module#AuthModule"
+    loadChildren: "./modules/auth/auth.module#AuthModule"
   },
   // {
   //   path: "login",

@@ -5,6 +5,9 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 
+// libs
+// import { AuthModule } from '@sonder-workspace/auth';
+
 // app
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
@@ -17,6 +20,7 @@ import { AppComponent } from './app.component';
     NativeScriptHttpClientModule,
     CoreModule,
     SharedModule,
+    // AuthModule,
     AppRoutingModule
   ],
   declarations: [AppComponent],
