@@ -7,5 +7,6 @@ import {LoadData, DataLoaded} from './app.actions';
 
 @Injectable()
 export class AppEffects {
+
   constructor(private actions: Actions) {}
 }

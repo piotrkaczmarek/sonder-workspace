@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
-import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, switchMap } from 'rxjs/operators';
 import {AuthState} from './auth.interfaces';
 import * as fromAuthActions from './auth.actions';
 import { AuthService } from '../services/auth.service';
@@ -12,50 +11,44 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthEffects {
-  @Effect()
-  logIn = this.dataPersistence.pessimisticUpdate(fromAuthActions.LOG_IN, {
-    run: (action: fromAuthActions.LogIn, state: AuthState) => {
+  @Effect({ dispatch: false })
+  logIn = this.actions.ofType(fromAuthActions.LOG_IN).pipe(
+    switchMap(_ => {
       return this.authService
         .facebookLogIn()
         .pipe(
           map(
             (accessToken: string) =>
               new fromAuthActions.FacebookAuthenticated(accessToken)
-          )
+          ),
+          catchError(error => of(new fromAuthActions.AuthenticationFailed()))
         );
-    },
-
-    onError: (action: fromAuthActions.LogIn, error) => {
-      this.store.dispatch(new fromAuthActions.AuthenticationFailed());
-      console.error("Error", error);
-    }
-  });
-
-  @Effect()
-  facebookAuthenticated = this.dataPersistence.pessimisticUpdate(
-    fromAuthActions.FACEBOOK_AUTHENTICATED,
-    {
-      run: (action: fromAuthActions.LogIn, state: AuthState) => {
-        return this.backend
-          .authenticate(state.auth.facebookAccessToken)
-          .pipe(map((data: any) => new fromAuthActions.LoggedIn(data)));
-      },
-
-      onError: (action: fromAuthActions.LogIn, error) => {
-        this.store.dispatch(new fromAuthActions.AuthenticationFailed());
-        console.error("Error", error);
-      }
-    }
+    })
   );
+
+  @Effect({ dispatch: false })
+  facebookAuthenticated = this.actions
+    .ofType(fromAuthActions.FACEBOOK_AUTHENTICATED)
+    .pipe(
+      map((action: fromAuthActions.FacebookAuthenticated) => action.payload),
+      switchMap(accessToken => {
+        return this.backend
+          .authenticate(accessToken)
+          .pipe(
+            map((data: any) => new fromAuthActions.LoggedIn(data)),
+            catchError(error =>
+              of(new fromAuthActions.AuthenticationFailed())
+            )
+          );
+      })
+    );
 
   @Effect({ dispatch: false })
   loggedIn = this.actions
     .ofType(fromAuthActions.LOGGED_IN)
     .pipe(
       map((action: fromAuthActions.LoggedIn) => action.payload),
-      tap(({ path, query: queryParams, extras }) =>
-        this.router.navigate(["/"])
-      )
+      tap(({ path, query: queryParams, extras }) => this.router.navigate(["/"]))
     );
 
   @Effect({ dispatch: false })
@@ -70,7 +63,6 @@ export class AuthEffects {
 
   constructor(
     private actions: Actions,
-    private dataPersistence: DataPersistence<AuthState>,
     private authService: AuthService,
     private backend: BackendService,
     private router: Router,
