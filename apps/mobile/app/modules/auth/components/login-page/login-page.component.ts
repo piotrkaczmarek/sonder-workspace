@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { AuthState, LogIn } from "@sonder-workspace/auth";
 
 @Component({
   selector: "ns-login-page",
@@ -6,8 +8,13 @@ import { Component, OnInit } from "@angular/core";
   templateUrl: "./login-page.component.html"
 })
 export class LoginPageComponent implements OnInit {
-  constructor() {}
+  constructor(private store: Store<AuthState>) {}
 
   ngOnInit(): void {
+  }
+
+  logIn() {
+    console.log('LOG_IN')
+    this.store.dispatch(new LogIn);
   }
 }
