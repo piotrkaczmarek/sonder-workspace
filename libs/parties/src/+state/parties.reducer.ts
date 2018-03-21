@@ -1,5 +1,5 @@
 import {Subs} from './parties.interfaces';
-import { Party, Person } from '../models';
+import { Sub, Person } from '../models';
 
 import * as fromSubsActions from './parties.actions';
 
@@ -7,7 +7,7 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
   switch (action.type) {
     case fromSubsActions.SUGGESTED_PARTIES_LOADED: {
       const suggestedEntities = action.payload.reduce(
-        (entities: { [id: number]: Party }, party: Party) => {
+        (entities: { [id: number]: Sub }, party: Sub) => {
           return {
             ...entities,
             [party.id]: party
@@ -41,7 +41,7 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
     }
     case fromSubsActions.ACCEPTED_PARTIES_LOADED: {
       const acceptedEntities = action.payload.reduce(
-        (entities: { [id: number]: Party}, party: Party) => {
+        (entities: { [id: number]: Sub}, party: Sub) => {
           return {
             ...entities,
             [party.id]: party

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { tap, filter, take, switchMap, catchError } from 'rxjs/operators';
 
-import { SubsState, getPartyApplicantsLoadedByPartyId } from '../+state/parties.interfaces';
+import { SubsState, getSubApplicantsLoadedBySubId } from '../+state/parties.interfaces';
 import { LoadApplicants } from '../+state/parties.actions';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class ApplicantsLoadedGuard implements CanActivate {
   }
 
   checkStore(partyId: number): Observable<boolean> {
-    return this.store.select(getPartyApplicantsLoadedByPartyId(partyId)).pipe(
+    return this.store.select(getSubApplicantsLoadedBySubId(partyId)).pipe(
       tap(loaded => {
         if (!loaded) {
           this.store.dispatch(new LoadApplicants(partyId));

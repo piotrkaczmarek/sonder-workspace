@@ -14,7 +14,7 @@ describe('partiesReducer', () => {
       describe('when payload has parties', () => {
         let payload, actual;
         beforeEach(() => {
-          payload = [{ id: 1, name: "Party A" }, { id: 2, name: "Party B" }];
+          payload = [{ id: 1, name: "Sub A" }, { id: 2, name: "Sub B" }];
           const action: fromActions.SuggestedSubsLoaded = { type: fromActions.SUGGESTED_PARTIES_LOADED, payload: payload };
           actual = partiesReducer(state, action);
         })
@@ -102,7 +102,7 @@ describe('partiesReducer', () => {
             entities: {
               [partyId1]: {
                 id: partyId1,
-                name: 'Party A',
+                name: 'Sub A',
                 size: 5,
                 members: []
               }

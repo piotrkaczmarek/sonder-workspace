@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { Party } from "../../models/party.model";
+import { Sub } from "../../models/party.model";
 import { SubsState } from "../../+state/parties.interfaces";
 import * as fromSubsActions from "../../+state/parties.actions";
 
@@ -9,13 +9,13 @@ import * as fromSubsActions from "../../+state/parties.actions";
   templateUrl: "./accepted-party-item.component.html",
   styleUrls: ["./accepted-party-item.component.css"]
 })
-export class AcceptedPartyItemComponent implements OnInit {
-  @Input() party: Party;
+export class AcceptedSubItemComponent implements OnInit {
+  @Input() party: Sub;
   constructor(private store: Store<SubsState>) {}
 
   ngOnInit() {}
 
-  leaveParty() {
-    this.store.dispatch(new fromSubsActions.LeaveParty(this.party.id));
+  leaveSub() {
+    this.store.dispatch(new fromSubsActions.LeaveSub(this.party.id));
   }
 }

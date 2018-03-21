@@ -1,6 +1,6 @@
 import { Person } from "./person.model";
 
-export interface Party {
+export interface Sub {
   id: number;
   size: number;
   name: string;

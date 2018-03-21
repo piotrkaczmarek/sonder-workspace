@@ -61,21 +61,21 @@ export class SubsEffects {
   );
 
   @Effect()
-  createParty = this.actions.ofType(fromSubsActions.CREATE_PARTY).pipe(
-    map((action: fromSubsActions.CreateParty) => action.payload),
+  createSub = this.actions.ofType(fromSubsActions.CREATE_PARTY).pipe(
+    map((action: fromSubsActions.CreateSub) => action.payload),
     switchMap(partyAttributes => {
       return this.partiesService
-        .createParty(partyAttributes)
+        .createSub(partyAttributes)
         .pipe(
         map((response: any) => response.data),
-        map(data => new fromSubsActions.PartyCreated(data))
+        map(data => new fromSubsActions.SubCreated(data))
         );
     })
   );
 
   @Effect({ dispatch: false })
   partyCreated = this.actions.ofType(fromSubsActions.PARTY_CREATED).pipe(
-    map((action: fromSubsActions.PartyCreated) => action.payload),
+    map((action: fromSubsActions.SubCreated) => action.payload),
     tap(({ path, query: queryParams, extras }) =>
       this.store.dispatch(
         new fromAppRouter.Go({
@@ -86,34 +86,34 @@ export class SubsEffects {
   );
 
   @Effect()
-  applyToParty = this.dataPersistence.pessimisticUpdate(
+  applyToSub = this.dataPersistence.pessimisticUpdate(
     fromSubsActions.APPLY_TO_PARTY,
     {
-      run: (action: fromSubsActions.ApplyToParty, state: SubsState) => {
+      run: (action: fromSubsActions.ApplyToSub, state: SubsState) => {
         return this.partiesService
-          .applyToParty(action.payload)
+          .applyToSub(action.payload)
           .pipe(
             map(
               (data: any) =>
-                new fromSubsActions.PartyAppliedTo(action.payload)
+                new fromSubsActions.SubAppliedTo(action.payload)
             )
           );
       },
 
-      onError: (action: fromSubsActions.ApplyToParty, error) => {
+      onError: (action: fromSubsActions.ApplyToSub, error) => {
         console.error("Error", error);
       }
     }
   );
 
   @Effect()
-  dismissParty = this.actions.ofType(fromSubsActions.DISMISS_PARTY).pipe(
-    map((action: fromSubsActions.DismissParty) => action.payload),
+  dismissSub = this.actions.ofType(fromSubsActions.DISMISS_PARTY).pipe(
+    map((action: fromSubsActions.DismissSub) => action.payload),
     switchMap(partyId => {
       return this.partiesService
-        .dismissParty(partyId)
+        .dismissSub(partyId)
         .pipe(
-        map(data => new fromSubsActions.PartyDismissed(partyId))
+        map(data => new fromSubsActions.SubDismissed(partyId))
         );
     })
   );
@@ -143,13 +143,13 @@ export class SubsEffects {
   );
 
   @Effect()
-  leaveParty = this.actions.ofType(fromSubsActions.LEAVE_PARTY).pipe(
-    map((action: fromSubsActions.LeaveParty) => action.payload),
+  leaveSub = this.actions.ofType(fromSubsActions.LEAVE_PARTY).pipe(
+    map((action: fromSubsActions.LeaveSub) => action.payload),
     switchMap(partyId => {
       return this.partiesService
-        .dismissParty(partyId)
+        .dismissSub(partyId)
         .pipe(
-        map(data => new fromSubsActions.PartyLeft(partyId))
+        map(data => new fromSubsActions.SubLeft(partyId))
         );
     })
   );

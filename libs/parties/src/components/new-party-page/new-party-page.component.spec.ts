@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewPartyPageComponent } from './new-party-page.component';
+import { NewSubPageComponent } from './new-party-page.component';
 
-// describe('NewPartyPageComponent', () => {
-//   let component: NewPartyPageComponent;
-//   let fixture: ComponentFixture<NewPartyPageComponent>;
+// describe('NewSubPageComponent', () => {
+//   let component: NewSubPageComponent;
+//   let fixture: ComponentFixture<NewSubPageComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ NewPartyPageComponent ]
+//       declarations: [ NewSubPageComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(NewPartyPageComponent);
+//     fixture = TestBed.createComponent(NewSubPageComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

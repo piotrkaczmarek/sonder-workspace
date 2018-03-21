@@ -1,17 +1,17 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { Party, Person } from "../models"
+import { Sub, Person } from "../models"
 import * as fromAppRouter from "@sonder-workspace/router";
 
 export interface SubsState {
   readonly parties: Subs;
 }
 export interface SuggestedSubsState {
-  entities: { [id: number]: Party };
+  entities: { [id: number]: Sub };
   loaded: boolean;
   loading: boolean;
 }
 export interface AcceptedSubsState {
-  entities: { [id: number]: Party };
+  entities: { [id: number]: Sub };
   loaded: boolean;
   loading: boolean;
 }
@@ -21,9 +21,9 @@ export interface Subs {
   applicants: ApplicantsState;
 }
 export interface ApplicantsState {
-  entities: { [partyId: number]: PartyApplicantsState }
+  entities: { [partyId: number]: SubApplicantsState }
 }
-export interface PartyApplicantsState {
+export interface SubApplicantsState {
   entities: { [personId: number]: Person };
   loaded: boolean;
   loading: boolean;
@@ -43,7 +43,7 @@ export const getAcceptedSubsEntities = createSelector(getAcceptedSubs, (accepted
   return Object.keys(acceptedSubs.entities).map(id => acceptedSubs.entities[parseInt(id, 10)]);
 })
 
-export const getSelectedAcceptedParty = createSelector(
+export const getSelectedAcceptedSub = createSelector(
   getAcceptedSubs,
   fromAppRouter.getRouterState,
   (parties, router) => {
@@ -53,7 +53,7 @@ export const getSelectedAcceptedParty = createSelector(
 
 export const getApplicants = createSelector(getAllSubs, (parties: any) => parties.applicants);
 
-export const getPartyApplicants = createSelector(
+export const getSubApplicants = createSelector(
   getApplicants,
   fromAppRouter.getRouterState,
   (applicants, router) => {
@@ -61,21 +61,21 @@ export const getPartyApplicants = createSelector(
   }
 )
 
-export const getPartyApplicantsEntities = createSelector(
-  getPartyApplicants,
+export const getSubApplicantsEntities = createSelector(
+  getSubApplicants,
   (applicants: any) => Object.keys(applicants.entities).map(id => applicants.entities[parseInt(id, 10)])
 )
 
-export const getPartyApplicantsLoaded = createSelector(
-  getPartyApplicants, (applicants) => applicants === undefined ? false : applicants.loaded
+export const getSubApplicantsLoaded = createSelector(
+  getSubApplicants, (applicants) => applicants === undefined ? false : applicants.loaded
 )
 
-export const getPartyApplicantsByPartyId = (partyId) => {
+export const getSubApplicantsBySubId = (partyId) => {
   return createSelector(getApplicants, (applicants) => applicants.entities[partyId])
 }
 
-export const getPartyApplicantsLoadedByPartyId = (partyId) => {
+export const getSubApplicantsLoadedBySubId = (partyId) => {
   return createSelector(
-    getPartyApplicantsByPartyId(partyId),
+    getSubApplicantsBySubId(partyId),
     (applicants) => applicants === undefined ? false : applicants.loaded)
 }

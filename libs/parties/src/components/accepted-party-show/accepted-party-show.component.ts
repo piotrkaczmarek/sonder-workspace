@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
-import { Party } from "../../models/party.model";
-import { SubsState, getSelectedAcceptedParty } from "../../+state/parties.interfaces";
+import { Sub } from "../../models/party.model";
+import { SubsState, getSelectedAcceptedSub } from "../../+state/parties.interfaces";
 import * as fromSubsActions from "../../+state/parties.actions";
 
 @Component({
@@ -10,12 +10,12 @@ import * as fromSubsActions from "../../+state/parties.actions";
   templateUrl: './accepted-party-show.component.html',
   styleUrls: ['./accepted-party-show.component.css']
 })
-export class AcceptedPartyShowComponent implements OnInit {
-  party$: Observable<Party>
+export class AcceptedSubShowComponent implements OnInit {
+  party$: Observable<Sub>
 
   constructor(private store: Store<SubsState>) { }
 
   ngOnInit() {
-    this.party$ = this.store.select(getSelectedAcceptedParty);
+    this.party$ = this.store.select(getSelectedAcceptedSub);
   }
 }

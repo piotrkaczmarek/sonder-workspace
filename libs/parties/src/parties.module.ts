@@ -14,12 +14,12 @@ import { SubsService } from './services/parties.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
 
 import {
-  SuggestedPartyItemComponent,
-  AcceptedPartyItemComponent,
-  NewPartyPageComponent,
+  SuggestedSubItemComponent,
+  AcceptedSubItemComponent,
+  NewSubPageComponent,
   AcceptedSubsComponent,
   SuggestedSubsComponent,
-  AcceptedPartyShowComponent,
+  AcceptedSubShowComponent,
   ApplicantsComponent
 } from "./components";
 
@@ -28,7 +28,7 @@ export const partiesRoutes: Route[] = [
   {
     path: "new",
     canActivate: [AuthenticatedGuard],
-    component: NewPartyPageComponent
+    component: NewSubPageComponent
   },
   {
     path: "suggested",
@@ -43,7 +43,7 @@ export const partiesRoutes: Route[] = [
   {
     path: "accepted/:partyId",
     canActivate: [AuthenticatedGuard, AcceptedSubsLoadedGuard],
-    component: AcceptedPartyShowComponent
+    component: AcceptedSubShowComponent
   },
   {
     path: "accepted/:partyId/applicants",
@@ -64,12 +64,12 @@ export const partiesRoutes: Route[] = [
     EffectsModule.forFeature([SubsEffects])
   ],
   declarations: [
-    NewPartyPageComponent,
+    NewSubPageComponent,
     SuggestedSubsComponent,
-    SuggestedPartyItemComponent,
+    SuggestedSubItemComponent,
     AcceptedSubsComponent,
-    AcceptedPartyItemComponent,
-    AcceptedPartyShowComponent,
+    AcceptedSubItemComponent,
+    AcceptedSubShowComponent,
     ApplicantsComponent
   ],
   providers: [

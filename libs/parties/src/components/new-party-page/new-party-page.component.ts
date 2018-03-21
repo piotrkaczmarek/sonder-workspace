@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
 import { SubsState } from "../../+state/parties.interfaces";
-import { CreateParty } from "../../+state/parties.actions";
+import { CreateSub } from "../../+state/parties.actions";
 
 @Component({
   selector: "new-party-page",
   templateUrl: "./new-party-page.component.html",
   styleUrls: ["./new-party-page.component.css"]
 })
-export class NewPartyPageComponent implements OnInit {
+export class NewSubPageComponent implements OnInit {
   partyForm: FormGroup;
 
   constructor(
@@ -29,6 +29,6 @@ export class NewPartyPageComponent implements OnInit {
   }
 
   onCreateButtonClick() {
-    this.store.dispatch(new CreateParty(this.partyForm.getRawValue()));
+    this.store.dispatch(new CreateSub(this.partyForm.getRawValue()));
   }
 }

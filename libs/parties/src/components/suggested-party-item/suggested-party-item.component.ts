@@ -8,17 +8,17 @@ import * as fromSubsActions from "../../+state/parties.actions";
   templateUrl: "./suggested-party-item.component.html",
   styleUrls: ["./suggested-party-item.component.css"]
 })
-export class SuggestedPartyItemComponent implements OnInit {
+export class SuggestedSubItemComponent implements OnInit {
   @Input() party: any;
   constructor(private store: Store<SubsState>) {}
 
   ngOnInit() {}
 
-  applyToParty() {
-    this.store.dispatch(new fromSubsActions.ApplyToParty(this.party.id));
+  applyToSub() {
+    this.store.dispatch(new fromSubsActions.ApplyToSub(this.party.id));
   }
 
-  dismissParty() {
-    this.store.dispatch(new fromSubsActions.DismissParty(this.party.id));
+  dismissSub() {
+    this.store.dispatch(new fromSubsActions.DismissSub(this.party.id));
   }
 }

@@ -6,17 +6,17 @@ export const SUGGESTED_PARTIES_LOADED = "[Subs] Suggested Subs Loaded";
 export const LOAD_ACCEPTED_PARTIES = "[Subs] Load Accepted Subs";
 export const ACCEPTED_PARTIES_LOADED = "[Subs] Accepted Subs Loaded";
 
-export const CREATE_PARTY = "[Subs] Create Party";
-export const PARTY_CREATED = "[Subs] Party Created";
+export const CREATE_PARTY = "[Subs] Create Sub";
+export const PARTY_CREATED = "[Subs] Sub Created";
 
-export const APPLY_TO_PARTY = "[Subs] Apply To Party";
-export const PARTY_APPLIED_TO = "[Subs] Party Applied To";
+export const APPLY_TO_PARTY = "[Subs] Apply To Sub";
+export const PARTY_APPLIED_TO = "[Subs] Sub Applied To";
 
-export const DISMISS_PARTY = "[Subs] Dismiss Party";
-export const PARTY_DISMISSED = "[Subs] Party Dismissed";
+export const DISMISS_PARTY = "[Subs] Dismiss Sub";
+export const PARTY_DISMISSED = "[Subs] Sub Dismissed";
 
-export const LEAVE_PARTY = "[Subs] Leave Party";
-export const PARTY_LEFT = "[Subs] Party Left";
+export const LEAVE_PARTY = "[Subs] Leave Sub";
+export const PARTY_LEFT = "[Subs] Sub Left";
 
 export const LOAD_APPLICANTS = "[Subs] Load Applicants";
 export const APPLICANTS_LOADED = "[Subs] Applicants Loaded";
@@ -45,42 +45,42 @@ export class AcceptedSubsLoaded implements Action {
   constructor(public payload: any) {}
 }
 
-export class CreateParty implements Action {
+export class CreateSub implements Action {
   readonly type = CREATE_PARTY;
   constructor(public payload: any) {}
 }
 
-export class PartyCreated implements Action {
+export class SubCreated implements Action {
   readonly type = PARTY_CREATED;
   constructor(public payload: any) {}
 }
 
-export class ApplyToParty implements Action {
+export class ApplyToSub implements Action {
   readonly type = APPLY_TO_PARTY;
   constructor(public payload: any) {}
 }
 
-export class PartyAppliedTo implements Action {
+export class SubAppliedTo implements Action {
   readonly type = PARTY_APPLIED_TO;
   constructor(public payload: any) {}
 }
 
-export class DismissParty implements Action {
+export class DismissSub implements Action {
   readonly type = DISMISS_PARTY;
   constructor(public payload: any) {}
 }
 
-export class PartyDismissed implements Action {
+export class SubDismissed implements Action {
   readonly type = PARTY_DISMISSED;
   constructor(public payload: any) {}
 }
 
-export class LeaveParty implements Action {
+export class LeaveSub implements Action {
   readonly type = LEAVE_PARTY;
   constructor(public payload: any) {}
 }
 
-export class PartyLeft implements Action {
+export class SubLeft implements Action {
   readonly type = PARTY_LEFT;
   constructor(public payload: any) {}
 }
@@ -119,14 +119,14 @@ export type SubsAction =
   | SuggestedSubsLoaded
   | LoadAcceptedSubs
   | AcceptedSubsLoaded
-  | CreateParty
-  | PartyCreated
-  | ApplyToParty
-  | PartyAppliedTo
-  | DismissParty
-  | PartyDismissed
-  | LeaveParty
-  | PartyLeft
+  | CreateSub
+  | SubCreated
+  | ApplyToSub
+  | SubAppliedTo
+  | DismissSub
+  | SubDismissed
+  | LeaveSub
+  | SubLeft
   | LoadApplicants
   | ApplicantsLoaded
   | AcceptApplicant
