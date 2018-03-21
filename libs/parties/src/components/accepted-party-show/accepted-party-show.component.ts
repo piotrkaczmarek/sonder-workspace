@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { Party } from "../../models/party.model";
-import { PartiesState, getSelectedAcceptedParty } from "../../+state/parties.interfaces";
-import * as fromPartiesActions from "../../+state/parties.actions";
+import { SubsState, getSelectedAcceptedParty } from "../../+state/parties.interfaces";
+import * as fromSubsActions from "../../+state/parties.actions";
 
 @Component({
   selector: 'accepted-party-show',
@@ -13,7 +13,7 @@ import * as fromPartiesActions from "../../+state/parties.actions";
 export class AcceptedPartyShowComponent implements OnInit {
   party$: Observable<Party>
 
-  constructor(private store: Store<PartiesState>) { }
+  constructor(private store: Store<SubsState>) { }
 
   ngOnInit() {
     this.party$ = this.store.select(getSelectedAcceptedParty);

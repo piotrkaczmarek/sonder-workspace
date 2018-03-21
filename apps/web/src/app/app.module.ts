@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule, Route } from '@angular/router';
-import { partiesRoutes, PartiesModule } from '@sonder-workspace/parties';
+import { partiesRoutes, SubsModule } from '@sonder-workspace/parties';
 import { StoreModule, MetaReducer, ActionReducer } from "@ngrx/store";
 import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './+state/app.reducer';
@@ -35,7 +35,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     NxModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: "enabled" }),
     AuthModule,
-    PartiesModule,
+    SubsModule,
     AppRouterModule,
     StoreModule.forRoot(
       { app: appReducer, router: routerReducer },

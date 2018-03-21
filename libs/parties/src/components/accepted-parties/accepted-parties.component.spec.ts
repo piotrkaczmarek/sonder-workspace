@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AcceptedPartiesComponent } from './accepted-parties.component';
+import { AcceptedSubsComponent } from './accepted-parties.component';
 
-// describe('AcceptedPartiesComponent', () => {
-//   let component: AcceptedPartiesComponent;
-//   let fixture: ComponentFixture<AcceptedPartiesComponent>;
+// describe('AcceptedSubsComponent', () => {
+//   let component: AcceptedSubsComponent;
+//   let fixture: ComponentFixture<AcceptedSubsComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ AcceptedPartiesComponent ]
+//       declarations: [ AcceptedSubsComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(AcceptedPartiesComponent);
+//     fixture = TestBed.createComponent(AcceptedSubsComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

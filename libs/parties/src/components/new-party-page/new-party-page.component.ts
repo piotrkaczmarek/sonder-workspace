@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
-import { PartiesState } from "../../+state/parties.interfaces";
+import { SubsState } from "../../+state/parties.interfaces";
 import { CreateParty } from "../../+state/parties.actions";
 
 @Component({
@@ -14,7 +14,7 @@ export class NewPartyPageComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<PartiesState>
+    private store: Store<SubsState>
   ) {}
 
   ngOnInit() {

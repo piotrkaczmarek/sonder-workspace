@@ -1,12 +1,12 @@
 import { partiesReducer } from './parties.reducer';
 import { partiesInitialState } from './parties.init';
-import { Parties } from './parties.interfaces';
+import { Subs } from './parties.interfaces';
 import * as fromActions from './parties.actions';
 
 describe('partiesReducer', () => {
-  describe('SuggestedPartiesLoaded', () => {
+  describe('SuggestedSubsLoaded', () => {
     describe('when initial state was empty', () => {
-      let state: Parties;
+      let state: Subs;
       beforeEach(() => {
         state = partiesInitialState;
       })
@@ -15,7 +15,7 @@ describe('partiesReducer', () => {
         let payload, actual;
         beforeEach(() => {
           payload = [{ id: 1, name: "Party A" }, { id: 2, name: "Party B" }];
-          const action: fromActions.SuggestedPartiesLoaded = { type: fromActions.SUGGESTED_PARTIES_LOADED, payload: payload };
+          const action: fromActions.SuggestedSubsLoaded = { type: fromActions.SUGGESTED_PARTIES_LOADED, payload: payload };
           actual = partiesReducer(state, action);
         })
 
@@ -37,7 +37,7 @@ describe('partiesReducer', () => {
 
   describe('RejectApplicant', () => {
     describe('when intial state has applicants', () => {
-      let state: Parties;
+      let state: Subs;
       const partyId1 = 1;
       const partyId2 = 2;
       const applicantId1 = 2;
@@ -89,7 +89,7 @@ describe('partiesReducer', () => {
 
   describe('AcceptApplicant', () => {
     describe('when intial state has applicants', () => {
-      let state: Parties;
+      let state: Subs;
       const partyId1 = 1;
       const partyId2 = 2;
       const applicantId1 = 2;

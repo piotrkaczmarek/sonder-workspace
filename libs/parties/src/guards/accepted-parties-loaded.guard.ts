@@ -5,12 +5,12 @@ import { of } from "rxjs/observable/of";
 import { tap, filter, take, switchMap, catchError } from "rxjs/operators";
 import { Store } from "@ngrx/store";
 
-import { PartiesState, getAcceptedPartiesLoaded } from '../+state/parties.interfaces';
-import { LoadAcceptedParties } from '../+state/parties.actions';
+import { SubsState, getAcceptedSubsLoaded } from '../+state/parties.interfaces';
+import { LoadAcceptedSubs } from '../+state/parties.actions';
 
 @Injectable()
-export class AcceptedPartiesLoadedGuard implements CanActivate {
-  constructor(private store: Store<PartiesState>) {}
+export class AcceptedSubsLoadedGuard implements CanActivate {
+  constructor(private store: Store<SubsState>) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -23,10 +23,10 @@ export class AcceptedPartiesLoadedGuard implements CanActivate {
   }
 
   checkStore(): Observable<boolean> {
-    return this.store.select(getAcceptedPartiesLoaded).pipe(
+    return this.store.select(getAcceptedSubsLoaded).pipe(
       tap(loaded => {
         if (!loaded) {
-          this.store.dispatch(new LoadAcceptedParties());
+          this.store.dispatch(new LoadAcceptedSubs());
         }
       }),
       filter(loaded => loaded),

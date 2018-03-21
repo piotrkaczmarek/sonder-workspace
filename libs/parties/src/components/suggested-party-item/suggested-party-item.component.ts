@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { PartiesState } from "../../+state/parties.interfaces";
-import * as fromPartiesActions from "../../+state/parties.actions";
+import { SubsState } from "../../+state/parties.interfaces";
+import * as fromSubsActions from "../../+state/parties.actions";
 
 @Component({
   selector: "app-suggested-party-item",
@@ -10,15 +10,15 @@ import * as fromPartiesActions from "../../+state/parties.actions";
 })
 export class SuggestedPartyItemComponent implements OnInit {
   @Input() party: any;
-  constructor(private store: Store<PartiesState>) {}
+  constructor(private store: Store<SubsState>) {}
 
   ngOnInit() {}
 
   applyToParty() {
-    this.store.dispatch(new fromPartiesActions.ApplyToParty(this.party.id));
+    this.store.dispatch(new fromSubsActions.ApplyToParty(this.party.id));
   }
 
   dismissParty() {
-    this.store.dispatch(new fromPartiesActions.DismissParty(this.party.id));
+    this.store.dispatch(new fromSubsActions.DismissParty(this.party.id));
   }
 }

@@ -4,12 +4,12 @@
 // import {provideMockActions} from '@ngrx/effects/testing';
 // import {DataPersistence} from '@nrwl/nx';
 // import {readAll, hot} from '@nrwl/nx/testing';
-// import {PartiesEffects} from './parties.effects';
+// import {SubsEffects} from './parties.effects';
 // import {of} from 'rxjs/observable/of';
 
-// describe('PartiesEffects', () => {
+// describe('SubsEffects', () => {
 //   let actions;
-//   let effects: PartiesEffects;
+//   let effects: SubsEffects;
 
 //   beforeEach(() => {
 //     TestBed.configureTestingModule({
@@ -17,13 +17,13 @@
 //         StoreModule.forRoot({}),
 //       ],
 //       providers: [
-//         PartiesEffects,
+//         SubsEffects,
 //         DataPersistence,
 //         provideMockActions(() => actions)
 //       ],
 //     });
 
-//     effects = TestBed.get(PartiesEffects);
+//     effects = TestBed.get(SubsEffects);
 //   });
 
 //   describe('someEffect', () => {

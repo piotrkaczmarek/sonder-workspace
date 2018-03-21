@@ -2,22 +2,22 @@ import { createSelector, createFeatureSelector } from "@ngrx/store";
 import { Party, Person } from "../models"
 import * as fromAppRouter from "@sonder-workspace/router";
 
-export interface PartiesState {
-  readonly parties: Parties;
+export interface SubsState {
+  readonly parties: Subs;
 }
-export interface SuggestedPartiesState {
+export interface SuggestedSubsState {
   entities: { [id: number]: Party };
   loaded: boolean;
   loading: boolean;
 }
-export interface AcceptedPartiesState {
+export interface AcceptedSubsState {
   entities: { [id: number]: Party };
   loaded: boolean;
   loading: boolean;
 }
-export interface Parties {
-  suggested: SuggestedPartiesState;
-  accepted: AcceptedPartiesState;
+export interface Subs {
+  suggested: SuggestedSubsState;
+  accepted: AcceptedSubsState;
   applicants: ApplicantsState;
 }
 export interface ApplicantsState {
@@ -29,29 +29,29 @@ export interface PartyApplicantsState {
   loading: boolean;
 }
 
-export const getAllParties = createSelector(createFeatureSelector<PartiesState>("parties"), state => state);
+export const getAllSubs = createSelector(createFeatureSelector<SubsState>("parties"), state => state);
 
-export const getSuggestedParties = createSelector(getAllParties, (parties: any) => parties.suggested);
-export const getSuggestedPartiesLoaded = createSelector(getSuggestedParties, suggestedParties => suggestedParties.loaded);
-export const getSuggestedPartiesEntities = createSelector(getSuggestedParties, (suggestedParties: any) => {
-  return Object.keys(suggestedParties.entities).map(id => suggestedParties.entities[parseInt(id, 10)]);
+export const getSuggestedSubs = createSelector(getAllSubs, (parties: any) => parties.suggested);
+export const getSuggestedSubsLoaded = createSelector(getSuggestedSubs, suggestedSubs => suggestedSubs.loaded);
+export const getSuggestedSubsEntities = createSelector(getSuggestedSubs, (suggestedSubs: any) => {
+  return Object.keys(suggestedSubs.entities).map(id => suggestedSubs.entities[parseInt(id, 10)]);
 })
 
-export const getAcceptedParties = createSelector(getAllParties, (parties: any) => parties.accepted);
-export const getAcceptedPartiesLoaded = createSelector(getAcceptedParties, acceptedParties => acceptedParties.loaded);
-export const getAcceptedPartiesEntities = createSelector(getAcceptedParties, (acceptedParties: any) => {
-  return Object.keys(acceptedParties.entities).map(id => acceptedParties.entities[parseInt(id, 10)]);
+export const getAcceptedSubs = createSelector(getAllSubs, (parties: any) => parties.accepted);
+export const getAcceptedSubsLoaded = createSelector(getAcceptedSubs, acceptedSubs => acceptedSubs.loaded);
+export const getAcceptedSubsEntities = createSelector(getAcceptedSubs, (acceptedSubs: any) => {
+  return Object.keys(acceptedSubs.entities).map(id => acceptedSubs.entities[parseInt(id, 10)]);
 })
 
 export const getSelectedAcceptedParty = createSelector(
-  getAcceptedParties,
+  getAcceptedSubs,
   fromAppRouter.getRouterState,
   (parties, router) => {
     return router.state && parties.entities[router.state.params.partyId];
   }
 )
 
-export const getApplicants = createSelector(getAllParties, (parties: any) => parties.applicants);
+export const getApplicants = createSelector(getAllSubs, (parties: any) => parties.applicants);
 
 export const getPartyApplicants = createSelector(
   getApplicants,

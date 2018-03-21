@@ -6,19 +6,19 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { partiesReducer, partiesInitialState, PartiesEffects } from "./+state";
+import { partiesReducer, partiesInitialState, SubsEffects } from "./+state";
 
-import { AcceptedPartiesLoadedGuard, SuggestedPartiesLoadedGuard, ApplicantsLoadedGuard } from "./guards";
+import { AcceptedSubsLoadedGuard, SuggestedSubsLoadedGuard, ApplicantsLoadedGuard } from "./guards";
 
-import { PartiesService } from './services/parties.service';
+import { SubsService } from './services/parties.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
 
 import {
   SuggestedPartyItemComponent,
   AcceptedPartyItemComponent,
   NewPartyPageComponent,
-  AcceptedPartiesComponent,
-  SuggestedPartiesComponent,
+  AcceptedSubsComponent,
+  SuggestedSubsComponent,
   AcceptedPartyShowComponent,
   ApplicantsComponent
 } from "./components";
@@ -32,17 +32,17 @@ export const partiesRoutes: Route[] = [
   },
   {
     path: "suggested",
-    canActivate: [AuthenticatedGuard, SuggestedPartiesLoadedGuard],
-    component: SuggestedPartiesComponent
+    canActivate: [AuthenticatedGuard, SuggestedSubsLoadedGuard],
+    component: SuggestedSubsComponent
   },
   {
     path: "accepted",
-    canActivate: [AuthenticatedGuard, AcceptedPartiesLoadedGuard],
-    component: AcceptedPartiesComponent
+    canActivate: [AuthenticatedGuard, AcceptedSubsLoadedGuard],
+    component: AcceptedSubsComponent
   },
   {
     path: "accepted/:partyId",
-    canActivate: [AuthenticatedGuard, AcceptedPartiesLoadedGuard],
+    canActivate: [AuthenticatedGuard, AcceptedSubsLoadedGuard],
     component: AcceptedPartyShowComponent
   },
   {
@@ -61,25 +61,25 @@ export const partiesRoutes: Route[] = [
     StoreModule.forFeature("parties", partiesReducer, {
       initialState: partiesInitialState
     }),
-    EffectsModule.forFeature([PartiesEffects])
+    EffectsModule.forFeature([SubsEffects])
   ],
   declarations: [
     NewPartyPageComponent,
-    SuggestedPartiesComponent,
+    SuggestedSubsComponent,
     SuggestedPartyItemComponent,
-    AcceptedPartiesComponent,
+    AcceptedSubsComponent,
     AcceptedPartyItemComponent,
     AcceptedPartyShowComponent,
     ApplicantsComponent
   ],
   providers: [
-    PartiesEffects,
-    SuggestedPartiesLoadedGuard,
-    AcceptedPartiesLoadedGuard,
+    SubsEffects,
+    SuggestedSubsLoadedGuard,
+    AcceptedSubsLoadedGuard,
     ApplicantsLoadedGuard,
-    PartiesService,
+    SubsService,
     AuthenticatedGuard,
     BackendService
   ]
 })
-export class PartiesModule {}
+export class SubsModule {}

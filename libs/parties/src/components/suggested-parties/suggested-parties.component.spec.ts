@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { SuggestedPartiesComponent } from './suggested-parties.component';
+// import { SuggestedSubsComponent } from './suggested-parties.component';
 
-// describe('SuggestedPartiesComponent', () => {
-//   let component: SuggestedPartiesComponent;
-//   let fixture: ComponentFixture<SuggestedPartiesComponent>;
+// describe('SuggestedSubsComponent', () => {
+//   let component: SuggestedSubsComponent;
+//   let fixture: ComponentFixture<SuggestedSubsComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ SuggestedPartiesComponent ]
+//       declarations: [ SuggestedSubsComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(SuggestedPartiesComponent);
+//     fixture = TestBed.createComponent(SuggestedSubsComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

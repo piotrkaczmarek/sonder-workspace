@@ -1,7 +1,7 @@
-// import { PartiesModule } from './parties.module';
+// import { SubsModule } from './parties.module';
 
-// describe('PartiesModule', () => {
+// describe('SubsModule', () => {
 //   it('should work', () => {
-//     expect(new PartiesModule()).toBeDefined();
+//     expect(new SubsModule()).toBeDefined();
 //   });
 // });

@@ -4,78 +4,78 @@ import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
-import {PartiesState} from './parties.interfaces';
-import { PartiesService } from '../services/parties.service';
-import * as fromPartiesActions from './parties.actions';
+import {SubsState} from './parties.interfaces';
+import { SubsService } from '../services/parties.service';
+import * as fromSubsActions from './parties.actions';
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
 
 @Injectable()
-export class PartiesEffects {
+export class SubsEffects {
   @Effect()
-  loadSuggestedParties = this.dataPersistence.fetch(
-    fromPartiesActions.LOAD_SUGGESTED_PARTIES,
+  loadSuggestedSubs = this.dataPersistence.fetch(
+    fromSubsActions.LOAD_SUGGESTED_PARTIES,
     {
       run: (
-        action: fromPartiesActions.LoadSuggestedParties,
-        state: PartiesState
+        action: fromSubsActions.LoadSuggestedSubs,
+        state: SubsState
       ) => {
         return this.partiesService
-          .getSuggestedParties()
+          .getSuggestedSubs()
           .pipe(
             map((response: any) => response.data),
             map(
-              (data: any) => new fromPartiesActions.SuggestedPartiesLoaded(data)
+              (data: any) => new fromSubsActions.SuggestedSubsLoaded(data)
             )
           );
       },
 
-      onError: (action: fromPartiesActions.LoadSuggestedParties, error) => {
+      onError: (action: fromSubsActions.LoadSuggestedSubs, error) => {
         console.error("Error", error);
       }
     }
   );
 
   @Effect()
-  loadAcceptedParties = this.dataPersistence.fetch(
-    fromPartiesActions.LOAD_ACCEPTED_PARTIES,
+  loadAcceptedSubs = this.dataPersistence.fetch(
+    fromSubsActions.LOAD_ACCEPTED_PARTIES,
     {
       run: (
-        action: fromPartiesActions.LoadAcceptedParties,
-        state: PartiesState
+        action: fromSubsActions.LoadAcceptedSubs,
+        state: SubsState
       ) => {
         return this.partiesService
-          .getAcceptedParties()
+          .getAcceptedSubs()
           .pipe(
             map((response: any) => response.data),
             map(
-              (data: any) => new fromPartiesActions.AcceptedPartiesLoaded(data)
+              (data: any) => new fromSubsActions.AcceptedSubsLoaded(data)
             )
           );
       },
 
-      onError: (action: fromPartiesActions.LoadAcceptedParties, error) => {
+      onError: (action: fromSubsActions.LoadAcceptedSubs, error) => {
         console.error("Error", error);
       }
     }
   );
 
   @Effect()
-  createParty = this.actions.ofType(fromPartiesActions.CREATE_PARTY).pipe(
-    map((action: fromPartiesActions.CreateParty) => action.payload),
+  createParty = this.actions.ofType(fromSubsActions.CREATE_PARTY).pipe(
+    map((action: fromSubsActions.CreateParty) => action.payload),
     switchMap(partyAttributes => {
       return this.partiesService
         .createParty(partyAttributes)
         .pipe(
         map((response: any) => response.data),
-        map(data => new fromPartiesActions.PartyCreated(data))
+        map(data => new fromSubsActions.PartyCreated(data))
         );
     })
   );
 
   @Effect({ dispatch: false })
-  partyCreated = this.actions.ofType(fromPartiesActions.PARTY_CREATED).pipe(
-    map((action: fromPartiesActions.PartyCreated) => action.payload),
+  partyCreated = this.actions.ofType(fromSubsActions.PARTY_CREATED).pipe(
+    map((action: fromSubsActions.PartyCreated) => action.payload),
     tap(({ path, query: queryParams, extras }) =>
       this.store.dispatch(
         new fromAppRouter.Go({
@@ -87,69 +87,69 @@ export class PartiesEffects {
 
   @Effect()
   applyToParty = this.dataPersistence.pessimisticUpdate(
-    fromPartiesActions.APPLY_TO_PARTY,
+    fromSubsActions.APPLY_TO_PARTY,
     {
-      run: (action: fromPartiesActions.ApplyToParty, state: PartiesState) => {
+      run: (action: fromSubsActions.ApplyToParty, state: SubsState) => {
         return this.partiesService
           .applyToParty(action.payload)
           .pipe(
             map(
               (data: any) =>
-                new fromPartiesActions.PartyAppliedTo(action.payload)
+                new fromSubsActions.PartyAppliedTo(action.payload)
             )
           );
       },
 
-      onError: (action: fromPartiesActions.ApplyToParty, error) => {
+      onError: (action: fromSubsActions.ApplyToParty, error) => {
         console.error("Error", error);
       }
     }
   );
 
   @Effect()
-  dismissParty = this.actions.ofType(fromPartiesActions.DISMISS_PARTY).pipe(
-    map((action: fromPartiesActions.DismissParty) => action.payload),
+  dismissParty = this.actions.ofType(fromSubsActions.DISMISS_PARTY).pipe(
+    map((action: fromSubsActions.DismissParty) => action.payload),
     switchMap(partyId => {
       return this.partiesService
         .dismissParty(partyId)
         .pipe(
-        map(data => new fromPartiesActions.PartyDismissed(partyId))
+        map(data => new fromSubsActions.PartyDismissed(partyId))
         );
     })
   );
 
   @Effect()
-  acceptApplicant = this.actions.ofType(fromPartiesActions.ACCEPT_APPLICANT).pipe(
-    map((action: fromPartiesActions.AcceptApplicant) => action.payload),
+  acceptApplicant = this.actions.ofType(fromSubsActions.ACCEPT_APPLICANT).pipe(
+    map((action: fromSubsActions.AcceptApplicant) => action.payload),
     switchMap(payload => {
       return this.partiesService
         .acceptApplicant(payload.partyId, payload.applicantId)
         .pipe(
-        map(data => new fromPartiesActions.ApplicantAccepted(payload))
+        map(data => new fromSubsActions.ApplicantAccepted(payload))
         );
     })
   );
 
   @Effect()
-  rejectApplicant = this.actions.ofType(fromPartiesActions.REJECT_APPLICANT).pipe(
-    map((action: fromPartiesActions.RejectApplicant) => action.payload),
+  rejectApplicant = this.actions.ofType(fromSubsActions.REJECT_APPLICANT).pipe(
+    map((action: fromSubsActions.RejectApplicant) => action.payload),
     switchMap((payload) => {
       return this.partiesService
         .rejectApplicant(payload.partyId, payload.applicantId)
         .pipe(
-        map(data => new fromPartiesActions.ApplicantRejected(payload))
+        map(data => new fromSubsActions.ApplicantRejected(payload))
         );
     })
   );
 
   @Effect()
-  leaveParty = this.actions.ofType(fromPartiesActions.LEAVE_PARTY).pipe(
-    map((action: fromPartiesActions.LeaveParty) => action.payload),
+  leaveParty = this.actions.ofType(fromSubsActions.LEAVE_PARTY).pipe(
+    map((action: fromSubsActions.LeaveParty) => action.payload),
     switchMap(partyId => {
       return this.partiesService
         .dismissParty(partyId)
         .pipe(
-        map(data => new fromPartiesActions.PartyLeft(partyId))
+        map(data => new fromSubsActions.PartyLeft(partyId))
         );
     })
   );
@@ -157,23 +157,23 @@ export class PartiesEffects {
 
   @Effect()
   loadApplicants = this.dataPersistence.fetch(
-    fromPartiesActions.LOAD_APPLICANTS,
+    fromSubsActions.LOAD_APPLICANTS,
     {
       run: (
-        action: fromPartiesActions.LoadApplicants,
-        state: PartiesState
+        action: fromSubsActions.LoadApplicants,
+        state: SubsState
       ) => {
         return this.partiesService
           .getApplicants(action.partyId)
           .pipe(
           map((response: any) => response.data),
           map(
-            (data: any) => new fromPartiesActions.ApplicantsLoaded(data, action.partyId)
+            (data: any) => new fromSubsActions.ApplicantsLoaded(data, action.partyId)
           )
           );
       },
 
-      onError: (action: fromPartiesActions.LoadApplicants, error) => {
+      onError: (action: fromSubsActions.LoadApplicants, error) => {
         console.error("Error", error);
       }
     }
@@ -181,8 +181,8 @@ export class PartiesEffects {
 
   constructor(
     private actions: Actions,
-    private dataPersistence: DataPersistence<PartiesState>,
-    private partiesService: PartiesService,
-    private store: Store<PartiesState>
+    private dataPersistence: DataPersistence<SubsState>,
+    private partiesService: SubsService,
+    private store: Store<SubsState>
   ) {}
 }

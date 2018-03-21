@@ -6,12 +6,12 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { tap, filter, take, switchMap, catchError } from 'rxjs/operators';
 
-import { PartiesState, getPartyApplicantsLoadedByPartyId } from '../+state/parties.interfaces';
+import { SubsState, getPartyApplicantsLoadedByPartyId } from '../+state/parties.interfaces';
 import { LoadApplicants } from '../+state/parties.actions';
 
 @Injectable()
 export class ApplicantsLoadedGuard implements CanActivate {
-  constructor(private store: Store<PartiesState>) {}
+  constructor(private store: Store<SubsState>) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,

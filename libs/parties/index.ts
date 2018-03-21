@@ -1,1 +1,1 @@
-export { PartiesModule , partiesRoutes } from './src/parties.module';
+export { SubsModule , partiesRoutes } from './src/parties.module';

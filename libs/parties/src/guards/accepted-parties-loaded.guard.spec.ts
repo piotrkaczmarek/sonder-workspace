@@ -1,15 +1,15 @@
 // import { TestBed, async, inject } from '@angular/core/testing';
 
-// import { AcceptedPartiesLoadedGuard } from './accepted-parties-loaded.guard';
+// import { AcceptedSubsLoadedGuard } from './accepted-parties-loaded.guard';
 
-// describe('AcceptedPartiesLoadedGuard', () => {
+// describe('AcceptedSubsLoadedGuard', () => {
 //   beforeEach(() => {
 //     TestBed.configureTestingModule({
-//       providers: [AcceptedPartiesLoadedGuard]
+//       providers: [AcceptedSubsLoadedGuard]
 //     });
 //   });
 
-//   it('should ...', inject([AcceptedPartiesLoadedGuard], (guard: AcceptedPartiesLoadedGuard) => {
+//   it('should ...', inject([AcceptedSubsLoadedGuard], (guard: AcceptedSubsLoadedGuard) => {
 //     expect(guard).toBeTruthy();
 //   }));
 // });

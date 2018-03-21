@@ -1,46 +1,46 @@
 import { Action } from "@ngrx/store";
 
-export const LOAD_SUGGESTED_PARTIES = "[Parties] Load Suggested Parties";
-export const SUGGESTED_PARTIES_LOADED = "[Parties] Suggested Parties Loaded";
+export const LOAD_SUGGESTED_PARTIES = "[Subs] Load Suggested Subs";
+export const SUGGESTED_PARTIES_LOADED = "[Subs] Suggested Subs Loaded";
 
-export const LOAD_ACCEPTED_PARTIES = "[Parties] Load Accepted Parties";
-export const ACCEPTED_PARTIES_LOADED = "[Parties] Accepted Parties Loaded";
+export const LOAD_ACCEPTED_PARTIES = "[Subs] Load Accepted Subs";
+export const ACCEPTED_PARTIES_LOADED = "[Subs] Accepted Subs Loaded";
 
-export const CREATE_PARTY = "[Parties] Create Party";
-export const PARTY_CREATED = "[Parties] Party Created";
+export const CREATE_PARTY = "[Subs] Create Party";
+export const PARTY_CREATED = "[Subs] Party Created";
 
-export const APPLY_TO_PARTY = "[Parties] Apply To Party";
-export const PARTY_APPLIED_TO = "[Parties] Party Applied To";
+export const APPLY_TO_PARTY = "[Subs] Apply To Party";
+export const PARTY_APPLIED_TO = "[Subs] Party Applied To";
 
-export const DISMISS_PARTY = "[Parties] Dismiss Party";
-export const PARTY_DISMISSED = "[Parties] Party Dismissed";
+export const DISMISS_PARTY = "[Subs] Dismiss Party";
+export const PARTY_DISMISSED = "[Subs] Party Dismissed";
 
-export const LEAVE_PARTY = "[Parties] Leave Party";
-export const PARTY_LEFT = "[Parties] Party Left";
+export const LEAVE_PARTY = "[Subs] Leave Party";
+export const PARTY_LEFT = "[Subs] Party Left";
 
-export const LOAD_APPLICANTS = "[Parties] Load Applicants";
-export const APPLICANTS_LOADED = "[Parties] Applicants Loaded";
+export const LOAD_APPLICANTS = "[Subs] Load Applicants";
+export const APPLICANTS_LOADED = "[Subs] Applicants Loaded";
 
-export const ACCEPT_APPLICANT = "[Parties] Accept Applicant";
-export const APPLICANT_ACCEPTED = "[Parties] Applicant Accepted";
+export const ACCEPT_APPLICANT = "[Subs] Accept Applicant";
+export const APPLICANT_ACCEPTED = "[Subs] Applicant Accepted";
 
-export const REJECT_APPLICANT = "[Parties] Reject Applicant";
-export const APPLICANT_REJECTED = "[Parties] Applicant Rejected";
+export const REJECT_APPLICANT = "[Subs] Reject Applicant";
+export const APPLICANT_REJECTED = "[Subs] Applicant Rejected";
 
-export class LoadSuggestedParties implements Action {
+export class LoadSuggestedSubs implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
 }
 
-export class SuggestedPartiesLoaded implements Action {
+export class SuggestedSubsLoaded implements Action {
   readonly type = SUGGESTED_PARTIES_LOADED;
   constructor(public payload: any) {}
 }
 
-export class LoadAcceptedParties implements Action {
+export class LoadAcceptedSubs implements Action {
   readonly type = LOAD_ACCEPTED_PARTIES;
 }
 
-export class AcceptedPartiesLoaded implements Action {
+export class AcceptedSubsLoaded implements Action {
   readonly type = ACCEPTED_PARTIES_LOADED;
   constructor(public payload: any) {}
 }
@@ -114,11 +114,11 @@ export class ApplicantRejected implements Action {
   readonly type = APPLICANT_REJECTED;
   constructor(public payload: any) { }
 }
-export type PartiesAction =
-  | LoadSuggestedParties
-  | SuggestedPartiesLoaded
-  | LoadAcceptedParties
-  | AcceptedPartiesLoaded
+export type SubsAction =
+  | LoadSuggestedSubs
+  | SuggestedSubsLoaded
+  | LoadAcceptedSubs
+  | AcceptedSubsLoaded
   | CreateParty
   | PartyCreated
   | ApplyToParty

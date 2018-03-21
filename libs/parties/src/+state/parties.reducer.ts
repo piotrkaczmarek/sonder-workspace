@@ -1,11 +1,11 @@
-import {Parties} from './parties.interfaces';
+import {Subs} from './parties.interfaces';
 import { Party, Person } from '../models';
 
-import * as fromPartiesActions from './parties.actions';
+import * as fromSubsActions from './parties.actions';
 
-export function partiesReducer(state: Parties, action: fromPartiesActions.PartiesAction): Parties {
+export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction): Subs {
   switch (action.type) {
-    case fromPartiesActions.SUGGESTED_PARTIES_LOADED: {
+    case fromSubsActions.SUGGESTED_PARTIES_LOADED: {
       const suggestedEntities = action.payload.reduce(
         (entities: { [id: number]: Party }, party: Party) => {
           return {
@@ -28,7 +28,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       };
     }
-    case fromPartiesActions.LOAD_SUGGESTED_PARTIES: {
+    case fromSubsActions.LOAD_SUGGESTED_PARTIES: {
       return {
         ...state,
         ...{
@@ -39,7 +39,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       };
     }
-    case fromPartiesActions.ACCEPTED_PARTIES_LOADED: {
+    case fromSubsActions.ACCEPTED_PARTIES_LOADED: {
       const acceptedEntities = action.payload.reduce(
         (entities: { [id: number]: Party}, party: Party) => {
           return {
@@ -62,7 +62,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       };
     }
-    case fromPartiesActions.LOAD_ACCEPTED_PARTIES: {
+    case fromSubsActions.LOAD_ACCEPTED_PARTIES: {
       return {
         ...state,
         ...{
@@ -73,7 +73,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       };
     }
-    case fromPartiesActions.PARTY_CREATED: {
+    case fromSubsActions.PARTY_CREATED: {
       return {
         ...state,
         ...{
@@ -84,7 +84,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
-    case fromPartiesActions.PARTY_DISMISSED: {
+    case fromSubsActions.PARTY_DISMISSED: {
       const { [action.payload]: removed, ...entities } = state.suggested.entities;
       return {
         ...state,
@@ -94,7 +94,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
-    case fromPartiesActions.PARTY_LEFT: {
+    case fromSubsActions.PARTY_LEFT: {
       const { [action.payload]: removed, ...entities } = state.accepted.entities;
       return {
         ...state,
@@ -104,7 +104,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
-    case fromPartiesActions.PARTY_APPLIED_TO: {
+    case fromSubsActions.PARTY_APPLIED_TO: {
       const { [action.payload]: removed, ...entities } = state.suggested.entities;
       return {
         ...state,
@@ -114,7 +114,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
-    case fromPartiesActions.APPLICANTS_LOADED: {
+    case fromSubsActions.APPLICANTS_LOADED: {
       let partyApplicantsEntities = action.data;
       if (partyApplicantsEntities.length > 0) {
         partyApplicantsEntities = action.data.reduce(
@@ -145,7 +145,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
-    case fromPartiesActions.APPLICANT_REJECTED: {
+    case fromSubsActions.APPLICANT_REJECTED: {
       const partyId = action.payload.partyId;
       const applicantId = action.payload.applicantId;
       const {
@@ -166,7 +166,7 @@ export function partiesReducer(state: Parties, action: fromPartiesActions.Partie
         }
       }
     }
-    case fromPartiesActions.APPLICANT_ACCEPTED: {
+    case fromSubsActions.APPLICANT_ACCEPTED: {
       const partyId = action.payload.partyId;
       const applicantId = action.payload.applicantId;
       const {

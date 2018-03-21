@@ -4,8 +4,8 @@ import { map } from "rxjs/operators";
 import { Person } from "../../models";
 import { Store } from "@ngrx/store";
 import { ActivatedRoute } from "@angular/router";
-import { PartiesState, getPartyApplicantsEntities } from "../../+state/parties.interfaces";
-import * as fromPartiesActions from "../../+state/parties.actions";
+import { SubsState, getPartyApplicantsEntities } from "../../+state/parties.interfaces";
+import * as fromSubsActions from "../../+state/parties.actions";
 
 @Component({
   selector: 'applicants',
@@ -16,7 +16,7 @@ export class ApplicantsComponent implements OnInit {
   applicants$: Observable<Array<Person>>
   partyId: number
 
-  constructor(private store: Store<PartiesState>, private route: ActivatedRoute) { }
+  constructor(private store: Store<SubsState>, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.applicants$ = this.store.select(getPartyApplicantsEntities);
@@ -25,11 +25,11 @@ export class ApplicantsComponent implements OnInit {
 
   acceptApplicant(applicantId) {
     const payload = { partyId: this.partyId, applicantId: applicantId };
-    this.store.dispatch(new fromPartiesActions.AcceptApplicant(payload));
+    this.store.dispatch(new fromSubsActions.AcceptApplicant(payload));
   }
 
   rejectApplicant(applicantId) {
     const payload = { partyId: this.partyId, applicantId: applicantId };
-    this.store.dispatch(new fromPartiesActions.RejectApplicant(payload));
+    this.store.dispatch(new fromSubsActions.RejectApplicant(payload));
   }
 }

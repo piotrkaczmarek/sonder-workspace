@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import {
-  PartiesState,
-  getAcceptedPartiesEntities
+  SubsState,
+  getAcceptedSubsEntities
 } from "../../+state/parties.interfaces";
 
 @Component({
@@ -11,13 +11,13 @@ import {
   templateUrl: './accepted-parties.component.html',
   styleUrls: ['./accepted-parties.component.css']
 })
-export class AcceptedPartiesComponent implements OnInit {
-  public acceptedParties$: Observable<any>;
+export class AcceptedSubsComponent implements OnInit {
+  public acceptedSubs$: Observable<any>;
 
-  constructor(private store: Store<PartiesState>) { }
+  constructor(private store: Store<SubsState>) { }
 
   ngOnInit() {
-    this.acceptedParties$ = this.store.select(getAcceptedPartiesEntities);
+    this.acceptedSubs$ = this.store.select(getAcceptedSubsEntities);
   }
 
 }

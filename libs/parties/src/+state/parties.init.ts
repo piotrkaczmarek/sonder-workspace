@@ -1,6 +1,6 @@
-import {Parties} from './parties.interfaces';
+import {Subs} from './parties.interfaces';
 
-export const partiesInitialState: Parties = {
+export const partiesInitialState: Subs = {
   // fill it initial state here
   suggested: {
     entities: {},

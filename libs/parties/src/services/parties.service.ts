@@ -10,16 +10,16 @@ import { BackendService } from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
-export class PartiesService {
+export class SubsService {
   constructor(private http: HttpClient, private backend: BackendService) {}
 
-  getSuggestedParties(): Observable<any> {
+  getSuggestedSubs(): Observable<any> {
     return this.backend
       .get("/parties/suggested")
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  getAcceptedParties(): Observable<any> {
+  getAcceptedSubs(): Observable<any> {
     return this.backend
       .get("/parties/accepted")
       .pipe(catchError((error: any) => Observable.throw(error)));
