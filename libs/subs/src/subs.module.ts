@@ -22,6 +22,7 @@ import {
   AcceptedSubShowComponent,
   ApplicantsComponent
 } from "./components";
+import { SubFeedComponent } from './components/sub-feed/sub-feed.component';
 
 export const subsRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
@@ -70,7 +71,8 @@ export const subsRoutes: Route[] = [
     AcceptedSubsComponent,
     AcceptedSubItemComponent,
     AcceptedSubShowComponent,
-    ApplicantsComponent
+    ApplicantsComponent,
+    SubFeedComponent
   ],
   providers: [
     SubsEffects,
