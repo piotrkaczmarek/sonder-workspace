@@ -1,14 +1,14 @@
 <div>
   <div>
-    <span routerLink="./{{party.id}}">
-      {{ party.id }}: {{ party.name }} / {{ party.size }}
+    <span routerLink="./{{sub.id}}">
+      {{ sub.id }}: {{ sub.name }} / {{ sub.size }}
     </span>
     <span>
       <button (click)="leaveSub()">Leave</button>
     </span>
   </div>
   <div>
-    <div *ngFor="let member of party.members">
+    <div *ngFor="let member of sub.members">
       {{ member.id }}: {{ member.first_name }}
     </div>
   </div>

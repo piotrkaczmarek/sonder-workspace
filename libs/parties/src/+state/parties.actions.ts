@@ -87,12 +87,12 @@ export class SubLeft implements Action {
 
 export class LoadApplicants implements Action {
   readonly type = LOAD_APPLICANTS;
-  constructor(public partyId: number) { }
+  constructor(public subId: number) { }
 }
 
 export class ApplicantsLoaded implements Action {
   readonly type = APPLICANTS_LOADED;
-  constructor(public data: any, public partyId: number) { }
+  constructor(public data: any, public subId: number) { }
 }
 
 export class AcceptApplicant implements Action {

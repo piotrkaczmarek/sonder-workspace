@@ -14,22 +14,22 @@ import * as fromSubsActions from "../../+state/parties.actions";
 })
 export class ApplicantsComponent implements OnInit {
   applicants$: Observable<Array<Person>>
-  partyId: number
+  subId: number
 
   constructor(private store: Store<SubsState>, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.applicants$ = this.store.select(getSubApplicantsEntities);
-    this.route.paramMap.subscribe(route => this.partyId = parseInt(route["params"].partyId, 10))
+    this.route.paramMap.subscribe(route => this.subId = parseInt(route["params"].subId, 10))
   }
 
   acceptApplicant(applicantId) {
-    const payload = { partyId: this.partyId, applicantId: applicantId };
+    const payload = { subId: this.subId, applicantId: applicantId };
     this.store.dispatch(new fromSubsActions.AcceptApplicant(payload));
   }
 
   rejectApplicant(applicantId) {
-    const payload = { partyId: this.partyId, applicantId: applicantId };
+    const payload = { subId: this.subId, applicantId: applicantId };
     this.store.dispatch(new fromSubsActions.RejectApplicant(payload));
   }
 }

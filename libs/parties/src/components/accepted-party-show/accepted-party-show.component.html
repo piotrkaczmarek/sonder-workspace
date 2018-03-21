@@ -1,10 +1,10 @@
 <h1>
-  {{ (party$ | async).name }}
+  {{ (sub$ | async).name }}
 </h1>
 <div>
   <h2 routerLink="./applicants">Applicants</h2>
   <h2>Members</h2>
-  <div *ngFor="let member of (party$ | async).members">
+  <div *ngFor="let member of (sub$ | async).members">
     {{ member.first_name }}
   </div>
 </div>

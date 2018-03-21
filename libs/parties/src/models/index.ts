@@ -1,2 +1,2 @@
-export * from "./party.model"
+export * from "./sub.model"
 export * from "./person.model"

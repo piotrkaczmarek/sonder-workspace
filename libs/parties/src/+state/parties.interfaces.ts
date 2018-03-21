@@ -21,7 +21,7 @@ export interface Subs {
   applicants: ApplicantsState;
 }
 export interface ApplicantsState {
-  entities: { [partyId: number]: SubApplicantsState }
+  entities: { [subId: number]: SubApplicantsState }
 }
 export interface SubApplicantsState {
   entities: { [personId: number]: Person };
@@ -47,7 +47,7 @@ export const getSelectedAcceptedSub = createSelector(
   getAcceptedSubs,
   fromAppRouter.getRouterState,
   (parties, router) => {
-    return router.state && parties.entities[router.state.params.partyId];
+    return router.state && parties.entities[router.state.params.subId];
   }
 )
 
@@ -57,7 +57,7 @@ export const getSubApplicants = createSelector(
   getApplicants,
   fromAppRouter.getRouterState,
   (applicants, router) => {
-    return router.state && applicants.entities[router.state.params.partyId];
+    return router.state && applicants.entities[router.state.params.subId];
   }
 )
 
@@ -70,12 +70,12 @@ export const getSubApplicantsLoaded = createSelector(
   getSubApplicants, (applicants) => applicants === undefined ? false : applicants.loaded
 )
 
-export const getSubApplicantsBySubId = (partyId) => {
-  return createSelector(getApplicants, (applicants) => applicants.entities[partyId])
+export const getSubApplicantsBySubId = (subId) => {
+  return createSelector(getApplicants, (applicants) => applicants.entities[subId])
 }
 
-export const getSubApplicantsLoadedBySubId = (partyId) => {
+export const getSubApplicantsLoadedBySubId = (subId) => {
   return createSelector(
-    getSubApplicantsBySubId(partyId),
+    getSubApplicantsBySubId(subId),
     (applicants) => applicants === undefined ? false : applicants.loaded)
 }

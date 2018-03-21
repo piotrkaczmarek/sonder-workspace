@@ -41,12 +41,12 @@ export const partiesRoutes: Route[] = [
     component: AcceptedSubsComponent
   },
   {
-    path: "accepted/:partyId",
+    path: "accepted/:subId",
     canActivate: [AuthenticatedGuard, AcceptedSubsLoadedGuard],
     component: AcceptedSubShowComponent
   },
   {
-    path: "accepted/:partyId/applicants",
+    path: "accepted/:subId/applicants",
     canActivate: [AuthenticatedGuard, ApplicantsLoadedGuard],
     component: ApplicantsComponent
   }

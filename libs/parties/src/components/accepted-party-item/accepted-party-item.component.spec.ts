@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AcceptedSubItemComponent } from './accepted-party-item.component';
+import { AcceptedSubItemComponent } from './accepted-sub-item.component';
 
 // describe('SubItemComponent', () => {
 //   let component: AcceptedSubItemComponent;

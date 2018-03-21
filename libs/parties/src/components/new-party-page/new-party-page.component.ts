@@ -5,12 +5,12 @@ import { SubsState } from "../../+state/parties.interfaces";
 import { CreateSub } from "../../+state/parties.actions";
 
 @Component({
-  selector: "new-party-page",
-  templateUrl: "./new-party-page.component.html",
-  styleUrls: ["./new-party-page.component.css"]
+  selector: "new-sub-page",
+  templateUrl: "./new-sub-page.component.html",
+  styleUrls: ["./new-sub-page.component.css"]
 })
 export class NewSubPageComponent implements OnInit {
-  partyForm: FormGroup;
+  subForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,13 +22,13 @@ export class NewSubPageComponent implements OnInit {
   }
 
   createForm() {
-    this.partyForm = this.formBuilder.group({
+    this.subForm = this.formBuilder.group({
       name: ["", Validators.required],
       size: [5, [Validators.min(2), Validators.max(10)]]
     });
   }
 
   onCreateButtonClick() {
-    this.store.dispatch(new CreateSub(this.partyForm.getRawValue()));
+    this.store.dispatch(new CreateSub(this.subForm.getRawValue()));
   }
 }

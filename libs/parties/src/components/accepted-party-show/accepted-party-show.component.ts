@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
-import { Sub } from "../../models/party.model";
+import { Sub } from "../../models/sub.model";
 import { SubsState, getSelectedAcceptedSub } from "../../+state/parties.interfaces";
 import * as fromSubsActions from "../../+state/parties.actions";
 
 @Component({
-  selector: 'accepted-party-show',
-  templateUrl: './accepted-party-show.component.html',
-  styleUrls: ['./accepted-party-show.component.css']
+  selector: 'accepted-sub-show',
+  templateUrl: './accepted-sub-show.component.html',
+  styleUrls: ['./accepted-sub-show.component.css']
 })
 export class AcceptedSubShowComponent implements OnInit {
-  party$: Observable<Sub>
+  sub$: Observable<Sub>
 
   constructor(private store: Store<SubsState>) { }
 
   ngOnInit() {
-    this.party$ = this.store.select(getSelectedAcceptedSub);
+    this.sub$ = this.store.select(getSelectedAcceptedSub);
   }
 }

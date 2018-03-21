@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
-import { Sub } from '../models/party.model';
+import { Sub } from '../models/sub.model';
 import { BackendService } from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
@@ -25,39 +25,39 @@ export class SubsService {
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  createSub(party: Sub): Observable<Sub> {
+  createSub(sub: Sub): Observable<Sub> {
     return this.backend
-      .post("/parties", { party })
+      .post("/parties", { sub })
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  applyToSub(partyId: number): Observable<any> {
+  applyToSub(subId: number): Observable<any> {
     return this.backend
-      .put(`/parties/${partyId}/apply`)
+      .put(`/parties/${subId}/apply`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  dismissSub(partyId: number): Observable<any> {
+  dismissSub(subId: number): Observable<any> {
     return this.backend
-      .put(`/parties/${partyId}/dismiss`)
+      .put(`/parties/${subId}/dismiss`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  getApplicants(partyId: number): Observable<any> {
+  getApplicants(subId: number): Observable<any> {
     return this.backend
-      .get(`/parties/${partyId}/applicants`)
+      .get(`/parties/${subId}/applicants`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  acceptApplicant(partyId: number, applicantId: number) {
+  acceptApplicant(subId: number, applicantId: number) {
     return this.backend
-      .put(`/parties/${partyId}/applicants/${applicantId}/accept`)
+      .put(`/parties/${subId}/applicants/${applicantId}/accept`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  rejectApplicant(partyId: number, applicantId: number) {
+  rejectApplicant(subId: number, applicantId: number) {
     return this.backend
-      .put(`/parties/${partyId}/applicants/${applicantId}/reject`)
+      .put(`/parties/${subId}/applicants/${applicantId}/reject`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
   // updateSub(payload: Sub): Observable<Sub> {

@@ -38,8 +38,8 @@ describe('partiesReducer', () => {
   describe('RejectApplicant', () => {
     describe('when intial state has applicants', () => {
       let state: Subs;
-      const partyId1 = 1;
-      const partyId2 = 2;
+      const subId1 = 1;
+      const subId2 = 2;
       const applicantId1 = 2;
       const applicantId2 = 3;
       beforeEach(() => {
@@ -47,7 +47,7 @@ describe('partiesReducer', () => {
           ...partiesInitialState,
           applicants: {
             entities: {
-              [partyId1]: {
+              [subId1]: {
                 entities: {
                   [applicantId1]: { id: applicantId1, first_name: 'Bob' },
                   [applicantId2]: { id: applicantId2, first_name: 'John'}
@@ -55,7 +55,7 @@ describe('partiesReducer', () => {
                 loaded: true,
                 loading: false
               },
-              [partyId2]: {
+              [subId2]: {
                 entities: {
                   [applicantId1]: { id: applicantId1, first_name: 'Bob' },
                   [applicantId2]: { id: applicantId2, first_name: 'John'}
@@ -68,20 +68,20 @@ describe('partiesReducer', () => {
         }
       })
 
-      describe('when payload has existing partyId and applicantId', () => {
+      describe('when payload has existing subId and applicantId', () => {
         let payload, actual;
         beforeEach(() => {
-          payload = { partyId: partyId1, applicantId: applicantId1 };
+          payload = { subId: subId1, applicantId: applicantId1 };
           const action: fromActions.ApplicantRejected = { type: fromActions.APPLICANT_REJECTED, payload: payload };
           actual = partiesReducer(state, action);
         });
 
-        it('removes applicant from given party', () => {
-          expect(Object.keys(actual.applicants.entities[partyId1].entities)).toEqual([String(applicantId2)]);
+        it('removes applicant from given sub', () => {
+          expect(Object.keys(actual.applicants.entities[subId1].entities)).toEqual([String(applicantId2)]);
         })
 
-        it("does not remove applicant from other party", () => {
-          expect(Object.keys(actual.applicants.entities[partyId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
+        it("does not remove applicant from other sub", () => {
+          expect(Object.keys(actual.applicants.entities[subId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
         });
       })
     })
@@ -90,8 +90,8 @@ describe('partiesReducer', () => {
   describe('AcceptApplicant', () => {
     describe('when intial state has applicants', () => {
       let state: Subs;
-      const partyId1 = 1;
-      const partyId2 = 2;
+      const subId1 = 1;
+      const subId2 = 2;
       const applicantId1 = 2;
       const applicantId2 = 3;
       beforeEach(() => {
@@ -100,8 +100,8 @@ describe('partiesReducer', () => {
           accepted: {
             ...partiesInitialState.accepted,
             entities: {
-              [partyId1]: {
-                id: partyId1,
+              [subId1]: {
+                id: subId1,
                 name: 'Sub A',
                 size: 5,
                 members: []
@@ -110,7 +110,7 @@ describe('partiesReducer', () => {
           },
           applicants: {
             entities: {
-              [partyId1]: {
+              [subId1]: {
                 entities: {
                   [applicantId1]: { id: applicantId1, first_name: 'Bob' },
                   [applicantId2]: { id: applicantId2, first_name: 'John'}
@@ -118,7 +118,7 @@ describe('partiesReducer', () => {
                 loaded: true,
                 loading: false
               },
-              [partyId2]: {
+              [subId2]: {
                 entities: {
                   [applicantId1]: { id: applicantId1, first_name: 'Bob' },
                   [applicantId2]: { id: applicantId2, first_name: 'John'}
@@ -131,24 +131,24 @@ describe('partiesReducer', () => {
         }
       })
 
-      describe('when payload has existing partyId and applicantId', () => {
+      describe('when payload has existing subId and applicantId', () => {
         let payload, actual;
         beforeEach(() => {
-          payload = { partyId: partyId1, applicantId: applicantId1 };
+          payload = { subId: subId1, applicantId: applicantId1 };
           const action: fromActions.ApplicantAccepted = { type: fromActions.APPLICANT_ACCEPTED, payload: payload };
           actual = partiesReducer(state, action);
         });
 
-        it('removes applicant from given party', () => {
-          expect(Object.keys(actual.applicants.entities[partyId1].entities)).toEqual([String(applicantId2)]);
+        it('removes applicant from given sub', () => {
+          expect(Object.keys(actual.applicants.entities[subId1].entities)).toEqual([String(applicantId2)]);
         })
 
-        it("does not remove applicant from other party", () => {
-          expect(Object.keys(actual.applicants.entities[partyId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
+        it("does not remove applicant from other sub", () => {
+          expect(Object.keys(actual.applicants.entities[subId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
         });
 
-        it("adds applicant to party members", () => {
-          expect(actual.accepted.entities[partyId1].members).toContain({ id: applicantId1, first_name: 'Bob'})
+        it("adds applicant to sub members", () => {
+          expect(actual.accepted.entities[subId1].members).toContain({ id: applicantId1, first_name: 'Bob'})
         })
       })
     })

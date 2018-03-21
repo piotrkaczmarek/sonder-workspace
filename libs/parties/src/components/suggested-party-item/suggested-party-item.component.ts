@@ -4,21 +4,21 @@ import { SubsState } from "../../+state/parties.interfaces";
 import * as fromSubsActions from "../../+state/parties.actions";
 
 @Component({
-  selector: "app-suggested-party-item",
-  templateUrl: "./suggested-party-item.component.html",
-  styleUrls: ["./suggested-party-item.component.css"]
+  selector: "app-suggested-sub-item",
+  templateUrl: "./suggested-sub-item.component.html",
+  styleUrls: ["./suggested-sub-item.component.css"]
 })
 export class SuggestedSubItemComponent implements OnInit {
-  @Input() party: any;
+  @Input() sub: any;
   constructor(private store: Store<SubsState>) {}
 
   ngOnInit() {}
 
   applyToSub() {
-    this.store.dispatch(new fromSubsActions.ApplyToSub(this.party.id));
+    this.store.dispatch(new fromSubsActions.ApplyToSub(this.sub.id));
   }
 
   dismissSub() {
-    this.store.dispatch(new fromSubsActions.DismissSub(this.party.id));
+    this.store.dispatch(new fromSubsActions.DismissSub(this.sub.id));
   }
 }

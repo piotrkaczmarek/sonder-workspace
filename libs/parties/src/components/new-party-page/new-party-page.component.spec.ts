@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewSubPageComponent } from './new-party-page.component';
+import { NewSubPageComponent } from './new-sub-page.component';
 
 // describe('NewSubPageComponent', () => {
 //   let component: NewSubPageComponent;

@@ -7,10 +7,10 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
   switch (action.type) {
     case fromSubsActions.SUGGESTED_PARTIES_LOADED: {
       const suggestedEntities = action.payload.reduce(
-        (entities: { [id: number]: Sub }, party: Sub) => {
+        (entities: { [id: number]: Sub }, sub: Sub) => {
           return {
             ...entities,
-            [party.id]: party
+            [sub.id]: sub
           };
         },
         {
@@ -41,10 +41,10 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
     }
     case fromSubsActions.ACCEPTED_PARTIES_LOADED: {
       const acceptedEntities = action.payload.reduce(
-        (entities: { [id: number]: Sub}, party: Sub) => {
+        (entities: { [id: number]: Sub}, sub: Sub) => {
           return {
             ...entities,
-            [party.id]: party
+            [sub.id]: sub
           };
         },
         {
@@ -115,9 +115,9 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
       }
     }
     case fromSubsActions.APPLICANTS_LOADED: {
-      let partyApplicantsEntities = action.data;
-      if (partyApplicantsEntities.length > 0) {
-        partyApplicantsEntities = action.data.reduce(
+      let subApplicantsEntities = action.data;
+      if (subApplicantsEntities.length > 0) {
+        subApplicantsEntities = action.data.reduce(
           (entities: { [id: number]: Person }, person: Person) => {
             return {
               ...entities,
@@ -135,10 +135,10 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
           entities: {
             ...state.applicants.entities,
             ...{
-              [action.partyId]: {
+              [action.subId]: {
                 loaded: true,
                 loading: false,
-                entities: partyApplicantsEntities
+                entities: subApplicantsEntities
               }
             }
           }
@@ -146,20 +146,20 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
       }
     }
     case fromSubsActions.APPLICANT_REJECTED: {
-      const partyId = action.payload.partyId;
+      const subId = action.payload.subId;
       const applicantId = action.payload.applicantId;
       const {
         [applicantId]: removed,
         ...remainingApplicants
-      } = state.applicants.entities[partyId].entities;
+      } = state.applicants.entities[subId].entities;
       return {
         ...state,
         applicants: {
           ...state.applicants,
           entities: {
             ...state.applicants.entities,
-            [partyId]: {
-              ...state.applicants.entities[partyId],
+            [subId]: {
+              ...state.applicants.entities[subId],
               entities: remainingApplicants
             }
           }
@@ -167,22 +167,22 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
       }
     }
     case fromSubsActions.APPLICANT_ACCEPTED: {
-      const partyId = action.payload.partyId;
+      const subId = action.payload.subId;
       const applicantId = action.payload.applicantId;
       const {
         [applicantId]: acceptedApplicant,
         ...remainingApplicants
-      } = state.applicants.entities[partyId].entities;
+      } = state.applicants.entities[subId].entities;
       return {
         ...state,
         accepted: {
           ...state.accepted,
           entities: {
             ...state.accepted.entities,
-            [partyId]: {
-              ...state.accepted.entities[partyId],
+            [subId]: {
+              ...state.accepted.entities[subId],
               members: [
-                ...state.accepted.entities[partyId].members,
+                ...state.accepted.entities[subId].members,
                 acceptedApplicant
               ]
             }
@@ -192,8 +192,8 @@ export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction):
           ...state.applicants,
           entities: {
             ...state.applicants.entities,
-            [partyId]: {
-              ...state.applicants.entities[partyId],
+            [subId]: {
+              ...state.applicants.entities[subId],
               entities: remainingApplicants
             }
           }

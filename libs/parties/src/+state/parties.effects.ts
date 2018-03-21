@@ -63,9 +63,9 @@ export class SubsEffects {
   @Effect()
   createSub = this.actions.ofType(fromSubsActions.CREATE_PARTY).pipe(
     map((action: fromSubsActions.CreateSub) => action.payload),
-    switchMap(partyAttributes => {
+    switchMap(subAttributes => {
       return this.partiesService
-        .createSub(partyAttributes)
+        .createSub(subAttributes)
         .pipe(
         map((response: any) => response.data),
         map(data => new fromSubsActions.SubCreated(data))
@@ -74,7 +74,7 @@ export class SubsEffects {
   );
 
   @Effect({ dispatch: false })
-  partyCreated = this.actions.ofType(fromSubsActions.PARTY_CREATED).pipe(
+  subCreated = this.actions.ofType(fromSubsActions.PARTY_CREATED).pipe(
     map((action: fromSubsActions.SubCreated) => action.payload),
     tap(({ path, query: queryParams, extras }) =>
       this.store.dispatch(
@@ -109,11 +109,11 @@ export class SubsEffects {
   @Effect()
   dismissSub = this.actions.ofType(fromSubsActions.DISMISS_PARTY).pipe(
     map((action: fromSubsActions.DismissSub) => action.payload),
-    switchMap(partyId => {
+    switchMap(subId => {
       return this.partiesService
-        .dismissSub(partyId)
+        .dismissSub(subId)
         .pipe(
-        map(data => new fromSubsActions.SubDismissed(partyId))
+        map(data => new fromSubsActions.SubDismissed(subId))
         );
     })
   );
@@ -123,7 +123,7 @@ export class SubsEffects {
     map((action: fromSubsActions.AcceptApplicant) => action.payload),
     switchMap(payload => {
       return this.partiesService
-        .acceptApplicant(payload.partyId, payload.applicantId)
+        .acceptApplicant(payload.subId, payload.applicantId)
         .pipe(
         map(data => new fromSubsActions.ApplicantAccepted(payload))
         );
@@ -135,7 +135,7 @@ export class SubsEffects {
     map((action: fromSubsActions.RejectApplicant) => action.payload),
     switchMap((payload) => {
       return this.partiesService
-        .rejectApplicant(payload.partyId, payload.applicantId)
+        .rejectApplicant(payload.subId, payload.applicantId)
         .pipe(
         map(data => new fromSubsActions.ApplicantRejected(payload))
         );
@@ -145,11 +145,11 @@ export class SubsEffects {
   @Effect()
   leaveSub = this.actions.ofType(fromSubsActions.LEAVE_PARTY).pipe(
     map((action: fromSubsActions.LeaveSub) => action.payload),
-    switchMap(partyId => {
+    switchMap(subId => {
       return this.partiesService
-        .dismissSub(partyId)
+        .dismissSub(subId)
         .pipe(
-        map(data => new fromSubsActions.SubLeft(partyId))
+        map(data => new fromSubsActions.SubLeft(subId))
         );
     })
   );
@@ -164,11 +164,11 @@ export class SubsEffects {
         state: SubsState
       ) => {
         return this.partiesService
-          .getApplicants(action.partyId)
+          .getApplicants(action.subId)
           .pipe(
           map((response: any) => response.data),
           map(
-            (data: any) => new fromSubsActions.ApplicantsLoaded(data, action.partyId)
+            (data: any) => new fromSubsActions.ApplicantsLoaded(data, action.subId)
           )
           );
       },

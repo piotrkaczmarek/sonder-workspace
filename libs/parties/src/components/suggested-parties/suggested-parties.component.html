@@ -2,5 +2,5 @@
   <a routerLink="../new">New Sub</a>
   <a routerLink="../accepted">Accepted Subs</a>
   <h2>Suggested Subs</h2>
-  <app-suggested-party-item *ngFor="let party of (suggestedSubs$ | async)" [party]="party"></app-suggested-party-item>
+  <app-suggested-sub-item *ngFor="let sub of (suggestedSubs$ | async)" [sub]="sub"></app-suggested-sub-item>
 </div>
