@@ -27,6 +27,9 @@ export const APPLICANT_ACCEPTED = "[Subs] Applicant Accepted";
 export const REJECT_APPLICANT = "[Subs] Reject Applicant";
 export const APPLICANT_REJECTED = "[Subs] Applicant Rejected";
 
+export const LOAD_FEED = "[Subs] Load Feed";
+export const FEED_LOADED = "[Subs] Feed Loaded";
+
 export class LoadSuggestedSubs implements Action {
   readonly type = LOAD_SUGGESTED_PARTIES;
 }
@@ -114,6 +117,16 @@ export class ApplicantRejected implements Action {
   readonly type = APPLICANT_REJECTED;
   constructor(public payload: any) { }
 }
+
+export class LoadFeed implements Action {
+  readonly type = LOAD_FEED;
+  constructor(public subId: number) {}
+}
+
+export class FeedLoaded implements Action {
+  readonly type = FEED_LOADED;
+  constructor(public data: any, public subId: number) {}
+}
 export type SubsAction =
   | LoadSuggestedSubs
   | SuggestedSubsLoaded
@@ -132,4 +145,6 @@ export type SubsAction =
   | AcceptApplicant
   | ApplicantAccepted
   | RejectApplicant
-  | ApplicantRejected;
+  | ApplicantRejected
+  | LoadFeed
+  | FeedLoaded;

@@ -2,6 +2,7 @@
   {{ (sub$ | async).name }}
 </h1>
 <div>
+  <sub-feed></sub-feed>
   <h2 routerLink="./applicants">Applicants</h2>
   <h2>Members</h2>
   <div *ngFor="let member of (sub$ | async).members">

@@ -1,5 +1,5 @@
 import {Subs} from './subs.interfaces';
-import { Sub, Person } from '../models';
+import { Sub, Person, Post } from '../models';
 
 import * as fromSubsActions from './subs.actions';
 
@@ -195,6 +195,38 @@ export function subsReducer(state: Subs, action: fromSubsActions.SubsAction): Su
             [subId]: {
               ...state.applicants.entities[subId],
               entities: remainingApplicants
+            }
+          }
+        }
+      }
+    }
+    case fromSubsActions.FEED_LOADED: {
+      let subFeedEntities = action.data;
+      if (subFeedEntities.length > 0) {
+        subFeedEntities = action.data.reduce(
+          (entities: { [id: number]: Post }, post: Post) => {
+            return {
+              ...entities,
+              [post.id]: post
+            };
+          },
+          {
+            // replace instead of appending
+          }
+        );
+      }
+      return {
+        ...state,
+        feed: {
+          ...state.feed,
+          entities: {
+            ...state.feed.entities,
+            ...{
+              [action.subId]: {
+                loaded: true,
+                loading: false,
+                entities: subFeedEntities
+              }
             }
           }
         }

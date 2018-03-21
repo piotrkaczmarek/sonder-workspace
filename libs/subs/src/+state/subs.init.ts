@@ -15,5 +15,9 @@ export const subsInitialState: Subs = {
   applicants: {
     entities: {
     }
+  },
+  feed: {
+    entities: {
+    }
   }
 };

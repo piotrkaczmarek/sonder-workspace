@@ -1,9 +1,15 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { Sub, Person } from "../models"
+import { Sub, Person, Post } from "../models"
 import * as fromAppRouter from "@sonder-workspace/router";
 
 export interface SubsState {
   readonly subs: Subs;
+}
+export interface Subs {
+  suggested: SuggestedSubsState;
+  accepted: AcceptedSubsState;
+  applicants: ApplicantsState;
+  feed: FeedState;
 }
 export interface SuggestedSubsState {
   entities: { [id: number]: Sub };
@@ -15,16 +21,19 @@ export interface AcceptedSubsState {
   loaded: boolean;
   loading: boolean;
 }
-export interface Subs {
-  suggested: SuggestedSubsState;
-  accepted: AcceptedSubsState;
-  applicants: ApplicantsState;
-}
 export interface ApplicantsState {
   entities: { [subId: number]: SubApplicantsState }
 }
 export interface SubApplicantsState {
   entities: { [personId: number]: Person };
+  loaded: boolean;
+  loading: boolean;
+}
+export interface FeedState {
+  entities: { [subId: number]: SubFeedState };
+}
+export interface SubFeedState {
+  entities: { [postId: number]: Post };
   loaded: boolean;
   loading: boolean;
 }
@@ -79,3 +88,44 @@ export const getSubApplicantsLoadedBySubId = (subId) => {
     getSubApplicantsBySubId(subId),
     (applicants) => applicants === undefined ? false : applicants.loaded)
 }
+
+
+export const getFeed = createSelector(
+  getAllSubs,
+  (subs: any) => subs.feed
+);
+
+export const getSubFeed = createSelector(
+  getFeed,
+  fromAppRouter.getRouterState,
+  (feed, router) => {
+    return router.state && feed.entities[router.state.params.subId];
+  }
+);
+
+export const getSubFeedEntities = createSelector(
+  getSubFeed,
+  (subFeed: any) =>
+    Object.keys(subFeed.entities).map(
+      id => subFeed.entities[parseInt(id, 10)]
+    )
+);
+
+export const getSubFeedLoaded = createSelector(
+  getSubFeed,
+  subFeed => (subFeed === undefined ? false : subFeed.loaded)
+);
+
+export const getSubFeedBySubId = subId => {
+  return createSelector(
+    getFeed,
+    feed => feed.entities[subId]
+  );
+};
+
+export const getSubFeedLoadedBySubId = subId => {
+  return createSelector(
+    getSubFeedBySubId(subId),
+    subFeed => (subFeed === undefined ? false : subFeed.loaded)
+  );
+};

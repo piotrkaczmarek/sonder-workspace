@@ -8,9 +8,14 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { subsReducer, subsInitialState, SubsEffects } from "./+state";
 
-import { AcceptedSubsLoadedGuard, SuggestedSubsLoadedGuard, ApplicantsLoadedGuard } from "./guards";
+import {
+  AcceptedSubsLoadedGuard,
+  SuggestedSubsLoadedGuard,
+  ApplicantsLoadedGuard,
+  FeedLoadedGuard
+} from "./guards";
 
-import { SubsService } from './services/subs.service';
+import { SubsService, FeedService } from './services';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
 
 import {
@@ -45,7 +50,7 @@ export const subsRoutes: Route[] = [
   },
   {
     path: "accepted/:subId",
-    canActivate: [AuthenticatedGuard, AcceptedSubsLoadedGuard],
+    canActivate: [AuthenticatedGuard, AcceptedSubsLoadedGuard, FeedLoadedGuard],
     component: AcceptedSubShowComponent
   },
   {
@@ -83,7 +88,9 @@ export const subsRoutes: Route[] = [
     SuggestedSubsLoadedGuard,
     AcceptedSubsLoadedGuard,
     ApplicantsLoadedGuard,
+    FeedLoadedGuard,
     SubsService,
+    FeedService,
     AuthenticatedGuard,
     BackendService
   ]

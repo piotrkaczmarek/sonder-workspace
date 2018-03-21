@@ -5,7 +5,7 @@ import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
 import {SubsState} from './subs.interfaces';
-import { SubsService } from '../services/subs.service';
+import { SubsService, FeedService } from '../services';
 import * as fromSubsActions from './subs.actions';
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
@@ -16,17 +16,12 @@ export class SubsEffects {
   loadSuggestedSubs = this.dataPersistence.fetch(
     fromSubsActions.LOAD_SUGGESTED_PARTIES,
     {
-      run: (
-        action: fromSubsActions.LoadSuggestedSubs,
-        state: SubsState
-      ) => {
+      run: (action: fromSubsActions.LoadSuggestedSubs, state: SubsState) => {
         return this.subsService
           .getSuggestedSubs()
           .pipe(
             map((response: any) => response.data),
-            map(
-              (data: any) => new fromSubsActions.SuggestedSubsLoaded(data)
-            )
+            map((data: any) => new fromSubsActions.SuggestedSubsLoaded(data))
           );
       },
 
@@ -40,17 +35,12 @@ export class SubsEffects {
   loadAcceptedSubs = this.dataPersistence.fetch(
     fromSubsActions.LOAD_ACCEPTED_PARTIES,
     {
-      run: (
-        action: fromSubsActions.LoadAcceptedSubs,
-        state: SubsState
-      ) => {
+      run: (action: fromSubsActions.LoadAcceptedSubs, state: SubsState) => {
         return this.subsService
           .getAcceptedSubs()
           .pipe(
             map((response: any) => response.data),
-            map(
-              (data: any) => new fromSubsActions.AcceptedSubsLoaded(data)
-            )
+            map((data: any) => new fromSubsActions.AcceptedSubsLoaded(data))
           );
       },
 
@@ -67,8 +57,8 @@ export class SubsEffects {
       return this.subsService
         .createSub(subAttributes)
         .pipe(
-        map((response: any) => response.data),
-        map(data => new fromSubsActions.SubCreated(data))
+          map((response: any) => response.data),
+          map(data => new fromSubsActions.SubCreated(data))
         );
     })
   );
@@ -93,10 +83,7 @@ export class SubsEffects {
         return this.subsService
           .applyToSub(action.payload)
           .pipe(
-            map(
-              (data: any) =>
-                new fromSubsActions.SubAppliedTo(action.payload)
-            )
+            map((data: any) => new fromSubsActions.SubAppliedTo(action.payload))
           );
       },
 
@@ -112,9 +99,7 @@ export class SubsEffects {
     switchMap(subId => {
       return this.subsService
         .dismissSub(subId)
-        .pipe(
-        map(data => new fromSubsActions.SubDismissed(subId))
-        );
+        .pipe(map(data => new fromSubsActions.SubDismissed(subId)));
     })
   );
 
@@ -124,21 +109,17 @@ export class SubsEffects {
     switchMap(payload => {
       return this.subsService
         .acceptApplicant(payload.subId, payload.applicantId)
-        .pipe(
-        map(data => new fromSubsActions.ApplicantAccepted(payload))
-        );
+        .pipe(map(data => new fromSubsActions.ApplicantAccepted(payload)));
     })
   );
 
   @Effect()
   rejectApplicant = this.actions.ofType(fromSubsActions.REJECT_APPLICANT).pipe(
     map((action: fromSubsActions.RejectApplicant) => action.payload),
-    switchMap((payload) => {
+    switchMap(payload => {
       return this.subsService
         .rejectApplicant(payload.subId, payload.applicantId)
-        .pipe(
-        map(data => new fromSubsActions.ApplicantRejected(payload))
-        );
+        .pipe(map(data => new fromSubsActions.ApplicantRejected(payload)));
     })
   );
 
@@ -148,41 +129,49 @@ export class SubsEffects {
     switchMap(subId => {
       return this.subsService
         .dismissSub(subId)
-        .pipe(
-        map(data => new fromSubsActions.SubLeft(subId))
-        );
+        .pipe(map(data => new fromSubsActions.SubLeft(subId)));
     })
   );
 
-
   @Effect()
-  loadApplicants = this.dataPersistence.fetch(
-    fromSubsActions.LOAD_APPLICANTS,
-    {
-      run: (
-        action: fromSubsActions.LoadApplicants,
-        state: SubsState
-      ) => {
-        return this.subsService
-          .getApplicants(action.subId)
-          .pipe(
+  loadApplicants = this.dataPersistence.fetch(fromSubsActions.LOAD_APPLICANTS, {
+    run: (action: fromSubsActions.LoadApplicants, state: SubsState) => {
+      return this.subsService
+        .getApplicants(action.subId)
+        .pipe(
           map((response: any) => response.data),
           map(
-            (data: any) => new fromSubsActions.ApplicantsLoaded(data, action.subId)
+            (data: any) =>
+              new fromSubsActions.ApplicantsLoaded(data, action.subId)
           )
-          );
-      },
+        );
+    },
 
-      onError: (action: fromSubsActions.LoadApplicants, error) => {
-        console.error("Error", error);
-      }
+    onError: (action: fromSubsActions.LoadApplicants, error) => {
+      console.error("Error", error);
     }
-  );
+  });
+
+  @Effect()
+  loadFeed = this.dataPersistence.fetch(fromSubsActions.LOAD_FEED, {
+    run: (action: fromSubsActions.LoadFeed, state: SubsState) => {
+      return this.feedService
+        .getFeed(action.subId)
+        .pipe(
+          map((response: any) => response.data),
+          map((data: any) => new fromSubsActions.FeedLoaded(data, action.subId))
+        );
+    },
+    onError: (action: fromSubsActions.LoadFeed, error) => {
+      console.error("Error", error);
+    }
+  });
 
   constructor(
     private actions: Actions,
     private dataPersistence: DataPersistence<SubsState>,
     private subsService: SubsService,
+    private feedService: FeedService,
     private store: Store<SubsState>
   ) {}
 }
