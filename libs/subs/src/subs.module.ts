@@ -24,6 +24,7 @@ import {
 } from "./components";
 import { SubFeedComponent } from './components/sub-feed/sub-feed.component';
 import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
+import { PostItemComponent } from './components/post-item/post-item.component';
 
 export const subsRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
@@ -74,7 +75,8 @@ export const subsRoutes: Route[] = [
     AcceptedSubShowComponent,
     ApplicantsComponent,
     SubFeedComponent,
-    NewPostFormComponent
+    NewPostFormComponent,
+    PostItemComponent
   ],
   providers: [
     SubsEffects,
