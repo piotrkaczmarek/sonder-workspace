@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule, Route } from '@angular/router';
-import { partiesRoutes, SubsModule } from '@sonder-workspace/parties';
+import { subsRoutes, SubsModule } from '@sonder-workspace/subs';
 import { StoreModule, MetaReducer, ActionReducer } from "@ngrx/store";
 import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './+state/app.reducer';
@@ -17,9 +17,9 @@ import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 import { localStorageSync } from "ngrx-store-localstorage";
 
 const routes: Route[] = [
-  { path: "", pathMatch: "full", redirectTo: "parties" },
+  { path: "", pathMatch: "full", redirectTo: "subs" },
   { path: "login", children: authRoutes },
-  { path: "parties", children: partiesRoutes }
+  { path: "subs", children: subsRoutes }
 ];
 
 export function localStorageSyncReducer(

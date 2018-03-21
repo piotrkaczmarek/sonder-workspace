@@ -1,4 +1,4 @@
-// import { SubsModule } from './parties.module';
+// import { SubsModule } from './subs.module';
 
 // describe('SubsModule', () => {
 //   it('should work', () => {

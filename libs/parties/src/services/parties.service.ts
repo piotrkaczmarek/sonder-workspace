@@ -15,49 +15,49 @@ export class SubsService {
 
   getSuggestedSubs(): Observable<any> {
     return this.backend
-      .get("/parties/suggested")
+      .get("/subs/suggested")
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   getAcceptedSubs(): Observable<any> {
     return this.backend
-      .get("/parties/accepted")
+      .get("/subs/accepted")
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   createSub(sub: Sub): Observable<Sub> {
     return this.backend
-      .post("/parties", { sub })
+      .post("/subs", { sub })
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   applyToSub(subId: number): Observable<any> {
     return this.backend
-      .put(`/parties/${subId}/apply`)
+      .put(`/subs/${subId}/apply`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   dismissSub(subId: number): Observable<any> {
     return this.backend
-      .put(`/parties/${subId}/dismiss`)
+      .put(`/subs/${subId}/dismiss`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   getApplicants(subId: number): Observable<any> {
     return this.backend
-      .get(`/parties/${subId}/applicants`)
+      .get(`/subs/${subId}/applicants`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   acceptApplicant(subId: number, applicantId: number) {
     return this.backend
-      .put(`/parties/${subId}/applicants/${applicantId}/accept`)
+      .put(`/subs/${subId}/applicants/${applicantId}/accept`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
   rejectApplicant(subId: number, applicantId: number) {
     return this.backend
-      .put(`/parties/${subId}/applicants/${applicantId}/reject`)
+      .put(`/subs/${subId}/applicants/${applicantId}/reject`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
   // updateSub(payload: Sub): Observable<Sub> {

@@ -4,12 +4,12 @@ import { Observable } from "rxjs/Observable";
 import {
   SubsState,
   getAcceptedSubsEntities
-} from "../../+state/parties.interfaces";
+} from "../../+state/subs.interfaces";
 
 @Component({
-  selector: 'accepted-parties',
-  templateUrl: './accepted-parties.component.html',
-  styleUrls: ['./accepted-parties.component.css']
+  selector: 'accepted-subs',
+  templateUrl: './accepted-subs.component.html',
+  styleUrls: ['./accepted-subs.component.css']
 })
 export class AcceptedSubsComponent implements OnInit {
   public acceptedSubs$: Observable<any>;

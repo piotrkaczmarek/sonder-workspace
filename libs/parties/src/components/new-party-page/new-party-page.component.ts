@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
-import { SubsState } from "../../+state/parties.interfaces";
-import { CreateSub } from "../../+state/parties.actions";
+import { SubsState } from "../../+state/subs.interfaces";
+import { CreateSub } from "../../+state/subs.actions";
 
 @Component({
   selector: "new-sub-page",

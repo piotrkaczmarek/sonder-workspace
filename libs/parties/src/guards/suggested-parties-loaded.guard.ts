@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { tap, filter, take, switchMap, catchError } from 'rxjs/operators';
 
-import { SubsState, getSuggestedSubsLoaded } from '../+state/parties.interfaces';
-import { LoadSuggestedSubs } from '../+state/parties.actions';
+import { SubsState, getSuggestedSubsLoaded } from '../+state/subs.interfaces';
+import { LoadSuggestedSubs } from '../+state/subs.actions';
 
 @Injectable()
 export class SuggestedSubsLoadedGuard implements CanActivate {

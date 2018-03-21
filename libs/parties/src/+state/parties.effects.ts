@@ -4,9 +4,9 @@ import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
-import {SubsState} from './parties.interfaces';
-import { SubsService } from '../services/parties.service';
-import * as fromSubsActions from './parties.actions';
+import {SubsState} from './subs.interfaces';
+import { SubsService } from '../services/subs.service';
+import * as fromSubsActions from './subs.actions';
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
 
@@ -20,7 +20,7 @@ export class SubsEffects {
         action: fromSubsActions.LoadSuggestedSubs,
         state: SubsState
       ) => {
-        return this.partiesService
+        return this.subsService
           .getSuggestedSubs()
           .pipe(
             map((response: any) => response.data),
@@ -44,7 +44,7 @@ export class SubsEffects {
         action: fromSubsActions.LoadAcceptedSubs,
         state: SubsState
       ) => {
-        return this.partiesService
+        return this.subsService
           .getAcceptedSubs()
           .pipe(
             map((response: any) => response.data),
@@ -64,7 +64,7 @@ export class SubsEffects {
   createSub = this.actions.ofType(fromSubsActions.CREATE_PARTY).pipe(
     map((action: fromSubsActions.CreateSub) => action.payload),
     switchMap(subAttributes => {
-      return this.partiesService
+      return this.subsService
         .createSub(subAttributes)
         .pipe(
         map((response: any) => response.data),
@@ -79,7 +79,7 @@ export class SubsEffects {
     tap(({ path, query: queryParams, extras }) =>
       this.store.dispatch(
         new fromAppRouter.Go({
-          path: ["parties/accepted"]
+          path: ["subs/accepted"]
         })
       )
     )
@@ -90,7 +90,7 @@ export class SubsEffects {
     fromSubsActions.APPLY_TO_PARTY,
     {
       run: (action: fromSubsActions.ApplyToSub, state: SubsState) => {
-        return this.partiesService
+        return this.subsService
           .applyToSub(action.payload)
           .pipe(
             map(
@@ -110,7 +110,7 @@ export class SubsEffects {
   dismissSub = this.actions.ofType(fromSubsActions.DISMISS_PARTY).pipe(
     map((action: fromSubsActions.DismissSub) => action.payload),
     switchMap(subId => {
-      return this.partiesService
+      return this.subsService
         .dismissSub(subId)
         .pipe(
         map(data => new fromSubsActions.SubDismissed(subId))
@@ -122,7 +122,7 @@ export class SubsEffects {
   acceptApplicant = this.actions.ofType(fromSubsActions.ACCEPT_APPLICANT).pipe(
     map((action: fromSubsActions.AcceptApplicant) => action.payload),
     switchMap(payload => {
-      return this.partiesService
+      return this.subsService
         .acceptApplicant(payload.subId, payload.applicantId)
         .pipe(
         map(data => new fromSubsActions.ApplicantAccepted(payload))
@@ -134,7 +134,7 @@ export class SubsEffects {
   rejectApplicant = this.actions.ofType(fromSubsActions.REJECT_APPLICANT).pipe(
     map((action: fromSubsActions.RejectApplicant) => action.payload),
     switchMap((payload) => {
-      return this.partiesService
+      return this.subsService
         .rejectApplicant(payload.subId, payload.applicantId)
         .pipe(
         map(data => new fromSubsActions.ApplicantRejected(payload))
@@ -146,7 +146,7 @@ export class SubsEffects {
   leaveSub = this.actions.ofType(fromSubsActions.LEAVE_PARTY).pipe(
     map((action: fromSubsActions.LeaveSub) => action.payload),
     switchMap(subId => {
-      return this.partiesService
+      return this.subsService
         .dismissSub(subId)
         .pipe(
         map(data => new fromSubsActions.SubLeft(subId))
@@ -163,7 +163,7 @@ export class SubsEffects {
         action: fromSubsActions.LoadApplicants,
         state: SubsState
       ) => {
-        return this.partiesService
+        return this.subsService
           .getApplicants(action.subId)
           .pipe(
           map((response: any) => response.data),
@@ -182,7 +182,7 @@ export class SubsEffects {
   constructor(
     private actions: Actions,
     private dataPersistence: DataPersistence<SubsState>,
-    private partiesService: SubsService,
+    private subsService: SubsService,
     private store: Store<SubsState>
   ) {}
 }

@@ -4,7 +4,7 @@
 // import {provideMockActions} from '@ngrx/effects/testing';
 // import {DataPersistence} from '@nrwl/nx';
 // import {readAll, hot} from '@nrwl/nx/testing';
-// import {SubsEffects} from './parties.effects';
+// import {SubsEffects} from './subs.effects';
 // import {of} from 'rxjs/observable/of';
 
 // describe('SubsEffects', () => {

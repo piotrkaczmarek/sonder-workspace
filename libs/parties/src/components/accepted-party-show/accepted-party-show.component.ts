@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { Sub } from "../../models/sub.model";
-import { SubsState, getSelectedAcceptedSub } from "../../+state/parties.interfaces";
-import * as fromSubsActions from "../../+state/parties.actions";
+import { SubsState, getSelectedAcceptedSub } from "../../+state/subs.interfaces";
+import * as fromSubsActions from "../../+state/subs.actions";
 
 @Component({
   selector: 'accepted-sub-show',

@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { tap, filter, take, switchMap, catchError } from 'rxjs/operators';
 
-import { SubsState, getSubApplicantsLoadedBySubId } from '../+state/parties.interfaces';
-import { LoadApplicants } from '../+state/parties.actions';
+import { SubsState, getSubApplicantsLoadedBySubId } from '../+state/subs.interfaces';
+import { LoadApplicants } from '../+state/subs.actions';
 
 @Injectable()
 export class ApplicantsLoadedGuard implements CanActivate {

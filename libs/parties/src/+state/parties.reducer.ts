@@ -1,9 +1,9 @@
-import {Subs} from './parties.interfaces';
+import {Subs} from './subs.interfaces';
 import { Sub, Person } from '../models';
 
-import * as fromSubsActions from './parties.actions';
+import * as fromSubsActions from './subs.actions';
 
-export function partiesReducer(state: Subs, action: fromSubsActions.SubsAction): Subs {
+export function subsReducer(state: Subs, action: fromSubsActions.SubsAction): Subs {
   switch (action.type) {
     case fromSubsActions.SUGGESTED_PARTIES_LOADED: {
       const suggestedEntities = action.payload.reduce(

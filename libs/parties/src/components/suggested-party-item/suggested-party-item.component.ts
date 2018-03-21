@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { SubsState } from "../../+state/parties.interfaces";
-import * as fromSubsActions from "../../+state/parties.actions";
+import { SubsState } from "../../+state/subs.interfaces";
+import * as fromSubsActions from "../../+state/subs.actions";
 
 @Component({
   selector: "app-suggested-sub-item",

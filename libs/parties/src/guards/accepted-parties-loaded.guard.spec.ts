@@ -1,6 +1,6 @@
 // import { TestBed, async, inject } from '@angular/core/testing';
 
-// import { AcceptedSubsLoadedGuard } from './accepted-parties-loaded.guard';
+// import { AcceptedSubsLoadedGuard } from './accepted-subs-loaded.guard';
 
 // describe('AcceptedSubsLoadedGuard', () => {
 //   beforeEach(() => {

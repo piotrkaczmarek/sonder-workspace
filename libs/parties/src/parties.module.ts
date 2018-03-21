@@ -6,11 +6,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { partiesReducer, partiesInitialState, SubsEffects } from "./+state";
+import { subsReducer, subsInitialState, SubsEffects } from "./+state";
 
 import { AcceptedSubsLoadedGuard, SuggestedSubsLoadedGuard, ApplicantsLoadedGuard } from "./guards";
 
-import { SubsService } from './services/parties.service';
+import { SubsService } from './services/subs.service';
 import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
 
 import {
@@ -23,7 +23,7 @@ import {
   ApplicantsComponent
 } from "./components";
 
-export const partiesRoutes: Route[] = [
+export const subsRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
   {
     path: "new",
@@ -58,8 +58,8 @@ export const partiesRoutes: Route[] = [
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forFeature("parties", partiesReducer, {
-      initialState: partiesInitialState
+    StoreModule.forFeature("subs", subsReducer, {
+      initialState: subsInitialState
     }),
     EffectsModule.forFeature([SubsEffects])
   ],

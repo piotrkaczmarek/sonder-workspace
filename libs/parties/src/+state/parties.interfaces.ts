@@ -3,7 +3,7 @@ import { Sub, Person } from "../models"
 import * as fromAppRouter from "@sonder-workspace/router";
 
 export interface SubsState {
-  readonly parties: Subs;
+  readonly subs: Subs;
 }
 export interface SuggestedSubsState {
   entities: { [id: number]: Sub };
@@ -29,15 +29,15 @@ export interface SubApplicantsState {
   loading: boolean;
 }
 
-export const getAllSubs = createSelector(createFeatureSelector<SubsState>("parties"), state => state);
+export const getAllSubs = createSelector(createFeatureSelector<SubsState>("subs"), state => state);
 
-export const getSuggestedSubs = createSelector(getAllSubs, (parties: any) => parties.suggested);
+export const getSuggestedSubs = createSelector(getAllSubs, (subs: any) => subs.suggested);
 export const getSuggestedSubsLoaded = createSelector(getSuggestedSubs, suggestedSubs => suggestedSubs.loaded);
 export const getSuggestedSubsEntities = createSelector(getSuggestedSubs, (suggestedSubs: any) => {
   return Object.keys(suggestedSubs.entities).map(id => suggestedSubs.entities[parseInt(id, 10)]);
 })
 
-export const getAcceptedSubs = createSelector(getAllSubs, (parties: any) => parties.accepted);
+export const getAcceptedSubs = createSelector(getAllSubs, (subs: any) => subs.accepted);
 export const getAcceptedSubsLoaded = createSelector(getAcceptedSubs, acceptedSubs => acceptedSubs.loaded);
 export const getAcceptedSubsEntities = createSelector(getAcceptedSubs, (acceptedSubs: any) => {
   return Object.keys(acceptedSubs.entities).map(id => acceptedSubs.entities[parseInt(id, 10)]);
@@ -46,12 +46,12 @@ export const getAcceptedSubsEntities = createSelector(getAcceptedSubs, (accepted
 export const getSelectedAcceptedSub = createSelector(
   getAcceptedSubs,
   fromAppRouter.getRouterState,
-  (parties, router) => {
-    return router.state && parties.entities[router.state.params.subId];
+  (subs, router) => {
+    return router.state && subs.entities[router.state.params.subId];
   }
 )
 
-export const getApplicants = createSelector(getAllSubs, (parties: any) => parties.applicants);
+export const getApplicants = createSelector(getAllSubs, (subs: any) => subs.applicants);
 
 export const getSubApplicants = createSelector(
   getApplicants,

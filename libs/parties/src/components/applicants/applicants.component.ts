@@ -4,8 +4,8 @@ import { map } from "rxjs/operators";
 import { Person } from "../../models";
 import { Store } from "@ngrx/store";
 import { ActivatedRoute } from "@angular/router";
-import { SubsState, getSubApplicantsEntities } from "../../+state/parties.interfaces";
-import * as fromSubsActions from "../../+state/parties.actions";
+import { SubsState, getSubApplicantsEntities } from "../../+state/subs.interfaces";
+import * as fromSubsActions from "../../+state/subs.actions";
 
 @Component({
   selector: 'applicants',

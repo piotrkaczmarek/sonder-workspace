@@ -5,8 +5,8 @@ import { of } from "rxjs/observable/of";
 import { tap, filter, take, switchMap, catchError } from "rxjs/operators";
 import { Store } from "@ngrx/store";
 
-import { SubsState, getAcceptedSubsLoaded } from '../+state/parties.interfaces';
-import { LoadAcceptedSubs } from '../+state/parties.actions';
+import { SubsState, getAcceptedSubsLoaded } from '../+state/subs.interfaces';
+import { LoadAcceptedSubs } from '../+state/subs.actions';
 
 @Injectable()
 export class AcceptedSubsLoadedGuard implements CanActivate {

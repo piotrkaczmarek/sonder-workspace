@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { SubsState, getSuggestedSubsEntities } from "../../+state/parties.interfaces";
+import { SubsState, getSuggestedSubsEntities } from "../../+state/subs.interfaces";
 
 @Component({
-  selector: 'app-suggested-parties',
-  templateUrl: './suggested-parties.component.html',
-  styleUrls: ['./suggested-parties.component.css']
+  selector: 'app-suggested-subs',
+  templateUrl: './suggested-subs.component.html',
+  styleUrls: ['./suggested-subs.component.css']
 })
 export class SuggestedSubsComponent implements OnInit {
   public suggestedSubs$: Observable<any>;

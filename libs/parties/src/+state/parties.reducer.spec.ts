@@ -1,25 +1,25 @@
-import { partiesReducer } from './parties.reducer';
-import { partiesInitialState } from './parties.init';
-import { Subs } from './parties.interfaces';
-import * as fromActions from './parties.actions';
+import { subsReducer } from './subs.reducer';
+import { subsInitialState } from './subs.init';
+import { Subs } from './subs.interfaces';
+import * as fromActions from './subs.actions';
 
-describe('partiesReducer', () => {
+describe('subsReducer', () => {
   describe('SuggestedSubsLoaded', () => {
     describe('when initial state was empty', () => {
       let state: Subs;
       beforeEach(() => {
-        state = partiesInitialState;
+        state = subsInitialState;
       })
 
-      describe('when payload has parties', () => {
+      describe('when payload has subs', () => {
         let payload, actual;
         beforeEach(() => {
           payload = [{ id: 1, name: "Sub A" }, { id: 2, name: "Sub B" }];
           const action: fromActions.SuggestedSubsLoaded = { type: fromActions.SUGGESTED_PARTIES_LOADED, payload: payload };
-          actual = partiesReducer(state, action);
+          actual = subsReducer(state, action);
         })
 
-        it('adds new suggested parties', () => {
+        it('adds new suggested subs', () => {
           expect(Object.keys(actual.suggested.entities)).toEqual(["1", "2"]);
           expect(Object.values(actual.suggested.entities)).toEqual(payload);
         })
@@ -44,7 +44,7 @@ describe('partiesReducer', () => {
       const applicantId2 = 3;
       beforeEach(() => {
         state = {
-          ...partiesInitialState,
+          ...subsInitialState,
           applicants: {
             entities: {
               [subId1]: {
@@ -73,7 +73,7 @@ describe('partiesReducer', () => {
         beforeEach(() => {
           payload = { subId: subId1, applicantId: applicantId1 };
           const action: fromActions.ApplicantRejected = { type: fromActions.APPLICANT_REJECTED, payload: payload };
-          actual = partiesReducer(state, action);
+          actual = subsReducer(state, action);
         });
 
         it('removes applicant from given sub', () => {
@@ -96,9 +96,9 @@ describe('partiesReducer', () => {
       const applicantId2 = 3;
       beforeEach(() => {
         state = {
-          ...partiesInitialState,
+          ...subsInitialState,
           accepted: {
-            ...partiesInitialState.accepted,
+            ...subsInitialState.accepted,
             entities: {
               [subId1]: {
                 id: subId1,
@@ -136,7 +136,7 @@ describe('partiesReducer', () => {
         beforeEach(() => {
           payload = { subId: subId1, applicantId: applicantId1 };
           const action: fromActions.ApplicantAccepted = { type: fromActions.APPLICANT_ACCEPTED, payload: payload };
-          actual = partiesReducer(state, action);
+          actual = subsReducer(state, action);
         });
 
         it('removes applicant from given sub', () => {

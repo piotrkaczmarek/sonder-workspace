@@ -77,8 +77,8 @@
       "appRoot": ""
     },
     {
-      "name": "parties",
-      "root": "libs/parties/src",
+      "name": "subs",
+      "root": "libs/subs/src",
       "test": "../../../test.js",
       "appRoot": ""
     },
