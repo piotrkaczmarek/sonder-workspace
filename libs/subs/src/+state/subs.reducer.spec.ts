@@ -153,4 +153,58 @@ describe('subsReducer', () => {
       })
     })
   })
+
+  describe('CreatePost', () => {
+    describe('when sub has posts', () => {
+      let state: Subs;
+      const subId1 = 1;
+      const subId2 = 2;
+      const postId1 = 2;
+      const postId2 = 3;
+      const newPostId = 4;
+      beforeEach(() => {
+        state = {
+          ...subsInitialState,
+          feed: {
+            entities: {
+              [subId1]: {
+                entities: {
+                  [postId1]: { id: postId1, body: 'post 1 body' },
+                  [postId2]: { id: postId2, body: 'post 2 body'}
+                },
+                loaded: true,
+                loading: false
+              },
+              [subId2]: {
+                entities: {
+                  [postId1]: { id: postId1, body: 'post 3 body' },
+                  [postId2]: { id: postId2, body: 'post 4 body'}
+                },
+                loaded: true,
+                loading: false
+              }
+            }
+          }
+        }
+      })
+
+      describe('when new post is created', () => {
+        let payload, actual;
+        beforeEach(() => {
+          payload = {
+            id: newPostId,
+            body: 'Hello world',
+          }
+          const action: fromActions.PostCreated = { type: fromActions.POST_CREATED, payload: payload, subId: subId1 };
+          actual = subsReducer(state, action);
+        });
+
+        it('adds post to given sub', () => {
+          const returnedPostIds = Object.keys(actual.feed.entities[subId1].entities);
+          const expectedPostIds = [String(postId1), String(postId2), String(newPostId)];
+          expect(returnedPostIds).toEqual(expectedPostIds);
+        })
+      })
+    })
+  })
 });

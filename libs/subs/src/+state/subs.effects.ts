@@ -167,6 +167,18 @@ export class SubsEffects {
     }
   });
 
+  @Effect()
+  createPost = this.actions.ofType(fromSubsActions.CREATE_POST).pipe(
+    switchMap((action: fromSubsActions.CreatePost) => {
+      return this.feedService
+        .createPost(action.subId, action.payload)
+        .pipe(
+          map((response: any) => response.data),
+          map(data => new fromSubsActions.PostCreated(data, action.subId))
+        );
+    })
+  );
+
   constructor(
     private actions: Actions,
     private dataPersistence: DataPersistence<SubsState>,

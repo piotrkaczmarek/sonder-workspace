@@ -232,6 +232,28 @@ export function subsReducer(state: Subs, action: fromSubsActions.SubsAction): Su
         }
       }
     }
+    case fromSubsActions.POST_CREATED: {
+      const subPostsEntities = {
+        ...state.feed.entities[action.subId].entities,
+        ...{ [action.payload.id]: action.payload }
+      }
+      const subPosts = {
+        ...state.feed.entities[action.subId],
+        ...{ entities: subPostsEntities }
+      }
+      return {
+        ...state,
+        ...{
+          feed: {
+            ...state.feed,
+            entities: {
+              ...state.feed.entities,
+              ...{ [action.subId]: subPosts }
+            }
+          }
+        }
+      }
+    }
     default: {
       return state;
     }

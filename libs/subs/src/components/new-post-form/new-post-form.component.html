@@ -1,3 +1,6 @@
-<p>
-  new-post-form works!
-</p>
+<form [formGroup]="postForm" novalidate>
+  <div class="form-group">
+    <input class="form-control" formControlName="body">
+  </div>
+  <button (click)="onPostButtonClick()">Post</button>
+</form>
