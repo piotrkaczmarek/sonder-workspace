@@ -77,8 +77,8 @@
       "appRoot": ""
     },
     {
-      "name": "subs",
-      "root": "libs/subs/src",
+      "name": "groups",
+      "root": "libs/groups/src",
       "test": "../../../test.js",
       "appRoot": ""
     },

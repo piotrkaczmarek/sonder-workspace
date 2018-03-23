@@ -1,0 +1,4 @@
+<p>
+  <new-post-form [groupId]="groupId"></new-post-form>
+  <post-item *ngFor="let post of (groupPosts$ | async)" [post]="post"></post-item>
+</p>

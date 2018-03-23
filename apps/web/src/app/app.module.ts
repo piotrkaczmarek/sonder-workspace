@@ -18,7 +18,7 @@ import { LOGGED_OUT } from "@sonder-workspace/auth";
 import { environment } from '../environments/environment';
 import { localStorageSync } from "ngrx-store-localstorage";
 
-import { subsRoutes, SubsModule } from '@sonder-workspace/subs';
+import { groupsRoutes, GroupsModule } from '@sonder-workspace/groups';
 import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 import { authRoutes, AuthModule } from '@sonder-workspace/auth';
 
@@ -28,9 +28,9 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
 
 const routes: Route[] = [
-  { path: "", pathMatch: "full", redirectTo: "subs" },
+  { path: "", pathMatch: "full", redirectTo: "groups" },
   { path: "login", children: authRoutes },
-  { path: "subs", children: subsRoutes }
+  { path: "groups", children: groupsRoutes }
 ];
 
 export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -62,7 +62,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     NxModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: "enabled" }),
     AuthModule,
-    SubsModule,
+    GroupsModule,
     AppRouterModule,
     StoreModule.forRoot(
       { app: appReducer, router: routerReducer },

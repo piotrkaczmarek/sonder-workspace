@@ -1,0 +1,12 @@
+<h2>New Group</h2>
+<form [formGroup]="groupForm" novalidate>
+  <div class="form-group">
+    <mat-form-field>
+      <input matInput placeholder="Name" class="form-control" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Size" type="number" class="form-control" formControlName="size">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button (click)="onCreateButtonClick()">Create</button>
+</form>

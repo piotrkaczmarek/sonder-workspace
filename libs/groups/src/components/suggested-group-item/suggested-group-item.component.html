@@ -1,0 +1,14 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+       {{ group.name }}
+    </mat-panel-title>
+    <mat-panel-description>
+       {{ group.members.length }} / {{ group.size }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <span>
+    <button mat-raised-button (click)="applyToGroup()">Join</button>
+    <button mat-raised-button color="warn" (click)="dismissGroup()">Dismiss</button>
+  </span>
+</mat-expansion-panel>

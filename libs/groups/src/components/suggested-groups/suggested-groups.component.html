@@ -1,0 +1,6 @@
+<div>
+  <h2>Suggested Groups</h2>
+  <mat-accordion>
+    <app-suggested-group-item *ngFor="let group of (suggestedGroups$ | async)" [group]="group"></app-suggested-group-item>
+  </mat-accordion>
+</div>
