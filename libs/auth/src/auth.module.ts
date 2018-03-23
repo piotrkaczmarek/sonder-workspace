@@ -12,6 +12,8 @@ import { BackendService } from "./services/backend.service";
 import { FacebookService } from 'ngx-facebook';
 import { AuthenticatedGuard } from "./guards/authenticated.guard";
 
+import { MatButtonModule } from "@angular/material/button";
+
 export const authRoutes: Route[] = [
   {
     path: "",
@@ -24,6 +26,7 @@ export const authRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule,
+    MatButtonModule,
     StoreModule.forFeature("auth", authReducer, {
       initialState: authInitialState
     }),

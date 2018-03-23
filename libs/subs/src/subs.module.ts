@@ -31,6 +31,13 @@ import { SubFeedComponent } from './components/sub-feed/sub-feed.component';
 import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
 import { PostItemComponent } from './components/post-item/post-item.component';
 
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatButtonModule } from "@angular/material/button";
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+
 export const subsRoutes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "suggested" },
   {
@@ -55,7 +62,7 @@ export const subsRoutes: Route[] = [
   },
   {
     path: "accepted/:subId/applicants",
-    canActivate: [AuthenticatedGuard, ApplicantsLoadedGuard],
+    canActivate: [AuthenticatedGuard, AcceptedSubsLoadedGuard, ApplicantsLoadedGuard],
     component: ApplicantsComponent
   }
 ];
@@ -64,6 +71,12 @@ export const subsRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forFeature("subs", subsReducer, {

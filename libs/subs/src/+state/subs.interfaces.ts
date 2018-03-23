@@ -72,7 +72,11 @@ export const getSubApplicants = createSelector(
 
 export const getSubApplicantsEntities = createSelector(
   getSubApplicants,
-  (applicants: any) => Object.keys(applicants.entities).map(id => applicants.entities[parseInt(id, 10)])
+  (applicants: any) => {
+    if(applicants) {
+      return Object.keys(applicants.entities).map(id => applicants.entities[parseInt(id, 10)])
+    }
+  }
 )
 
 export const getSubApplicantsLoaded = createSelector(
@@ -105,10 +109,11 @@ export const getSubFeed = createSelector(
 
 export const getSubFeedEntities = createSelector(
   getSubFeed,
-  (subFeed: any) =>
-    Object.keys(subFeed.entities).map(
-      id => subFeed.entities[parseInt(id, 10)]
-    )
+  (subFeed: any) => {
+    if (subFeed) {
+      return Object.keys(subFeed.entities).map(id => subFeed.entities[parseInt(id, 10)])
+    }
+  }
 );
 
 export const getSubFeedLoaded = createSelector(

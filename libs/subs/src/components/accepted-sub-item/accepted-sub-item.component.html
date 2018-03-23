@@ -1,15 +1,14 @@
-<div>
-  <div>
-    <span routerLink="./{{sub.id}}">
-      {{ sub.id }}: {{ sub.name }} / {{ sub.size }}
-    </span>
-    <span>
-      <button (click)="leaveSub()">Leave</button>
-    </span>
-  </div>
-  <div>
-    <div *ngFor="let member of sub.members">
-      {{ member.id }}: {{ member.first_name }}
-    </div>
-  </div>
-</div>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ sub.name }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ sub.members.length }} / {{ sub.size }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <span>
+    <button mat-raised-button routerLink="./{{sub.id}}">Show</button>
+    <button mat-raised-button color="warn" (click)="leaveSub()">Leave</button>
+  </span>
+</mat-expansion-panel>

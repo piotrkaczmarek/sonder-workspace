@@ -1,6 +1,6 @@
 <div>
-  <a routerLink="../new">New Sub</a>
-  <a routerLink="../suggested">Suggested Subs</a>
   <h2>Accepted Subs</h2>
-  <app-accepted-sub-item *ngFor="let sub of (acceptedSubs$ | async)" [sub]="sub"></app-accepted-sub-item>
+  <mat-accordion>
+    <app-accepted-sub-item *ngFor="let sub of (acceptedSubs$ | async)" [sub]="sub"></app-accepted-sub-item>
+  </mat-accordion>
 </div>

@@ -1,7 +1,14 @@
-<div>
-  {{ sub.id }}: {{ sub.name }} / {{ sub.size }}
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+       {{ sub.name }}
+    </mat-panel-title>
+    <mat-panel-description>
+       {{ sub.members.length }} / {{ sub.size }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
   <span>
-    <button (click)="applyToSub()">Join</button>
-    <button (click)="dismissSub()">Dismiss</button>
+    <button mat-raised-button (click)="applyToSub()">Join</button>
+    <button mat-raised-button color="warn" (click)="dismissSub()">Dismiss</button>
   </span>
-</div>
+</mat-expansion-panel>

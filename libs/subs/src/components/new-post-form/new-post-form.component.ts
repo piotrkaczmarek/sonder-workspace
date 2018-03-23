@@ -30,5 +30,6 @@ export class NewPostFormComponent implements OnInit {
 
   onPostButtonClick() {
     this.store.dispatch(new CreatePost(this.postForm.getRawValue(), this.subId));
+    this.postForm.controls.body.setValue("");
   }
 }

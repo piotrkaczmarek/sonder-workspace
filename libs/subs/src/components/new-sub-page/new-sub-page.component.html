@@ -1,13 +1,12 @@
 <h2>New Sub</h2>
 <form [formGroup]="subForm" novalidate>
   <div class="form-group">
-    <label class="center-block">Name:
-      <input class="form-control" formControlName="name">
-    </label>
-    <label class="center-block">
-      Size:
-      <input type="number" class="form-control" formControlName="size">
-    </label>
+    <mat-form-field>
+      <input matInput placeholder="Name" class="form-control" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Size" type="number" class="form-control" formControlName="size">
+    </mat-form-field>
   </div>
-  <button (click)="onCreateButtonClick()">Create</button>
+  <button mat-raised-button (click)="onCreateButtonClick()">Create</button>
 </form>

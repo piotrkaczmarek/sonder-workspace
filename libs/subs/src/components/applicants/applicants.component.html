@@ -1,8 +1,14 @@
 <h1>Applicants</h1>
 <div *ngFor="let applicant of (applicants$ | async)">
-  {{ applicant.first_name }}
-  <span>
-    <button (click)="acceptApplicant(applicant.id)">Accept</button>
-    <button (click)="rejectApplicant(applicant.id)">Reject</button>
-  </span>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ applicant.first_name }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-raised-button color="accent" (click)="acceptApplicant(applicant.id)">Accept</button>
+      <button mat-raised-button color="warn" (click)="rejectApplicant(applicant.id)">Reject</button>
+    </mat-card-content>
+  </mat-card>
 </div>
