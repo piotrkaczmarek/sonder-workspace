@@ -5,6 +5,9 @@
     <button mat-raised-button color="accent" routerLink="/subs/suggested" routerLinkActive="active">Find subs</button>
     <mat-divider [vertical]="true"></mat-divider>
     <button mat-raised-button color="accent" routerLink="/subs/accepted" routerLinkActive="active">Your subs</button>
+    <mat-divider [vertical]="true"></mat-divider>
+    <mat-divider [vertical]="true"></mat-divider>
+    <button mat-raised-button color="warn" (click)="logOut()" routerLinkActive="active">Log out</button>
   </mat-toolbar>
 </nav>
 <router-outlet></router-outlet>

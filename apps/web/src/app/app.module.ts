@@ -13,6 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './+state/app.reducer';
 import { appInitialState } from './+state/app.init';
 import { AppEffects } from './+state/app.effects';
+import { LOGGED_OUT } from "@sonder-workspace/auth";
 
 import { environment } from '../environments/environment';
 import { localStorageSync } from "ngrx-store-localstorage";
@@ -32,12 +33,23 @@ const routes: Route[] = [
   { path: "subs", children: subsRoutes }
 ];
 
+export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
+  return function(state, action) {
+    if (action.type === LOGGED_OUT) {
+      return reducer({}, action);
+    }
+    return reducer(state, action);
+  };
+}
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({ keys: ["auth"], rehydrate: true })(reducer);
 }
-const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+const metaReducers: Array<MetaReducer<any, any>> = [
+  localStorageSyncReducer,
+  clearState
+];
 
 @NgModule({
   imports: [

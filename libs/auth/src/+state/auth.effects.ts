@@ -31,6 +31,23 @@ export class AuthEffects {
     }
   });
 
+  @Effect({ dispatch: false })
+  logOut = this.actions
+    .ofType(fromAuthActions.LOG_OUT)
+    .pipe(
+      map((action: fromAuthActions.LogOut) => action),
+      tap(() => {
+        localStorage.clear();
+        this.store.dispatch(
+          new fromAppRouter.Go({
+            path: ["/login"]
+          })
+        );
+        this.store.dispatch(new fromAuthActions.LoggedOut());
+      }
+      )
+    );
+
   @Effect()
   facebookAuthenticated = this.dataPersistence.pessimisticUpdate(
     fromAuthActions.FACEBOOK_AUTHENTICATED,
@@ -61,16 +78,18 @@ export class AuthEffects {
   );
 
   @Effect({ dispatch: false })
-  authenticationFailed = this.actions.ofType(fromAuthActions.AUTHENTICATION_FAILED).pipe(
-    map((action: fromAuthActions.LoggedIn) => action.payload),
-    tap(({ path, query: queryParams, extras }) =>
-      this.store.dispatch(
-        new fromAppRouter.Go({
-          path: ["/login"]
-        })
+  authenticationFailed = this.actions
+    .ofType(fromAuthActions.AUTHENTICATION_FAILED)
+    .pipe(
+      map((action: fromAuthActions.LoggedIn) => action.payload),
+      tap(({ path, query: queryParams, extras }) =>
+        this.store.dispatch(
+          new fromAppRouter.Go({
+            path: ["/login"]
+          })
+        )
       )
-    )
-  );
+    );
 
   constructor(
     private actions: Actions,
