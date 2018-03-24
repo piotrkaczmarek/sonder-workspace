@@ -36,7 +36,7 @@ const routes: Route[] = [
 export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
   return function(state, action) {
     if (action.type === LOGGED_OUT) {
-      return reducer({}, action);
+      return reducer(undefined, action);
     }
     return reducer(state, action);
   };

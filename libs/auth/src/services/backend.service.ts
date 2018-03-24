@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import { HttpClient } from "@angular/common/http";
 import { AuthState, getBackendAuthToken} from '../+state/auth.interfaces';
 import { switchMap } from "rxjs/operators/switchMap";
-import { map, catchError, concat, mergeMap } from "rxjs/operators";
+import { map, take, catchError, concat, mergeMap } from "rxjs/operators";
 import { AuthenticationFailed } from '../+state/auth.actions';
 
 @Injectable()
@@ -44,10 +44,11 @@ export class BackendService {
 
   private performAuthenticatedRequest(requestMethod): Observable<any> {
     return this.store.select(getBackendAuthToken).pipe(
+      take(1),
       switchMap((token: string) => {
         return requestMethod(this.headers(token)).pipe(
           catchError(error => {
-            if (error.status == "401") {
+            if (error.status === "401") {
               this.store.dispatch(new AuthenticationFailed());
             }
             return Observable.throw(error);
