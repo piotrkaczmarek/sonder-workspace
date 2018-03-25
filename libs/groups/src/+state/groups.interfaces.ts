@@ -56,7 +56,7 @@ export const getSelectedAcceptedGroup = createSelector(
   getAcceptedGroups,
   fromAppRouter.getRouterState,
   (groups, router) => {
-    return router.state && groups.entities[router.state.params.groupId];
+    return router && router.state && groups.entities[router.state.params.groupId];
   }
 )
 
@@ -66,7 +66,7 @@ export const getGroupApplicants = createSelector(
   getApplicants,
   fromAppRouter.getRouterState,
   (applicants, router) => {
-    return router.state && applicants.entities[router.state.params.groupId];
+    return router && router.state && applicants.entities[router.state.params.groupId];
   }
 )
 
@@ -103,7 +103,7 @@ export const getGroupFeed = createSelector(
   getFeed,
   fromAppRouter.getRouterState,
   (feed, router) => {
-    return router.state && feed.entities[router.state.params.groupId];
+    return router && router.state && feed.entities[router.state.params.groupId];
   }
 );
 
