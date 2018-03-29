@@ -74,7 +74,12 @@
       "name": "auth",
       "root": "libs/auth/src",
       "test": "../../../test.js",
-      "appRoot": ""
+      "appRoot": "",
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
     },
     {
       "name": "groups",
