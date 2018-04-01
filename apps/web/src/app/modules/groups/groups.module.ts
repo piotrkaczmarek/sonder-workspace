@@ -16,7 +16,8 @@ import {
 } from "./guards";
 
 import { GroupsService, FeedService } from './services';
-import { AuthenticatedGuard, BackendService } from "@sonder-workspace/auth";
+import { AuthenticatedGuard } from "@sonder-workspace/auth";
+import { AppBackendService as BackendService } from "../auth/services";
 
 import {
   SuggestedGroupItemComponent,
