@@ -8,10 +8,9 @@ import {
   LoginPageComponent,
   authReducer,
   authInitialState,
-  AuthService,
   AuthenticatedGuard
 } from "@sonder-workspace/auth";
-import { AppBackendService } from "./services/backend.service";
+import { AuthService, AppBackendService } from "./services";
 import { AuthEffects } from "./+state/auth.effects";
 
 import { MatButtonModule } from "@angular/material/button";

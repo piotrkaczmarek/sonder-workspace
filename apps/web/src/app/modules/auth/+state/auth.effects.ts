@@ -4,7 +4,7 @@ import { DataPersistence } from "@nrwl/nx";
 import { of } from "rxjs/observable/of";
 import { map, tap, catchError } from "rxjs/operators";
 import * as fromAuth from "@sonder-workspace/auth";
-import { AppBackendService } from "../services/backend.service";
+import { AppBackendService, AuthService } from "../services";
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
 
@@ -89,7 +89,7 @@ export class AuthEffects {
   constructor(
     private actions: Actions,
     private dataPersistence: DataPersistence<fromAuth.AuthState>,
-    private authService: fromAuth.AuthService,
+    private authService: AuthService,
     private backend: AppBackendService,
     private store: Store<fromAuth.AuthState>
   ) {

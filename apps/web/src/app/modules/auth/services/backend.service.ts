@@ -3,10 +3,11 @@ import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import { HttpClient } from "@angular/common/http";
 import { BackendService } from "@sonder-workspace/auth";
+import { environment } from "../../../../environments/environment";
 
 @Injectable()
 export class AppBackendService extends BackendService {
   apiRoot(): string {
-    return `http://0.0.0.0:4000/api`;
+    return `${environment.backendUrl}/api`;
   }
 }
