@@ -6,7 +6,6 @@ import { AuthState, getBackendAuthToken} from '../+state/auth.interfaces';
 import { switchMap } from "rxjs/operators/switchMap";
 import { map, take, catchError, concat, mergeMap } from "rxjs/operators";
 import { AuthenticationFailed } from '../+state/auth.actions';
-import { environment } from "../environments/environment";
 
 @Injectable()
 export class BackendService {
@@ -63,8 +62,8 @@ export class BackendService {
     return `${this.apiRoot()}${path}`;
   }
 
-  private apiRoot(): string {
-    return `${environment.backendUrl}/api`;
+  public apiRoot(): string {
+    return `http://localhost:4000/api`;
   }
 
   private staticHeaders() {

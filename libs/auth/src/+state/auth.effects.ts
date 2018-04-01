@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
 import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 import { BackendService } from '../services/backend.service';
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
+
 
 @Injectable()
 export class AuthEffects {
@@ -97,5 +98,6 @@ export class AuthEffects {
     private authService: AuthService,
     private backend: BackendService,
     private store: Store<AuthState>
-  ) {}
+  ) {
+  }
 }

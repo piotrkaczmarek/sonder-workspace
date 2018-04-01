@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../+state/auth.interfaces';
-import { LogIn } from '../+state/auth.actions';
+import { AuthState } from '../../+state/auth.interfaces';
+import { LogIn } from '../../+state/auth.actions';
 
 @Component({
   selector: 'login-page',

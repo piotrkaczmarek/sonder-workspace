@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
+import {
+  NgModule,
+  ModuleWithProviders,
+  Optional,
+  SkipSelf
+} from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { authReducer } from './+state/auth.reducer';
@@ -14,25 +19,37 @@ import { AuthenticatedGuard } from "./guards/authenticated.guard";
 
 import { MatButtonModule } from "@angular/material/button";
 
-export const authRoutes: Route[] = [
-  {
-    path: "",
-    pathMatch: "full",
-    component: LoginPageComponent
+export function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
+  if (parentModule) {
+    throw new Error(
+      `${moduleName} has already been loaded. Import ${moduleName} in the AppModule only.`
+    );
   }
-];
+}
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
-    MatButtonModule,
-    StoreModule.forFeature("auth", authReducer, {
-      initialState: authInitialState
-    }),
-    EffectsModule.forFeature([AuthEffects])
+  //   RouterModule,
+  //   MatButtonModule,
+  //   StoreModule.forFeature("auth", authReducer, {
+  //     initialState: authInitialState
+  //   }),
+  //   EffectsModule.forFeature([AuthEffects])
   ],
-  declarations: [LoginPageComponent],
-  providers: [AuthEffects, AuthService, BackendService, FacebookService, AuthenticatedGuard]
+  // declarations: [LoginPageComponent]
 })
-export class AuthModule {}
+export class AuthModule {
+  static forFeature(configuredProviders: Array<any>): ModuleWithProviders {
+    return {
+      ngModule : AuthModule,
+      providers : [
+        ...configuredProviders
+      ]
+    }
+  }
+
+  constructor(@Optional() @SkipSelf() parentModule: AuthModule) {
+    throwIfAlreadyLoaded(parentModule, 'AuthModule');
+  }
+}

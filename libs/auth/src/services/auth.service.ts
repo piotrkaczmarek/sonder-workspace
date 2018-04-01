@@ -5,7 +5,6 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { map, catchError } from 'rxjs/operators';
 import { FacebookService, InitParams, AuthResponse } from 'ngx-facebook';
 import { of } from 'rxjs/observable/of';
-import { environment } from '../environments/environment';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +12,7 @@ export class AuthService {
   constructor(private http: HttpClient, private facebookService: FacebookService) {
     const params: InitParams = {
       version: 'v2.10',
-      appId: environment.facebookAppId
+      appId: '897988177030305'
     };
     facebookService.init(params);
   }

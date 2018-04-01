@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { Group } from '../models/group.model';
-import { BackendService } from "@sonder-workspace/auth";
+import { AppBackendService as BackendService } from '../../auth/services/backend.service';
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()

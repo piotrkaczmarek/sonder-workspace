@@ -18,9 +18,9 @@ import { LOGGED_OUT } from "@sonder-workspace/auth";
 import { environment } from '../environments/environment';
 import { localStorageSync } from "ngrx-store-localstorage";
 
-import { groupsRoutes, GroupsModule } from '@sonder-workspace/groups';
+import { groupsRoutes, GroupsModule } from "./modules/groups/groups.module";
 import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
-import { authRoutes, AuthModule } from '@sonder-workspace/auth';
+import { authRoutes, AuthModule } from './modules/auth/auth.module';
 
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
@@ -41,6 +41,7 @@ export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
     return reducer(state, action);
   };
 }
+
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
