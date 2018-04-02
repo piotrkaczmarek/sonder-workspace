@@ -26,11 +26,11 @@ import {
   AcceptedGroupsComponent,
   SuggestedGroupsComponent,
   AcceptedGroupShowComponent,
-  ApplicantsComponent
+  ApplicantsComponent,
+  GroupFeedComponent,
+  NewPostFormComponent,
+  PostItemComponent
 } from "./components";
-import { GroupFeedComponent } from './components/group-feed/group-feed.component';
-import { NewPostFormComponent } from './components/new-post-form/new-post-form.component';
-import { PostItemComponent } from './components/post-item/post-item.component';
 
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatButtonModule } from "@angular/material/button";

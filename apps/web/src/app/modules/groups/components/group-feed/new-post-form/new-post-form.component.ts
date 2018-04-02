@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
-import { GroupsState } from "../../+state/groups.interfaces";
-import { CreatePost } from "../../+state/groups.actions";
+import { GroupsState } from "../../../+state/groups.interfaces";
+import { CreatePost } from "../../../+state/groups.actions";
 
 @Component({
   selector: "new-post-form",

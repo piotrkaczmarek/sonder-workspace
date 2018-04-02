@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { GroupsState } from "../../+state/groups.interfaces";
-import * as fromGroupsActions from "../../+state/groups.actions";
+import { GroupsState } from "../../../+state/groups.interfaces";
+import * as fromGroupsActions from "../../../+state/groups.actions";
 
 @Component({
   selector: "app-suggested-group-item",

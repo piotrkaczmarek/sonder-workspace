@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
-import { Group } from "../../models/group.model";
-import { GroupsState, getSelectedAcceptedGroup } from "../../+state/groups.interfaces";
-import * as fromGroupsActions from "../../+state/groups.actions";
+import { Group } from "../../../models/group.model";
+import { GroupsState, getSelectedAcceptedGroup } from "../../../+state/groups.interfaces";
+import * as fromGroupsActions from "../../../+state/groups.actions";
 
 @Component({
   selector: 'accepted-group-show',

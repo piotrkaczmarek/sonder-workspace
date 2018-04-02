@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { Post } from "../../models";
-import { GroupsState } from "../../+state/groups.interfaces";
+import { Post } from "../../../models";
+import { GroupsState } from "../../../+state/groups.interfaces";
 
 @Component({
   selector: "post-item",
