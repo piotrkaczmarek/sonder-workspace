@@ -1,7 +1,8 @@
 <nav>
   <mat-toolbar color="primary">
     <span>Sonder App</span>
-    <span class="example-fill-remaining-space"></span>
+  </mat-toolbar>
+  <mat-toolbar color="basic" *ngIf="(loggedIn$ | async)">
     <button mat-raised-button color="accent" routerLink="/groups/suggested" routerLinkActive="active">Find groups</button>
     <mat-divider [vertical]="true"></mat-divider>
     <button mat-raised-button color="accent" routerLink="/groups/accepted" routerLinkActive="active">Your groups</button>
