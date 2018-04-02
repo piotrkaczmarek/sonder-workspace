@@ -8,7 +8,8 @@ import {
   LoginPageComponent,
   authReducer,
   authInitialState,
-  AuthenticatedGuard
+  AuthenticatedGuard,
+  UnauthenticatedGuard
 } from "@sonder-workspace/auth";
 import { AuthService, AppBackendService } from "./services";
 import { AuthEffects } from "./+state/auth.effects";
@@ -19,7 +20,8 @@ export const authRoutes: Route[] = [
   {
     path: "",
     pathMatch: "full",
-    component: LoginPageComponent
+    component: LoginPageComponent,
+    canActivate: [UnauthenticatedGuard]
   }
 ];
 
@@ -39,7 +41,8 @@ export const authRoutes: Route[] = [
     AuthEffects,
     AuthService,
     FacebookService,
-    AuthenticatedGuard
+    AuthenticatedGuard,
+    UnauthenticatedGuard
   ]
 })
 export class AuthModule {}
