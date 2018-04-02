@@ -21,6 +21,7 @@ import { localStorageSync } from "ngrx-store-localstorage";
 import { groupsRoutes, GroupsModule } from "./modules/groups/groups.module";
 import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 import { authRoutes, AuthModule } from './modules/auth/auth.module';
+import { ProfilesModule } from './modules/profiles/profiles.module';
 
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
@@ -64,6 +65,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     RouterModule.forRoot(routes, { initialNavigation: "enabled" }),
     AuthModule,
     GroupsModule,
+    ProfilesModule,
     AppRouterModule,
     StoreModule.forRoot(
       { app: appReducer, router: routerReducer },
