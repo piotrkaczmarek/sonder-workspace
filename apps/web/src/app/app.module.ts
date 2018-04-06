@@ -21,7 +21,7 @@ import { localStorageSync } from "ngrx-store-localstorage";
 import { groupsRoutes, GroupsModule } from "./modules/groups/groups.module";
 import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 import { authRoutes, AuthModule } from './modules/auth/auth.module';
-import { ProfilesModule } from './modules/profiles/profiles.module';
+import { profilesRoutes, ProfilesModule } from "./modules/profiles/profiles.module";
 
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
@@ -31,7 +31,8 @@ import { MatListModule } from "@angular/material/list";
 const routes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "groups" },
   { path: "login", children: authRoutes },
-  { path: "groups", children: groupsRoutes }
+  { path: "groups", children: groupsRoutes },
+  { path: "profiles", children: profilesRoutes }
 ];
 
 export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {

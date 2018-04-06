@@ -3,23 +3,32 @@ import {Effect, Actions} from '@ngrx/effects';
 import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
+import { map } from "rxjs/operators";
 import {ProfilesState} from './profiles.interfaces';
-import {LoadData, DataLoaded} from './profiles.actions';
+import * as fromActions from './profiles.actions';
+import { ProfilesService } from "../services";
+import { LoadMyProfile } from './profiles.actions';
 
 @Injectable()
 export class ProfilesEffects {
-  @Effect() loadData = this.dataPersistence.fetch('LOAD_DATA', {
-    run: (action: LoadData, state: ProfilesState) => {
-      return {
-        type: 'DATA_LOADED',
-        payload: {}
-      };
+  @Effect()
+  LoadMyProfile = this.dataPersistence.fetch(fromActions.LOAD_MY_PROFILE, {
+    run: (action: fromActions.LoadMyProfile, state: ProfilesState) => {
+      return this.profilesService
+        .getMyProfile()
+        .pipe(
+          map((data: any) => new fromActions.MyProfileLoaded(data))
+        );
     },
 
-    onError: (action: LoadData, error) => {
-      console.error('Error', error);
+    onError: (action: fromActions.LoadMyProfile, error) => {
+      console.error("Error", error);
     }
   });
 
-  constructor(private actions: Actions, private dataPersistence: DataPersistence<ProfilesState>) {}
+  constructor(
+    private actions: Actions,
+    private dataPersistence: DataPersistence<ProfilesState>,
+    private profilesService: ProfilesService
+  ) {}
 }

@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
@@ -11,7 +9,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class FeedService {
-  constructor(private http: HttpClient, private backend: BackendService) {}
+  constructor(private backend: BackendService) {}
 
   getFeed(groupId: number): Observable<any> {
     return this.backend
