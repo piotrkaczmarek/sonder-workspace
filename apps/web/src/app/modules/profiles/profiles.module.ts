@@ -4,16 +4,17 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule, Route } from "@angular/router";
 
-import { profilesReducer } from './+state/profiles.reducer';
-import { profilesInitialState } from './+state/profiles.init';
-import { ProfilesEffects } from './+state/profiles.effects';
-import { ProfilesService } from "./services";
-
+import {
+  profilesReducer,
+  profilesInitialState,
+  ProfilesEffects,
+  ProfilesService,
+  MyProfileComponent,
+  MyProfileLoadedGuard
+} from "@sonder-workspace/profiles";
 import {
   AuthenticatedGuard
 } from "@sonder-workspace/auth";
-import { MyProfileComponent } from './components/my-profile/my-profile.component';
-import { MyProfileLoadedGuard } from './guards';
 
 export const profilesRoutes: Route[] = [
   {

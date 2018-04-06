@@ -111,8 +111,7 @@ export const groupsRoutes: Route[] = [
     FeedLoadedGuard,
     GroupsService,
     FeedService,
-    AuthenticatedGuard,
-    { provide: BACKEND_SERVICE, useClass: AppBackendService }
+    AuthenticatedGuard
   ]
 })
 export class GroupsModule {}
