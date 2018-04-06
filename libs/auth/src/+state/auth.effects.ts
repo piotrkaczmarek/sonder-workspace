@@ -1,15 +1,13 @@
-import {Injectable, Inject} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
-import {DataPersistence} from '@nrwl/nx';
-import {of} from 'rxjs/observable/of';
+import { Injectable, Inject } from '@angular/core';
+import { Effect, Actions } from '@ngrx/effects';
+import { DataPersistence } from '@nrwl/nx';
+import { of } from 'rxjs/observable/of';
 import { map, tap, catchError } from 'rxjs/operators';
-import {AuthState} from './auth.interfaces';
+import { AuthState } from './auth.interfaces';
 import * as fromAuthActions from './auth.actions';
-import { AuthService } from '../services/auth.service';
-import { BackendService } from '../services/backend.service';
+import { AuthService, AUTH_SERVICE, BackendService, BACKEND_SERVICE } from '../services';
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
-
 
 @Injectable()
 export class AuthEffects {
@@ -92,12 +90,17 @@ export class AuthEffects {
       )
     );
 
+  private backend: BackendService;
+  private authService: AuthService;
+
   constructor(
     private actions: Actions,
     private dataPersistence: DataPersistence<AuthState>,
-    private authService: AuthService,
-    private backend: BackendService,
+    @Inject(BACKEND_SERVICE) backend,
+    @Inject(AUTH_SERVICE) authService,
     private store: Store<AuthState>
   ) {
+    this.backend = backend;
+    this.authService = authService;
   }
 }

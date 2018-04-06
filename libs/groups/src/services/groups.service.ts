@@ -6,15 +6,14 @@ import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { Group } from '../models/group.model';
-// import { AppBackendService as BackendService } from '../../auth/services/backend.service';
-import { BACKEND_SERVICE } from "@sonder-workspace/auth";
+import { BACKEND_SERVICE, BackendService } from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class GroupsService {
-  private backend: any;
+  private backend: BackendService;
 
-  constructor(private http: HttpClient, @Inject(BACKEND_SERVICE) backend: any) {
+  constructor(private http: HttpClient, @Inject(BACKEND_SERVICE) backend) {
     this.backend = backend;
   }
 

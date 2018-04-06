@@ -8,7 +8,7 @@ import { of } from 'rxjs/observable/of';
 import { environment } from "../../../../environments/environment";
 
 @Injectable()
-export class AuthService {
+export class AppAuthService {
   constructor(private http: HttpClient, private facebookService: FacebookService) {
     const params: InitParams = {
       version: 'v2.10',

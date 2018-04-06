@@ -1,16 +1,19 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 
 import { Observable } from "rxjs/Observable";
 import { catchError } from "rxjs/operators";
 import "rxjs/add/observable/throw";
 
 import { Profile } from "../models";
-import { AppBackendService as BackendService } from "../../auth/services";
+import { BACKEND_SERVICE, BackendService } from "@sonder-workspace/auth";
 import { switchMap } from "rxjs/operators/switchMap";
 
 @Injectable()
 export class ProfilesService {
-  constructor(private backend: BackendService) {}
+  private backend: BackendService
+  constructor(@Inject(BACKEND_SERVICE) backend) {
+    this.backend = backend;
+  }
 
   getMyProfile() {
     return this.backend

@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { map, catchError } from 'rxjs/operators';
 import { FacebookService, InitParams, AuthResponse } from 'ngx-facebook';
 import { of } from 'rxjs/observable/of';
+
+export const AUTH_SERVICE = new InjectionToken<string>("app.auth.service");
 
 @Injectable()
 export class AuthService {

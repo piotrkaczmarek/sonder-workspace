@@ -9,10 +9,12 @@ import {
   authReducer,
   authInitialState,
   AuthenticatedGuard,
-  UnauthenticatedGuard
+  UnauthenticatedGuard,
+  AuthEffects,
+  AUTH_SERVICE,
+  BACKEND_SERVICE
 } from "@sonder-workspace/auth";
-import { AuthService, AppBackendService } from "./services";
-import { AuthEffects } from "./+state/auth.effects";
+import { AppAuthService, AppBackendService } from "./services";
 
 import { MatButtonModule } from "@angular/material/button";
 
@@ -37,9 +39,9 @@ export const authRoutes: Route[] = [
   ],
   declarations: [LoginPageComponent],
   providers: [
-    AppBackendService,
     AuthEffects,
-    AuthService,
+    { provide: AUTH_SERVICE, useClass: AppAuthService },
+    { provide: BACKEND_SERVICE, useClass: AppBackendService },
     FacebookService,
     AuthenticatedGuard,
     UnauthenticatedGuard

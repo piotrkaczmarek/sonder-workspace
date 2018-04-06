@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 export class FeedService {
   private backend: BackendService;
 
-  constructor(@Inject(BACKEND_SERVICE) backend: any) {
+  constructor(@Inject(BACKEND_SERVICE) backend) {
     this.backend = backend;
   }
 
