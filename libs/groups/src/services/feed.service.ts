@@ -1,15 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { Post } from "../models";
-import { AppBackendService as BackendService } from "../../auth/services";
+import { BACKEND_SERVICE, BackendService } from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class FeedService {
-  constructor(private backend: BackendService) {}
+  private backend: BackendService;
+
+  constructor(@Inject(BACKEND_SERVICE) backend: any) {
+    this.backend = backend;
+  }
 
   getFeed(groupId: number): Observable<any> {
     return this.backend

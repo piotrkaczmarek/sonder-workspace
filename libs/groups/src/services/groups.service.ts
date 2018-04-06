@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -6,12 +6,17 @@ import { catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 import { Group } from '../models/group.model';
-import { AppBackendService as BackendService } from '../../auth/services/backend.service';
+// import { AppBackendService as BackendService } from '../../auth/services/backend.service';
+import { BACKEND_SERVICE } from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class GroupsService {
-  constructor(private http: HttpClient, private backend: BackendService) {}
+  private backend: any;
+
+  constructor(private http: HttpClient, @Inject(BACKEND_SERVICE) backend: any) {
+    this.backend = backend;
+  }
 
   getSuggestedGroups(): Observable<any> {
     return this.backend

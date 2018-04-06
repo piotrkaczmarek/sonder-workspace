@@ -6,6 +6,9 @@ import { AuthState, getBackendAuthToken} from '../+state/auth.interfaces';
 import { switchMap } from "rxjs/operators/switchMap";
 import { map, take, catchError, concat, mergeMap } from "rxjs/operators";
 import { AuthenticationFailed } from '../+state/auth.actions';
+import { InjectionToken } from "@angular/core";
+
+export const BACKEND_SERVICE = new InjectionToken<string>("app.backend.service");
 
 @Injectable()
 export class BackendService {

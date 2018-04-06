@@ -6,18 +6,22 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { groupsReducer, groupsInitialState, GroupsEffects } from "./+state";
+import {
+  groupsReducer,
+  groupsInitialState,
+  GroupsEffects
+} from "@sonder-workspace/groups";
 
 import {
   AcceptedGroupsLoadedGuard,
   SuggestedGroupsLoadedGuard,
   ApplicantsLoadedGuard,
   FeedLoadedGuard
-} from "./guards";
+} from "@sonder-workspace/groups";
 
-import { GroupsService, FeedService } from './services';
+import { GroupsService, FeedService } from "@sonder-workspace/groups";
 import { AuthenticatedGuard } from "@sonder-workspace/auth";
-import { AppBackendService as BackendService } from "../auth/services";
+import { AppBackendService } from "../auth/services";
 
 import {
   SuggestedGroupItemComponent,
@@ -30,7 +34,9 @@ import {
   GroupFeedComponent,
   NewPostFormComponent,
   PostItemComponent
-} from "./components";
+} from "@sonder-workspace/groups";
+
+import { BACKEND_SERVICE } from "@sonder-workspace/auth";
 
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatButtonModule } from "@angular/material/button";
@@ -106,7 +112,7 @@ export const groupsRoutes: Route[] = [
     GroupsService,
     FeedService,
     AuthenticatedGuard,
-    BackendService
+    { provide: BACKEND_SERVICE, useClass: AppBackendService }
   ]
 })
 export class GroupsModule {}
