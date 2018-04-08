@@ -38,5 +38,12 @@ export class AuthenticateBackend implements Action {
   readonly type = AUTHENTICATE_BACKEND;
 }
 
-export type AuthAction = LogIn | LogOut | AuthenticationFailed | LoggedIn | FacebookAuthenticated | AuthenticateBackend;
+export type AuthAction =
+  | LogIn
+  | LogOut
+  | LoggedOut
+  | AuthenticationFailed
+  | LoggedIn
+  | FacebookAuthenticated
+  | AuthenticateBackend;
 

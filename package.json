@@ -5,6 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start.web": "ng serve --app=web",
+    "start.ios": "cd apps/mobile && tns run ios --emulator --syncAllFiles",
+    "start.android": "cd apps/mobile && tns run android --emulator --syncAllFiles",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

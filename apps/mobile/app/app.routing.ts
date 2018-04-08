@@ -7,17 +7,11 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
 // app
 import { SharedModule } from './modules/shared/shared.module';
+import { authRoutes, AuthModule } from "./modules/auth/auth.module";
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/items',
-    pathMatch: 'full'
-  },
-  {
-    path: 'items',
-    loadChildren: './modules/items/items.module#ItemsModule'
-  }
+  { path: "", pathMatch: "full", redirectTo: "login" },
+  { path: "login", children: authRoutes }
 ];
 
 @NgModule({

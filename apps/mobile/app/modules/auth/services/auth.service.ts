@@ -5,7 +5,7 @@ import { fromPromise } from "rxjs/observable/fromPromise";
 import { map, switchMap, catchError } from "rxjs/operators";
 import { FacebookService, InitParams, AuthResponse } from "ngx-facebook";
 import { of } from "rxjs/observable/of";
-import { environment } from "../../../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class AppAuthService {
@@ -21,15 +21,16 @@ export class AppAuthService {
   }
 
   facebookLogIn(): Observable<any> {
-    return fromPromise(this.facebookService.getLoginStatus()).pipe(
-      switchMap(
+    return fromPromise(this.facebookService.getLoginStatus())
+      .pipe(
+        switchMap(
         data =>
           data.status === "connected"
             ? of(data)
             : fromPromise(this.facebookService.login())
-      ),
-      map(data => data.authResponse.accessToken),
-      catchError((error: any) => Observable.throw(error.json()))
-    );
+        ),
+        map(data => data.authResponse.accessToken),
+        catchError((error: any) => Observable.throw(error.json()))
+      );
   }
 }
