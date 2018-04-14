@@ -83,6 +83,12 @@
       "appRoot": ""
     },
     {
+      "name": "posts",
+      "root": "libs/posts/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
       "name": "profiles",
       "root": "libs/profiles/src",
       "test": "../../../test.js",
