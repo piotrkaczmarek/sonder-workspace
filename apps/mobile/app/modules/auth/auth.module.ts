@@ -3,9 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule, Route } from "@angular/router";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import { FacebookService } from "ngx-facebook";
 import {
-  LoginPageComponent,
   authReducer,
   authInitialState,
   AuthenticatedGuard,
@@ -16,7 +14,7 @@ import {
 } from "@sonder-workspace/auth";
 import { AppAuthService, AppBackendService } from "./services";
 
-import { MatButtonModule } from "@angular/material/button";
+import { LoginPageComponent } from "./components/login-page/login-page.component";
 
 export const authRoutes: Route[] = [
   {
@@ -31,7 +29,6 @@ export const authRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule,
-    MatButtonModule,
     StoreModule.forFeature("auth", authReducer, {
       initialState: authInitialState
     }),
@@ -42,7 +39,6 @@ export const authRoutes: Route[] = [
     AuthEffects,
     { provide: AUTH_SERVICE, useClass: AppAuthService },
     { provide: BACKEND_SERVICE, useClass: AppBackendService },
-    FacebookService,
     AuthenticatedGuard,
     UnauthenticatedGuard
   ]
