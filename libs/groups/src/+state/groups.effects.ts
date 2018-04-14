@@ -4,7 +4,7 @@ import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
 import {GroupsState} from './groups.interfaces';
-import { GroupsService, FeedService } from '../services';
+import { GroupsService, PostsService } from "../services";
 import * as fromGroupsActions from './groups.actions';
 import { Store } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
@@ -149,16 +149,16 @@ export class GroupsEffects {
   );
 
   @Effect()
-  loadFeed = this.actions.ofType(fromGroupsActions.LOAD_FEED).pipe(
-    map((action: fromGroupsActions.LoadFeed) => action),
+  loadGroupPosts = this.actions.ofType(fromGroupsActions.LOAD_GROUP_POSTS).pipe(
+    map((action: fromGroupsActions.LoadGroupPosts) => action),
     switchMap(action => {
-      return this.feedService
-        .getFeed(action.groupId)
+      return this.postsService
+        .getGroupPosts(action.groupId)
         .pipe(
           map((response: any) => response.data),
           map(
             (data: any) =>
-              new fromGroupsActions.FeedLoaded(data, action.groupId)
+              new fromGroupsActions.GroupPostsLoaded(data, action.groupId)
           ),
           catchError(error => {
             console.error("Error", error);
@@ -171,7 +171,7 @@ export class GroupsEffects {
   @Effect()
   createPost = this.actions.ofType(fromGroupsActions.CREATE_POST).pipe(
     switchMap((action: fromGroupsActions.CreatePost) => {
-      return this.feedService
+      return this.postsService
         .createPost(action.groupId, action.payload)
         .pipe(
           map((response: any) => response.data),
@@ -183,7 +183,7 @@ export class GroupsEffects {
   constructor(
     private actions: Actions,
     private groupsService: GroupsService,
-    private feedService: FeedService,
+    private postsService: PostsService,
     private store: Store<GroupsState>
   ) {}
 }

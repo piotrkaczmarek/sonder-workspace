@@ -12,12 +12,12 @@ import { tap, filter, take, switchMap, catchError } from "rxjs/operators";
 
 import {
   GroupsState,
-  getGroupFeedLoadedByGroupId
+  getGroupPostsLoadedByGroupId
 } from "../+state/groups.interfaces";
-import { LoadFeed } from "../+state/groups.actions";
+import { LoadGroupPosts } from "../+state/groups.actions";
 
 @Injectable()
-export class FeedLoadedGuard implements CanActivate {
+export class GroupPostsLoadedGuard implements CanActivate {
   constructor(private store: Store<GroupsState>) {}
 
   canActivate(
@@ -31,14 +31,16 @@ export class FeedLoadedGuard implements CanActivate {
   }
 
   checkStore(groupId: number): Observable<boolean> {
-    return this.store.select(getGroupFeedLoadedByGroupId(groupId)).pipe(
-      tap(loaded => {
-        if (!loaded) {
-          this.store.dispatch(new LoadFeed(groupId));
-        }
-      }),
-      filter(loaded => loaded),
-      take(1)
-    );
+    return this.store
+      .select(getGroupPostsLoadedByGroupId(groupId))
+      .pipe(
+        tap(loaded => {
+          if (!loaded) {
+            this.store.dispatch(new LoadGroupPosts(groupId));
+          }
+        }),
+        filter(loaded => loaded),
+        take(1)
+      );
   }
 }

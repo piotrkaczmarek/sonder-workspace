@@ -16,7 +16,7 @@ export const groupsInitialState: Groups = {
     entities: {
     }
   },
-  feed: {
+  posts: {
     entities: {
     }
   }

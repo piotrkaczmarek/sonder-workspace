@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { GroupFeedComponent } from './group-feed.component';
+// import { GroupPostsComponent } from './group-posts.component';
 
-// describe('GroupFeedComponent', () => {
-//   let component: GroupFeedComponent;
-//   let fixture: ComponentFixture<GroupFeedComponent>;
+// describe('GroupPostsComponent', () => {
+//   let component: GroupPostsComponent;
+//   let fixture: ComponentFixture<GroupPostsComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ GroupFeedComponent ]
+//       declarations: [ GroupPostsComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(GroupFeedComponent);
+//     fixture = TestBed.createComponent(GroupPostsComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });

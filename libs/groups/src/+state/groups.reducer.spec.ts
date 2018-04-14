@@ -165,7 +165,7 @@ describe('groupsReducer', () => {
       beforeEach(() => {
         state = {
           ...groupsInitialState,
-          feed: {
+          posts: {
             entities: {
               [groupId1]: {
                 entities: {
@@ -200,7 +200,7 @@ describe('groupsReducer', () => {
         });
 
         it('adds post to given group', () => {
-          const returnedPostIds = Object.keys(actual.feed.entities[groupId1].entities);
+          const returnedPostIds = Object.keys(actual.posts.entities[groupId1].entities);
           const expectedPostIds = [String(postId1), String(postId2), String(newPostId)];
           expect(returnedPostIds).toEqual(expectedPostIds);
         })

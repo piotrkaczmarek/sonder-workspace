@@ -1,2 +1,2 @@
 export * from "./groups.service";
-export * from "./feed.service";
+export * from "./posts.service";

@@ -15,10 +15,10 @@ import {
   AcceptedGroupsLoadedGuard,
   SuggestedGroupsLoadedGuard,
   ApplicantsLoadedGuard,
-  FeedLoadedGuard
+  GroupPostsLoadedGuard
 } from "@sonder-workspace/groups";
 
-import { GroupsService, FeedService } from "@sonder-workspace/groups";
+import { GroupsService, PostsService } from "@sonder-workspace/groups";
 import { AuthenticatedGuard } from "@sonder-workspace/auth";
 import { AppBackendService } from "../auth/services";
 
@@ -50,17 +50,15 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
     }),
     EffectsModule.forFeature([GroupsEffects])
   ],
-  declarations: [
-    AcceptedGroupsComponent
-  ],
+  declarations: [AcceptedGroupsComponent],
   providers: [
     GroupsEffects,
     SuggestedGroupsLoadedGuard,
     AcceptedGroupsLoadedGuard,
     ApplicantsLoadedGuard,
-    FeedLoadedGuard,
+    GroupPostsLoadedGuard,
     GroupsService,
-    FeedService,
+    PostsService,
     AuthenticatedGuard
   ]
 })

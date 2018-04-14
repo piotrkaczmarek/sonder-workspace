@@ -4,22 +4,22 @@ import { Observable } from "rxjs/Observable";
 import { ActivatedRoute } from "@angular/router";
 import {
   GroupsState,
-  getGroupFeedEntities
+  getGroupPostsEntities
 } from "../../+state/groups.interfaces";
 
 @Component({
-  selector: "group-feed",
-  templateUrl: "./group-feed.component.html",
-  styleUrls: ["./group-feed.component.css"]
+  selector: "group-posts",
+  templateUrl: "./group-posts.component.html",
+  styleUrls: ["./group-posts.component.css"]
 })
-export class GroupFeedComponent implements OnInit {
+export class GroupPostsComponent implements OnInit {
   public groupPosts$: Observable<any>;
   public groupId: number;
 
   constructor(private store: Store<GroupsState>, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.groupPosts$ = this.store.select(getGroupFeedEntities);
+    this.groupPosts$ = this.store.select(getGroupPostsEntities);
     this.route.paramMap.subscribe(route => (this.groupId = parseInt(route["params"].groupId, 10)));
   }
 }

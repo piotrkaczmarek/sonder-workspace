@@ -27,8 +27,8 @@ export const APPLICANT_ACCEPTED = "[Groups] Applicant Accepted";
 export const REJECT_APPLICANT = "[Groups] Reject Applicant";
 export const APPLICANT_REJECTED = "[Groups] Applicant Rejected";
 
-export const LOAD_FEED = "[Groups] Load Feed";
-export const FEED_LOADED = "[Groups] Feed Loaded";
+export const LOAD_GROUP_POSTS = "[Groups] Load Group Posts";
+export const GROUP_POSTS_LOADED = "[Groups] Group Posts Loaded";
 
 export const CREATE_POST = "[Groups] Create Post";
 export const POST_CREATED = "[Groups] Post Created";
@@ -121,13 +121,13 @@ export class ApplicantRejected implements Action {
   constructor(public payload: any) { }
 }
 
-export class LoadFeed implements Action {
-  readonly type = LOAD_FEED;
+export class LoadGroupPosts implements Action {
+  readonly type = LOAD_GROUP_POSTS;
   constructor(public groupId: number) {}
 }
 
-export class FeedLoaded implements Action {
-  readonly type = FEED_LOADED;
+export class GroupPostsLoaded implements Action {
+  readonly type = GROUP_POSTS_LOADED;
   constructor(public data: any, public groupId: number) {}
 }
 
@@ -159,7 +159,7 @@ export type GroupsAction =
   | ApplicantAccepted
   | RejectApplicant
   | ApplicantRejected
-  | LoadFeed
-  | FeedLoaded
+  | LoadGroupPosts
+  | GroupPostsLoaded
   | CreatePost
   | PostCreated;

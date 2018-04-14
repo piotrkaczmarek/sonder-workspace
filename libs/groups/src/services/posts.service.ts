@@ -8,14 +8,14 @@ import { BACKEND_SERVICE, BackendService } from "@sonder-workspace/auth";
 import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
-export class FeedService {
+export class PostsService {
   private backend: BackendService;
 
   constructor(@Inject(BACKEND_SERVICE) backend) {
     this.backend = backend;
   }
 
-  getFeed(groupId: number): Observable<any> {
+  getGroupPosts(groupId: number): Observable<any> {
     return this.backend
       .get(`/groups/${groupId}/posts`)
       .pipe(catchError((error: any) => Observable.throw(error)));

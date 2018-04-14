@@ -16,10 +16,10 @@ import {
   AcceptedGroupsLoadedGuard,
   SuggestedGroupsLoadedGuard,
   ApplicantsLoadedGuard,
-  FeedLoadedGuard
+  GroupPostsLoadedGuard
 } from "@sonder-workspace/groups";
 
-import { GroupsService, FeedService } from "@sonder-workspace/groups";
+import { GroupsService, PostsService } from "@sonder-workspace/groups";
 import { AuthenticatedGuard } from "@sonder-workspace/auth";
 import { AppBackendService } from "../auth/services";
 
@@ -31,7 +31,7 @@ import {
   SuggestedGroupsComponent,
   AcceptedGroupShowComponent,
   ApplicantsComponent,
-  GroupFeedComponent,
+  GroupPostsComponent,
   NewPostFormComponent,
   PostItemComponent
 } from "@sonder-workspace/groups";
@@ -64,7 +64,7 @@ export const groupsRoutes: Route[] = [
   },
   {
     path: "accepted/:groupId",
-    canActivate: [AuthenticatedGuard, AcceptedGroupsLoadedGuard, FeedLoadedGuard],
+    canActivate: [AuthenticatedGuard, AcceptedGroupsLoadedGuard, GroupPostsLoadedGuard],
     component: AcceptedGroupShowComponent
   },
   {
@@ -99,7 +99,7 @@ export const groupsRoutes: Route[] = [
     AcceptedGroupItemComponent,
     AcceptedGroupShowComponent,
     ApplicantsComponent,
-    GroupFeedComponent,
+    GroupPostsComponent,
     NewPostFormComponent,
     PostItemComponent
   ],
@@ -108,9 +108,9 @@ export const groupsRoutes: Route[] = [
     SuggestedGroupsLoadedGuard,
     AcceptedGroupsLoadedGuard,
     ApplicantsLoadedGuard,
-    FeedLoadedGuard,
+    GroupPostsLoadedGuard,
     GroupsService,
-    FeedService,
+    PostsService,
     AuthenticatedGuard
   ]
 })

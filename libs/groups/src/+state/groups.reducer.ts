@@ -200,10 +200,10 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       }
     }
-    case fromGroupsActions.FEED_LOADED: {
-      let groupFeedEntities = action.data;
-      if (groupFeedEntities.length > 0) {
-        groupFeedEntities = action.data.reduce(
+    case fromGroupsActions.GROUP_POSTS_LOADED: {
+      let groupPostsEntities = action.data;
+      if (groupPostsEntities.length > 0) {
+        groupPostsEntities = action.data.reduce(
           (entities: { [id: number]: Post }, post: Post) => {
             return {
               ...entities,
@@ -217,15 +217,15 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
       }
       return {
         ...state,
-        feed: {
-          ...state.feed,
+        posts: {
+          ...state.posts,
           entities: {
-            ...state.feed.entities,
+            ...state.posts.entities,
             ...{
               [action.groupId]: {
                 loaded: true,
                 loading: false,
-                entities: groupFeedEntities
+                entities: groupPostsEntities
               }
             }
           }
@@ -234,20 +234,20 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
     }
     case fromGroupsActions.POST_CREATED: {
       const groupPostsEntities = {
-        ...state.feed.entities[action.groupId].entities,
+        ...state.posts.entities[action.groupId].entities,
         ...{ [action.payload.id]: action.payload }
       }
       const groupPosts = {
-        ...state.feed.entities[action.groupId],
+        ...state.posts.entities[action.groupId],
         ...{ entities: groupPostsEntities }
       }
       return {
         ...state,
         ...{
-          feed: {
-            ...state.feed,
+          posts: {
+            ...state.posts,
             entities: {
-              ...state.feed.entities,
+              ...state.posts.entities,
               ...{ [action.groupId]: groupPosts }
             }
           }

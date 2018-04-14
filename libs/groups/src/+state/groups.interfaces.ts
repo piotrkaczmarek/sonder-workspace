@@ -9,7 +9,7 @@ export interface Groups {
   suggested: SuggestedGroupsState;
   accepted: AcceptedGroupsState;
   applicants: ApplicantsState;
-  feed: FeedState;
+  posts: PostsByGroupsState;
 }
 export interface SuggestedGroupsState {
   entities: { [id: number]: Group };
@@ -29,10 +29,10 @@ export interface GroupApplicantsState {
   loaded: boolean;
   loading: boolean;
 }
-export interface FeedState {
-  entities: { [groupId: number]: GroupFeedState };
+export interface PostsByGroupsState {
+  entities: { [groupId: number]: GroupPostsState };
 }
-export interface GroupFeedState {
+export interface GroupPostsState {
   entities: { [postId: number]: Post };
   loaded: boolean;
   loading: boolean;
@@ -93,44 +93,43 @@ export const getGroupApplicantsLoadedByGroupId = (groupId) => {
     (applicants) => applicants === undefined ? false : applicants.loaded)
 }
 
-
-export const getFeed = createSelector(
+export const getPostsByGroups = createSelector(
   getAllGroups,
-  (groups: any) => groups.feed
+  (groups: any) => groups.posts
 );
 
-export const getGroupFeed = createSelector(
-  getFeed,
+export const getGroupPosts = createSelector(
+  getPostsByGroups,
   fromAppRouter.getRouterState,
-  (feed, router) => {
-    return router && router.state && feed.entities[router.state.params.groupId];
+  (posts, router) => {
+    return router && router.state && posts.entities[router.state.params.groupId];
   }
 );
 
-export const getGroupFeedEntities = createSelector(
-  getGroupFeed,
-  (groupFeed: any) => {
-    if (groupFeed) {
-      return Object.keys(groupFeed.entities).map(id => groupFeed.entities[parseInt(id, 10)])
+export const getGroupPostsEntities = createSelector(
+  getGroupPosts,
+  (groupPosts: any) => {
+    if (groupPosts) {
+      return Object.keys(groupPosts.entities).map(id => groupPosts.entities[parseInt(id, 10)])
     }
   }
 );
 
-export const getGroupFeedLoaded = createSelector(
-  getGroupFeed,
-  groupFeed => (groupFeed === undefined ? false : groupFeed.loaded)
+export const getGroupPostsLoaded = createSelector(
+  getGroupPosts,
+  groupPosts => (groupPosts === undefined ? false : groupPosts.loaded)
 );
 
-export const getGroupFeedByGroupId = groupId => {
+export const getGroupPostsByGroupId = groupId => {
   return createSelector(
-    getFeed,
-    feed => feed.entities[groupId]
+    getPostsByGroups,
+    posts => posts.entities[groupId]
   );
 };
 
-export const getGroupFeedLoadedByGroupId = groupId => {
+export const getGroupPostsLoadedByGroupId = groupId => {
   return createSelector(
-    getGroupFeedByGroupId(groupId),
-    groupFeed => (groupFeed === undefined ? false : groupFeed.loaded)
+    getGroupPostsByGroupId(groupId),
+    groupPosts => (groupPosts === undefined ? false : groupPosts.loaded)
   );
 };
