@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
-import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
@@ -13,42 +12,38 @@ import * as fromAppRouter from "@sonder-workspace/router";
 @Injectable()
 export class GroupsEffects {
   @Effect()
-  loadSuggestedGroups = this.dataPersistence.fetch(
-    fromGroupsActions.LOAD_SUGGESTED_PARTIES,
-    {
-      run: (action: fromGroupsActions.LoadSuggestedGroups, state: GroupsState) => {
-        return this.groupsService
-          .getSuggestedGroups()
-          .pipe(
-            map((response: any) => response.data),
-            map((data: any) => new fromGroupsActions.SuggestedGroupsLoaded(data))
-          );
-      },
-
-      onError: (action: fromGroupsActions.LoadSuggestedGroups, error) => {
-        console.error("Error", error);
-      }
-    }
-  );
+  loadSuggestedGroups = this.actions
+    .ofType(fromGroupsActions.LOAD_SUGGESTED_PARTIES)
+    .pipe(
+      map((action: fromGroupsActions.LoadSuggestedGroups) => action),
+      switchMap(() => {
+        return this.groupsService.getSuggestedGroups().pipe(
+          map((response: any) => response.data),
+          map((data: any) => new fromGroupsActions.SuggestedGroupsLoaded(data)),
+          catchError(error => {
+            console.error("Error", error);
+            return of(error);
+          })
+        );
+      })
+    );
 
   @Effect()
-  loadAcceptedGroups = this.dataPersistence.fetch(
-    fromGroupsActions.LOAD_ACCEPTED_PARTIES,
-    {
-      run: (action: fromGroupsActions.LoadAcceptedGroups, state: GroupsState) => {
-        return this.groupsService
-          .getAcceptedGroups()
-          .pipe(
-            map((response: any) => response.data),
-            map((data: any) => new fromGroupsActions.AcceptedGroupsLoaded(data))
-          );
-      },
-
-      onError: (action: fromGroupsActions.LoadAcceptedGroups, error) => {
-        console.error("Error", error);
-      }
-    }
-  );
+  loadAcceptedGroups = this.actions
+    .ofType(fromGroupsActions.LOAD_ACCEPTED_PARTIES)
+    .pipe(
+      map((action: fromGroupsActions.LoadAcceptedGroups) => action),
+      switchMap(() => {
+        return this.groupsService.getAcceptedGroups().pipe(
+          map((response: any) => response.data),
+          map((data: any) => new fromGroupsActions.AcceptedGroupsLoaded(data)),
+          catchError(error => {
+            console.error("Error", error);
+            return of(error);
+          })
+        );
+      })
+    );
 
   @Effect()
   createGroup = this.actions.ofType(fromGroupsActions.CREATE_PARTY).pipe(
@@ -76,21 +71,19 @@ export class GroupsEffects {
   );
 
   @Effect()
-  applyToGroup = this.dataPersistence.pessimisticUpdate(
-    fromGroupsActions.APPLY_TO_PARTY,
-    {
-      run: (action: fromGroupsActions.ApplyToGroup, state: GroupsState) => {
-        return this.groupsService
-          .applyToGroup(action.payload)
-          .pipe(
-            map((data: any) => new fromGroupsActions.GroupAppliedTo(action.payload))
-          );
-      },
-
-      onError: (action: fromGroupsActions.ApplyToGroup, error) => {
-        console.error("Error", error);
-      }
-    }
+  applyToGroup = this.actions.ofType(fromGroupsActions.APPLY_TO_PARTY).pipe(
+    map((action: fromGroupsActions.ApplyToGroup) => action),
+    map(action => action.payload),
+    switchMap(groupId => {
+      return this.groupsService.applyToGroup(groupId).pipe(
+        map((response: any) => response.data),
+        map((data: any) => new fromGroupsActions.GroupAppliedTo(data)),
+        catchError(error => {
+          console.error("Error", error);
+          return of(error);
+        })
+      );
+    })
   );
 
   @Effect()
@@ -104,24 +97,28 @@ export class GroupsEffects {
   );
 
   @Effect()
-  acceptApplicant = this.actions.ofType(fromGroupsActions.ACCEPT_APPLICANT).pipe(
-    map((action: fromGroupsActions.AcceptApplicant) => action.payload),
-    switchMap(payload => {
-      return this.groupsService
-        .acceptApplicant(payload.groupId, payload.applicantId)
-        .pipe(map(data => new fromGroupsActions.ApplicantAccepted(payload)));
-    })
-  );
+  acceptApplicant = this.actions
+    .ofType(fromGroupsActions.ACCEPT_APPLICANT)
+    .pipe(
+      map((action: fromGroupsActions.AcceptApplicant) => action.payload),
+      switchMap(payload => {
+        return this.groupsService
+          .acceptApplicant(payload.groupId, payload.applicantId)
+          .pipe(map(data => new fromGroupsActions.ApplicantAccepted(payload)));
+      })
+    );
 
   @Effect()
-  rejectApplicant = this.actions.ofType(fromGroupsActions.REJECT_APPLICANT).pipe(
-    map((action: fromGroupsActions.RejectApplicant) => action.payload),
-    switchMap(payload => {
-      return this.groupsService
-        .rejectApplicant(payload.groupId, payload.applicantId)
-        .pipe(map(data => new fromGroupsActions.ApplicantRejected(payload)));
-    })
-  );
+  rejectApplicant = this.actions
+    .ofType(fromGroupsActions.REJECT_APPLICANT)
+    .pipe(
+      map((action: fromGroupsActions.RejectApplicant) => action.payload),
+      switchMap(payload => {
+        return this.groupsService
+          .rejectApplicant(payload.groupId, payload.applicantId)
+          .pipe(map(data => new fromGroupsActions.ApplicantRejected(payload)));
+      })
+    );
 
   @Effect()
   leaveGroup = this.actions.ofType(fromGroupsActions.LEAVE_PARTY).pipe(
@@ -134,38 +131,42 @@ export class GroupsEffects {
   );
 
   @Effect()
-  loadApplicants = this.dataPersistence.fetch(fromGroupsActions.LOAD_APPLICANTS, {
-    run: (action: fromGroupsActions.LoadApplicants, state: GroupsState) => {
-      return this.groupsService
-        .getApplicants(action.groupId)
-        .pipe(
-          map((response: any) => response.data),
-          map(
-            (data: any) =>
-              new fromGroupsActions.ApplicantsLoaded(data, action.groupId)
-          )
-        );
-    },
-
-    onError: (action: fromGroupsActions.LoadApplicants, error) => {
-      console.error("Error", error);
-    }
-  });
+  loadApplicants = this.actions.ofType(fromGroupsActions.LOAD_APPLICANTS).pipe(
+    map((action: fromGroupsActions.LoadApplicants) => action),
+    switchMap(action => {
+      return this.groupsService.getApplicants(action.groupId).pipe(
+        map((response: any) => response.data),
+        map(
+          (data: any) =>
+            new fromGroupsActions.ApplicantsLoaded(data, action.groupId)
+        ),
+        catchError(error => {
+          console.error("Error", error);
+          return of(error);
+        })
+      );
+    })
+  );
 
   @Effect()
-  loadFeed = this.dataPersistence.fetch(fromGroupsActions.LOAD_FEED, {
-    run: (action: fromGroupsActions.LoadFeed, state: GroupsState) => {
+  loadFeed = this.actions.ofType(fromGroupsActions.LOAD_FEED).pipe(
+    map((action: fromGroupsActions.LoadFeed) => action),
+    switchMap(action => {
       return this.feedService
         .getFeed(action.groupId)
         .pipe(
           map((response: any) => response.data),
-          map((data: any) => new fromGroupsActions.FeedLoaded(data, action.groupId))
+          map(
+            (data: any) =>
+              new fromGroupsActions.FeedLoaded(data, action.groupId)
+          ),
+          catchError(error => {
+            console.error("Error", error);
+            return of(error);
+          })
         );
-    },
-    onError: (action: fromGroupsActions.LoadFeed, error) => {
-      console.error("Error", error);
-    }
-  });
+    })
+  );
 
   @Effect()
   createPost = this.actions.ofType(fromGroupsActions.CREATE_POST).pipe(
@@ -181,7 +182,6 @@ export class GroupsEffects {
 
   constructor(
     private actions: Actions,
-    private dataPersistence: DataPersistence<GroupsState>,
     private groupsService: GroupsService,
     private feedService: FeedService,
     private store: Store<GroupsState>
