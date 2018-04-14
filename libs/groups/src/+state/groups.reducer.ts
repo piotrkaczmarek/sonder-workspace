@@ -5,7 +5,7 @@ import * as fromGroupsActions from './groups.actions';
 
 export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAction): Groups {
   switch (action.type) {
-    case fromGroupsActions.SUGGESTED_PARTIES_LOADED: {
+    case fromGroupsActions.SUGGESTED_GROUPS_LOADED: {
       const suggestedEntities = action.payload.reduce(
         (entities: { [id: number]: Group }, group: Group) => {
           return {
@@ -28,7 +28,7 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       };
     }
-    case fromGroupsActions.LOAD_SUGGESTED_PARTIES: {
+    case fromGroupsActions.LOAD_SUGGESTED_GROUPS: {
       return {
         ...state,
         ...{
@@ -39,7 +39,7 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       };
     }
-    case fromGroupsActions.ACCEPTED_PARTIES_LOADED: {
+    case fromGroupsActions.ACCEPTED_GROUPS_LOADED: {
       const acceptedEntities = action.payload.reduce(
         (entities: { [id: number]: Group}, group: Group) => {
           return {
@@ -62,7 +62,7 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       };
     }
-    case fromGroupsActions.LOAD_ACCEPTED_PARTIES: {
+    case fromGroupsActions.LOAD_ACCEPTED_GROUPS: {
       return {
         ...state,
         ...{
@@ -73,7 +73,7 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       };
     }
-    case fromGroupsActions.PARTY_CREATED: {
+    case fromGroupsActions.GROUP_CREATED: {
       return {
         ...state,
         ...{
@@ -84,7 +84,7 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       }
     }
-    case fromGroupsActions.PARTY_DISMISSED: {
+    case fromGroupsActions.GROUP_DISMISSED: {
       const { [action.payload]: removed, ...entities } = state.suggested.entities;
       return {
         ...state,
@@ -94,7 +94,7 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       }
     }
-    case fromGroupsActions.PARTY_LEFT: {
+    case fromGroupsActions.GROUP_LEFT: {
       const { [action.payload]: removed, ...entities } = state.accepted.entities;
       return {
         ...state,
@@ -104,7 +104,7 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
         }
       }
     }
-    case fromGroupsActions.PARTY_APPLIED_TO: {
+    case fromGroupsActions.GROUP_APPLIED_TO: {
       const { [action.payload]: removed, ...entities } = state.suggested.entities;
       return {
         ...state,

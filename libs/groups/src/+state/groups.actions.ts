@@ -1,22 +1,22 @@
 import { Action } from "@ngrx/store";
 
-export const LOAD_SUGGESTED_PARTIES = "[Groups] Load Suggested Groups";
-export const SUGGESTED_PARTIES_LOADED = "[Groups] Suggested Groups Loaded";
+export const LOAD_SUGGESTED_GROUPS = "[Groups] Load Suggested Groups";
+export const SUGGESTED_GROUPS_LOADED = "[Groups] Suggested Groups Loaded";
 
-export const LOAD_ACCEPTED_PARTIES = "[Groups] Load Accepted Groups";
-export const ACCEPTED_PARTIES_LOADED = "[Groups] Accepted Groups Loaded";
+export const LOAD_ACCEPTED_GROUPS = "[Groups] Load Accepted Groups";
+export const ACCEPTED_GROUPS_LOADED = "[Groups] Accepted Groups Loaded";
 
-export const CREATE_PARTY = "[Groups] Create Group";
-export const PARTY_CREATED = "[Groups] Group Created";
+export const CREATE_GROUP = "[Groups] Create Group";
+export const GROUP_CREATED = "[Groups] Group Created";
 
-export const APPLY_TO_PARTY = "[Groups] Apply To Group";
-export const PARTY_APPLIED_TO = "[Groups] Group Applied To";
+export const APPLY_TO_GROUP = "[Groups] Apply To Group";
+export const GROUP_APPLIED_TO = "[Groups] Group Applied To";
 
-export const DISMISS_PARTY = "[Groups] Dismiss Group";
-export const PARTY_DISMISSED = "[Groups] Group Dismissed";
+export const DISMISS_GROUP = "[Groups] Dismiss Group";
+export const GROUP_DISMISSED = "[Groups] Group Dismissed";
 
-export const LEAVE_PARTY = "[Groups] Leave Group";
-export const PARTY_LEFT = "[Groups] Group Left";
+export const LEAVE_GROUP = "[Groups] Leave Group";
+export const GROUP_LEFT = "[Groups] Group Left";
 
 export const LOAD_APPLICANTS = "[Groups] Load Applicants";
 export const APPLICANTS_LOADED = "[Groups] Applicants Loaded";
@@ -34,60 +34,60 @@ export const CREATE_POST = "[Groups] Create Post";
 export const POST_CREATED = "[Groups] Post Created";
 
 export class LoadSuggestedGroups implements Action {
-  readonly type = LOAD_SUGGESTED_PARTIES;
+  readonly type = LOAD_SUGGESTED_GROUPS;
 }
 
 export class SuggestedGroupsLoaded implements Action {
-  readonly type = SUGGESTED_PARTIES_LOADED;
+  readonly type = SUGGESTED_GROUPS_LOADED;
   constructor(public payload: any) {}
 }
 
 export class LoadAcceptedGroups implements Action {
-  readonly type = LOAD_ACCEPTED_PARTIES;
+  readonly type = LOAD_ACCEPTED_GROUPS;
 }
 
 export class AcceptedGroupsLoaded implements Action {
-  readonly type = ACCEPTED_PARTIES_LOADED;
+  readonly type = ACCEPTED_GROUPS_LOADED;
   constructor(public payload: any) {}
 }
 
 export class CreateGroup implements Action {
-  readonly type = CREATE_PARTY;
+  readonly type = CREATE_GROUP;
   constructor(public payload: any) {}
 }
 
 export class GroupCreated implements Action {
-  readonly type = PARTY_CREATED;
+  readonly type = GROUP_CREATED;
   constructor(public payload: any) {}
 }
 
 export class ApplyToGroup implements Action {
-  readonly type = APPLY_TO_PARTY;
+  readonly type = APPLY_TO_GROUP;
   constructor(public payload: any) {}
 }
 
 export class GroupAppliedTo implements Action {
-  readonly type = PARTY_APPLIED_TO;
+  readonly type = GROUP_APPLIED_TO;
   constructor(public payload: any) {}
 }
 
 export class DismissGroup implements Action {
-  readonly type = DISMISS_PARTY;
+  readonly type = DISMISS_GROUP;
   constructor(public payload: any) {}
 }
 
 export class GroupDismissed implements Action {
-  readonly type = PARTY_DISMISSED;
+  readonly type = GROUP_DISMISSED;
   constructor(public payload: any) {}
 }
 
 export class LeaveGroup implements Action {
-  readonly type = LEAVE_PARTY;
+  readonly type = LEAVE_GROUP;
   constructor(public payload: any) {}
 }
 
 export class GroupLeft implements Action {
-  readonly type = PARTY_LEFT;
+  readonly type = GROUP_LEFT;
   constructor(public payload: any) {}
 }
 

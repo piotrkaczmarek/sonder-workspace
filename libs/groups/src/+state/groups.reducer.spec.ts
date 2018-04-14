@@ -15,7 +15,7 @@ describe('groupsReducer', () => {
         let payload, actual;
         beforeEach(() => {
           payload = [{ id: 1, name: "Group A" }, { id: 2, name: "Group B" }];
-          const action: fromActions.SuggestedGroupsLoaded = { type: fromActions.SUGGESTED_PARTIES_LOADED, payload: payload };
+          const action: fromActions.SuggestedGroupsLoaded = { type: fromActions.SUGGESTED_GROUPS_LOADED, payload: payload };
           actual = groupsReducer(state, action);
         })
 

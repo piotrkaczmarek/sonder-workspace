@@ -13,7 +13,7 @@ import * as fromAppRouter from "@sonder-workspace/router";
 export class GroupsEffects {
   @Effect()
   loadSuggestedGroups = this.actions
-    .ofType(fromGroupsActions.LOAD_SUGGESTED_PARTIES)
+    .ofType(fromGroupsActions.LOAD_SUGGESTED_GROUPS)
     .pipe(
       map((action: fromGroupsActions.LoadSuggestedGroups) => action),
       switchMap(() => {
@@ -30,7 +30,7 @@ export class GroupsEffects {
 
   @Effect()
   loadAcceptedGroups = this.actions
-    .ofType(fromGroupsActions.LOAD_ACCEPTED_PARTIES)
+    .ofType(fromGroupsActions.LOAD_ACCEPTED_GROUPS)
     .pipe(
       map((action: fromGroupsActions.LoadAcceptedGroups) => action),
       switchMap(() => {
@@ -46,7 +46,7 @@ export class GroupsEffects {
     );
 
   @Effect()
-  createGroup = this.actions.ofType(fromGroupsActions.CREATE_PARTY).pipe(
+  createGroup = this.actions.ofType(fromGroupsActions.CREATE_GROUP).pipe(
     map((action: fromGroupsActions.CreateGroup) => action.payload),
     switchMap(groupAttributes => {
       return this.groupsService
@@ -59,7 +59,7 @@ export class GroupsEffects {
   );
 
   @Effect({ dispatch: false })
-  groupCreated = this.actions.ofType(fromGroupsActions.PARTY_CREATED).pipe(
+  groupCreated = this.actions.ofType(fromGroupsActions.GROUP_CREATED).pipe(
     map((action: fromGroupsActions.GroupCreated) => action.payload),
     tap(({ path, query: queryParams, extras }) =>
       this.store.dispatch(
@@ -71,7 +71,7 @@ export class GroupsEffects {
   );
 
   @Effect()
-  applyToGroup = this.actions.ofType(fromGroupsActions.APPLY_TO_PARTY).pipe(
+  applyToGroup = this.actions.ofType(fromGroupsActions.APPLY_TO_GROUP).pipe(
     map((action: fromGroupsActions.ApplyToGroup) => action),
     map(action => action.payload),
     switchMap(groupId => {
@@ -87,7 +87,7 @@ export class GroupsEffects {
   );
 
   @Effect()
-  dismissGroup = this.actions.ofType(fromGroupsActions.DISMISS_PARTY).pipe(
+  dismissGroup = this.actions.ofType(fromGroupsActions.DISMISS_GROUP).pipe(
     map((action: fromGroupsActions.DismissGroup) => action.payload),
     switchMap(groupId => {
       return this.groupsService
@@ -121,7 +121,7 @@ export class GroupsEffects {
     );
 
   @Effect()
-  leaveGroup = this.actions.ofType(fromGroupsActions.LEAVE_PARTY).pipe(
+  leaveGroup = this.actions.ofType(fromGroupsActions.LEAVE_GROUP).pipe(
     map((action: fromGroupsActions.LeaveGroup) => action.payload),
     switchMap(groupId => {
       return this.groupsService
