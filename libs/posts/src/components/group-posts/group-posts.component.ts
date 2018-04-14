@@ -3,9 +3,9 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { ActivatedRoute } from "@angular/router";
 import {
-  GroupsState,
+  PostsState,
   getGroupPostsEntities
-} from "../../+state/groups.interfaces";
+} from "../../+state/posts.interfaces";
 
 @Component({
   selector: "group-posts",
@@ -16,10 +16,15 @@ export class GroupPostsComponent implements OnInit {
   public groupPosts$: Observable<any>;
   public groupId: number;
 
-  constructor(private store: Store<GroupsState>, private route: ActivatedRoute) {}
+  constructor(
+    private store: Store<PostsState>,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.groupPosts$ = this.store.select(getGroupPostsEntities);
-    this.route.paramMap.subscribe(route => (this.groupId = parseInt(route["params"].groupId, 10)));
+    this.route.paramMap.subscribe(
+      route => (this.groupId = parseInt(route["params"].groupId, 10))
+    );
   }
 }

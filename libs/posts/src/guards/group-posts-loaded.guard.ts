@@ -11,14 +11,14 @@ import { of } from "rxjs/observable/of";
 import { tap, filter, take, switchMap, catchError } from "rxjs/operators";
 
 import {
-  GroupsState,
+  PostsState,
   getGroupPostsLoadedByGroupId
-} from "../+state/groups.interfaces";
-import { LoadGroupPosts } from "../+state/groups.actions";
+} from "../+state/posts.interfaces";
+import { LoadGroupPosts } from "../+state/posts.actions";
 
 @Injectable()
 export class GroupPostsLoadedGuard implements CanActivate {
-  constructor(private store: Store<GroupsState>) {}
+  constructor(private store: Store<PostsState>) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -31,16 +31,14 @@ export class GroupPostsLoadedGuard implements CanActivate {
   }
 
   checkStore(groupId: number): Observable<boolean> {
-    return this.store
-      .select(getGroupPostsLoadedByGroupId(groupId))
-      .pipe(
-        tap(loaded => {
-          if (!loaded) {
-            this.store.dispatch(new LoadGroupPosts(groupId));
-          }
-        }),
-        filter(loaded => loaded),
-        take(1)
-      );
+    return this.store.select(getGroupPostsLoadedByGroupId(groupId)).pipe(
+      tap(loaded => {
+        if (!loaded) {
+          this.store.dispatch(new LoadGroupPosts(groupId));
+        }
+      }),
+      filter(loaded => loaded),
+      take(1)
+    );
   }
 }

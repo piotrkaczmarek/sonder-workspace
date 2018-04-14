@@ -1,5 +1,8 @@
-import {Posts} from './posts.interfaces';
+import { PostsState } from "./posts.interfaces";
 
-export const postsInitialState: Posts = {
-  // fill it initial state here
+export const postsInitialState: PostsState = {
+  posts: {
+    entities: {
+    }
+  }
 };

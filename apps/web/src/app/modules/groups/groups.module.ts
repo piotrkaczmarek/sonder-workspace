@@ -6,21 +6,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import {
-  groupsReducer,
-  groupsInitialState,
-  GroupsEffects
-} from "@sonder-workspace/groups";
-
-import {
-  AcceptedGroupsLoadedGuard,
-  SuggestedGroupsLoadedGuard,
-  ApplicantsLoadedGuard,
-  GroupPostsLoadedGuard
-} from "@sonder-workspace/groups";
-
-import { GroupsService, PostsService } from "@sonder-workspace/groups";
-import { AuthenticatedGuard } from "@sonder-workspace/auth";
 import { AppBackendService } from "../auth/services";
 
 import {
@@ -31,12 +16,22 @@ import {
   SuggestedGroupsComponent,
   AcceptedGroupShowComponent,
   ApplicantsComponent,
-  GroupPostsComponent,
-  NewPostFormComponent,
-  PostItemComponent
+  groupsReducer,
+  groupsInitialState,
+  GroupsEffects,
+  AcceptedGroupsLoadedGuard,
+  SuggestedGroupsLoadedGuard,
+  ApplicantsLoadedGuard,
+  GroupsService
 } from "@sonder-workspace/groups";
 
-import { BACKEND_SERVICE } from "@sonder-workspace/auth";
+import {
+  GroupPostsLoadedGuard
+} from "@sonder-workspace/posts";
+
+
+import { PostsModule } from "../posts/posts.module";
+import { AuthenticatedGuard, BACKEND_SERVICE } from "@sonder-workspace/auth";
 
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatButtonModule } from "@angular/material/button";
@@ -78,6 +73,7 @@ export const groupsRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule,
+    PostsModule,
     MatExpansionModule,
     MatButtonModule,
     MatListModule,
@@ -99,18 +95,13 @@ export const groupsRoutes: Route[] = [
     AcceptedGroupItemComponent,
     AcceptedGroupShowComponent,
     ApplicantsComponent,
-    GroupPostsComponent,
-    NewPostFormComponent,
-    PostItemComponent
   ],
   providers: [
     GroupsEffects,
     SuggestedGroupsLoadedGuard,
     AcceptedGroupsLoadedGuard,
     ApplicantsLoadedGuard,
-    GroupPostsLoadedGuard,
     GroupsService,
-    PostsService,
     AuthenticatedGuard
   ]
 })

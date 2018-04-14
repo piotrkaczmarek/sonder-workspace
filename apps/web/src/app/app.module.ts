@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 import { localStorageSync } from "ngrx-store-localstorage";
 
 import { groupsRoutes, GroupsModule } from "./modules/groups/groups.module";
+import { postsRoutes, PostsModule } from "./modules/posts/posts.module";
 import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 import { authRoutes, AuthModule } from './modules/auth/auth.module';
 import { profilesRoutes, ProfilesModule } from "./modules/profiles/profiles.module";
@@ -65,6 +66,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     NxModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: "enabled" }),
     AuthModule,
+    PostsModule,
     GroupsModule,
     ProfilesModule,
     AppRouterModule,

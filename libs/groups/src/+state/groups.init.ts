@@ -15,9 +15,5 @@ export const groupsInitialState: Groups = {
   applicants: {
     entities: {
     }
-  },
-  posts: {
-    entities: {
-    }
   }
 };

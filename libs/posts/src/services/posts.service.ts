@@ -1,11 +1,11 @@
-import { Injectable, Inject } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
-import 'rxjs/add/observable/throw';
+import { Injectable, Inject } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { catchError } from "rxjs/operators";
+import "rxjs/add/observable/throw";
 
 import { Post } from "../models";
 import { BACKEND_SERVICE, BackendService } from "@sonder-workspace/auth";
-import { switchMap } from 'rxjs/operators/switchMap';
+import { switchMap } from "rxjs/operators/switchMap";
 
 @Injectable()
 export class PostsService {

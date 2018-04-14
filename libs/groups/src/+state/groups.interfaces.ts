@@ -1,6 +1,6 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { Group, Person, Post } from "../models"
 import * as fromAppRouter from "@sonder-workspace/router";
+import { Group, Person } from "../models"
 
 export interface GroupsState {
   readonly groups: Groups;
@@ -9,7 +9,6 @@ export interface Groups {
   suggested: SuggestedGroupsState;
   accepted: AcceptedGroupsState;
   applicants: ApplicantsState;
-  posts: PostsByGroupsState;
 }
 export interface SuggestedGroupsState {
   entities: { [id: number]: Group };
@@ -26,14 +25,6 @@ export interface ApplicantsState {
 }
 export interface GroupApplicantsState {
   entities: { [personId: number]: Person };
-  loaded: boolean;
-  loading: boolean;
-}
-export interface PostsByGroupsState {
-  entities: { [groupId: number]: GroupPostsState };
-}
-export interface GroupPostsState {
-  entities: { [postId: number]: Post };
   loaded: boolean;
   loading: boolean;
 }
@@ -92,44 +83,3 @@ export const getGroupApplicantsLoadedByGroupId = (groupId) => {
     getGroupApplicantsByGroupId(groupId),
     (applicants) => applicants === undefined ? false : applicants.loaded)
 }
-
-export const getPostsByGroups = createSelector(
-  getAllGroups,
-  (groups: any) => groups.posts
-);
-
-export const getGroupPosts = createSelector(
-  getPostsByGroups,
-  fromAppRouter.getRouterState,
-  (posts, router) => {
-    return router && router.state && posts.entities[router.state.params.groupId];
-  }
-);
-
-export const getGroupPostsEntities = createSelector(
-  getGroupPosts,
-  (groupPosts: any) => {
-    if (groupPosts) {
-      return Object.keys(groupPosts.entities).map(id => groupPosts.entities[parseInt(id, 10)])
-    }
-  }
-);
-
-export const getGroupPostsLoaded = createSelector(
-  getGroupPosts,
-  groupPosts => (groupPosts === undefined ? false : groupPosts.loaded)
-);
-
-export const getGroupPostsByGroupId = groupId => {
-  return createSelector(
-    getPostsByGroups,
-    posts => posts.entities[groupId]
-  );
-};
-
-export const getGroupPostsLoadedByGroupId = groupId => {
-  return createSelector(
-    getGroupPostsByGroupId(groupId),
-    groupPosts => (groupPosts === undefined ? false : groupPosts.loaded)
-  );
-};

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { Post } from "../../../models";
-import { GroupsState } from "../../../+state/groups.interfaces";
+import { PostsState } from "../../../+state/posts.interfaces";
 
 @Component({
   selector: "post-item",
@@ -10,7 +10,7 @@ import { GroupsState } from "../../../+state/groups.interfaces";
 })
 export class PostItemComponent implements OnInit {
   @Input() post: Post;
-  constructor(private store: Store<GroupsState>) {}
+  constructor(private store: Store<PostsState>) {}
 
   ngOnInit() {}
 }

@@ -1,25 +1,44 @@
 import {Injectable} from '@angular/core';
 import {Effect, Actions} from '@ngrx/effects';
-import {DataPersistence} from '@nrwl/nx';
 import {of} from 'rxjs/observable/of';
-import 'rxjs/add/operator/switchMap';
+import { map, tap, switchMap, catchError } from "rxjs/operators";
 import {PostsState} from './posts.interfaces';
-import {LoadData, DataLoaded} from './posts.actions';
+import { PostsService } from "../services";
+import * as fromPostActions from './posts.actions';
 
 @Injectable()
 export class PostsEffects {
-  @Effect() loadData = this.dataPersistence.fetch('LOAD_DATA', {
-    run: (action: LoadData, state: PostsState) => {
-      return {
-        type: 'DATA_LOADED',
-        payload: {}
-      };
-    },
+  @Effect()
+  loadGroupPosts = this.actions.ofType(fromPostActions.LOAD_GROUP_POSTS).pipe(
+    map((action: fromPostActions.LoadGroupPosts) => action),
+    switchMap(action => {
+      return this.postsService.getGroupPosts(action.groupId).pipe(
+        map((response: any) => response.data),
+        map(
+          (data: any) =>
+            new fromPostActions.GroupPostsLoaded(data, action.groupId)
+        ),
+        catchError(error => {
+          console.error("Error", error);
+          return of(error);
+        })
+      );
+    })
+  );
 
-    onError: (action: LoadData, error) => {
-      console.error('Error', error);
-    }
-  });
-
-  constructor(private actions: Actions, private dataPersistence: DataPersistence<PostsState>) {}
+  @Effect()
+  createPost = this.actions.ofType(fromPostActions.CREATE_POST).pipe(
+    switchMap((action: fromPostActions.CreatePost) => {
+      return this.postsService
+        .createPost(action.groupId, action.payload)
+        .pipe(
+          map((response: any) => response.data),
+          map(data => new fromPostActions.PostCreated(data, action.groupId))
+        );
+    })
+  );
+  constructor(
+    private actions: Actions,
+    private postsService: PostsService
+  ) {}
 }

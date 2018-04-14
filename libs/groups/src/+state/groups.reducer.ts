@@ -1,5 +1,5 @@
 import {Groups} from './groups.interfaces';
-import { Group, Person, Post } from '../models';
+import { Group, Person } from '../models';
 
 import * as fromGroupsActions from './groups.actions';
 
@@ -195,60 +195,6 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
             [groupId]: {
               ...state.applicants.entities[groupId],
               entities: remainingApplicants
-            }
-          }
-        }
-      }
-    }
-    case fromGroupsActions.GROUP_POSTS_LOADED: {
-      let groupPostsEntities = action.data;
-      if (groupPostsEntities.length > 0) {
-        groupPostsEntities = action.data.reduce(
-          (entities: { [id: number]: Post }, post: Post) => {
-            return {
-              ...entities,
-              [post.id]: post
-            };
-          },
-          {
-            // replace instead of appending
-          }
-        );
-      }
-      return {
-        ...state,
-        posts: {
-          ...state.posts,
-          entities: {
-            ...state.posts.entities,
-            ...{
-              [action.groupId]: {
-                loaded: true,
-                loading: false,
-                entities: groupPostsEntities
-              }
-            }
-          }
-        }
-      }
-    }
-    case fromGroupsActions.POST_CREATED: {
-      const groupPostsEntities = {
-        ...state.posts.entities[action.groupId].entities,
-        ...{ [action.payload.id]: action.payload }
-      }
-      const groupPosts = {
-        ...state.posts.entities[action.groupId],
-        ...{ entities: groupPostsEntities }
-      }
-      return {
-        ...state,
-        ...{
-          posts: {
-            ...state.posts,
-            entities: {
-              ...state.posts.entities,
-              ...{ [action.groupId]: groupPosts }
             }
           }
         }
