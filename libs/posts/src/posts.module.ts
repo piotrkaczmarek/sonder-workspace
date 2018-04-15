@@ -5,10 +5,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { postsReducer } from './+state/posts.reducer';
 import { postsInitialState } from './+state/posts.init';
 import { PostsEffects } from './+state/posts.effects';
+import { PostShowComponent } from './components/post-show/post-show.component';
 
 @NgModule({
   imports: [CommonModule, StoreModule.forFeature('posts', postsReducer, {initialState: postsInitialState}), EffectsModule.forFeature([PostsEffects])],
-  providers: [PostsEffects]
+  providers: [PostsEffects],
+  declarations: [PostShowComponent]
 })
 export class PostsModule {
 }
