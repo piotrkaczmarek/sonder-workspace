@@ -21,10 +21,10 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
       return {
         ...state,
-        posts: {
-          ...state.posts,
+        postsByGroups: {
+          ...state.postsByGroups,
           entities: {
-            ...state.posts.entities,
+            ...state.postsByGroups.entities,
             ...{
               [action.groupId]: {
                 loaded: true,
@@ -36,22 +36,41 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
         }
       }
     }
+    case fromPostsActions.POST_COMMENTS_LOADED: {
+      return {
+        ...state,
+        commentsByPosts: {
+          ...state.commentsByPosts,
+          entities: {
+            ...state.commentsByPosts.entities,
+            ...{
+              [action.postId]: {
+                entities: [],
+                post: action.data,
+                loaded: true,
+                loading: false
+              }
+            }
+          }
+        }
+      }
+    }
     case fromPostsActions.POST_CREATED: {
       const groupPostsEntities = {
-        ...state.posts.entities[action.groupId].entities,
+        ...state.postsByGroups.entities[action.groupId].entities,
         ...{ [action.payload.id]: action.payload }
       }
       const groupPosts = {
-        ...state.posts.entities[action.groupId],
+        ...state.postsByGroups.entities[action.groupId],
         ...{ entities: groupPostsEntities }
       }
       return {
         ...state,
         ...{
-          posts: {
-            ...state.posts,
+          postsByGroups: {
+            ...state.postsByGroups,
             entities: {
-              ...state.posts.entities,
+              ...state.postsByGroups.entities,
               ...{ [action.groupId]: groupPosts }
             }
           }

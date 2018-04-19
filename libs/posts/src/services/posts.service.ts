@@ -21,6 +21,12 @@ export class PostsService {
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
+  getPostComments(postId: number): Observable<any> {
+    return this.backend
+      .get(`/posts/${postId}`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
   createPost(groupId: number, post: Post): Observable<Post> {
     return this.backend
       .post(`/groups/${groupId}/posts`, { post })

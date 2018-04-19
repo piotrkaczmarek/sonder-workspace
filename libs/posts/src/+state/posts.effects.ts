@@ -37,8 +37,25 @@ export class PostsEffects {
         );
     })
   );
-  constructor(
-    private actions: Actions,
-    private postsService: PostsService
-  ) {}
+
+  @Effect()
+  loadPostComments = this.actions.ofType(fromPostActions.LOAD_POST_COMMENTS).pipe(
+    map((action: fromPostActions.LoadPostComments) => action),
+    switchMap(action => {
+      return this.postsService
+        .getPostComments(action.postId)
+        .pipe(
+          map((response: any) => response.data),
+          map(
+            (data: any) =>
+              new fromPostActions.PostCommentsLoaded(data, action.postId)
+          ),
+          catchError(error => {
+            console.error("Error", error);
+            return of(error);
+          })
+        );
+    })
+  );
+  constructor(private actions: Actions, private postsService: PostsService) {}
 }

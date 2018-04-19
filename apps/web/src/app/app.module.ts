@@ -33,6 +33,7 @@ const routes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "groups" },
   { path: "login", children: authRoutes },
   { path: "groups", children: groupsRoutes },
+  { path: "posts", children: postsRoutes },
   { path: "profiles", children: profilesRoutes }
 ];
 

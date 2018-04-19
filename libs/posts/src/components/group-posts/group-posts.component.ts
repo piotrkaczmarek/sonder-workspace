@@ -6,6 +6,7 @@ import {
   PostsState,
   getGroupPostsEntities
 } from "../../+state/posts.interfaces";
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: "group-posts",
@@ -22,7 +23,10 @@ export class GroupPostsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.groupPosts$ = this.store.select(getGroupPostsEntities);
+    this.groupPosts$ = this.store.select(getGroupPostsEntities).pipe(
+      filter(posts => posts ? true : false),
+      map((posts) => posts.sort((a, b) => b.id - a.id))
+    );
     this.route.paramMap.subscribe(
       route => (this.groupId = parseInt(route["params"].groupId, 10))
     );

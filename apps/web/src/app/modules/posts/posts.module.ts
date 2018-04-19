@@ -12,9 +12,11 @@ import {
   GroupPostsComponent,
   NewPostFormComponent,
   PostItemComponent,
+  PostShowComponent,
   postsReducer,
   postsInitialState,
-  PostsEffects
+  PostsEffects,
+  PostLoadedGuard
 } from "@sonder-workspace/posts";
 
 import { AuthenticatedGuard, BACKEND_SERVICE } from "@sonder-workspace/auth";
@@ -27,6 +29,11 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 
 export const postsRoutes: Route[] = [
+  {
+    path: ":postId",
+    canActivate: [AuthenticatedGuard, PostLoadedGuard],
+    component: PostShowComponent
+  },
 ];
 
 @NgModule({
@@ -46,11 +53,22 @@ export const postsRoutes: Route[] = [
     }),
     EffectsModule.forFeature([PostsEffects])
   ],
-  declarations: [GroupPostsComponent, NewPostFormComponent, PostItemComponent],
-  exports: [GroupPostsComponent, NewPostFormComponent, PostItemComponent],
+  declarations: [
+    GroupPostsComponent,
+    NewPostFormComponent,
+    PostItemComponent,
+    PostShowComponent
+  ],
+  exports: [
+    GroupPostsComponent,
+    NewPostFormComponent,
+    PostItemComponent,
+    PostShowComponent
+  ],
   providers: [
     PostsEffects,
     GroupPostsLoadedGuard,
+    PostLoadedGuard,
     PostsService,
     AuthenticatedGuard
   ]

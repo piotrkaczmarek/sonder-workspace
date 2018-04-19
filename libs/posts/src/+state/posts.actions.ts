@@ -1,10 +1,13 @@
 import { Action } from "@ngrx/store";
 
-export const LOAD_GROUP_POSTS = "[Groups] Load Group Posts";
-export const GROUP_POSTS_LOADED = "[Groups] Group Posts Loaded";
+export const LOAD_GROUP_POSTS = "[Posts] Load Group Posts";
+export const GROUP_POSTS_LOADED = "[Posts] Group Posts Loaded";
 
-export const CREATE_POST = "[Groups] Create Post";
-export const POST_CREATED = "[Groups] Post Created";
+export const CREATE_POST = "[Posts] Create Post";
+export const POST_CREATED = "[Posts] Post Created";
+
+export const LOAD_POST_COMMENTS = "[Posts] Load Post Comments";
+export const POST_COMMENTS_LOADED = "[Posts] Post Comments Loaded";
 
 export class LoadGroupPosts implements Action {
   readonly type = LOAD_GROUP_POSTS;
@@ -26,4 +29,20 @@ export class PostCreated implements Action {
   constructor(public payload: any, public groupId: number) {}
 }
 
-export type PostsAction = LoadGroupPosts | GroupPostsLoaded | CreatePost | PostCreated;
+export class LoadPostComments implements Action {
+  readonly type = LOAD_POST_COMMENTS;
+  constructor(public postId: number) {}
+}
+
+export class PostCommentsLoaded implements Action {
+  readonly type = POST_COMMENTS_LOADED;
+  constructor(public data: any, public postId: number) {}
+}
+
+export type PostsAction =
+  | LoadGroupPosts
+  | GroupPostsLoaded
+  | CreatePost
+  | PostCreated
+  | LoadPostComments
+  | PostCommentsLoaded;
