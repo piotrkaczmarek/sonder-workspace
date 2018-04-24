@@ -49,16 +49,16 @@ describe('groupsReducer', () => {
             entities: {
               [groupId1]: {
                 entities: {
-                  [applicantId1]: { id: applicantId1, first_name: 'Bob' },
-                  [applicantId2]: { id: applicantId2, first_name: 'John'}
+                  [applicantId1]: { id: applicantId1, firstName: 'Bob' },
+                  [applicantId2]: { id: applicantId2, firstName: 'John'}
                 },
                 loaded: true,
                 loading: false
               },
               [groupId2]: {
                 entities: {
-                  [applicantId1]: { id: applicantId1, first_name: 'Bob' },
-                  [applicantId2]: { id: applicantId2, first_name: 'John'}
+                  [applicantId1]: { id: applicantId1, firstName: 'Bob' },
+                  [applicantId2]: { id: applicantId2, firstName: 'John'}
                 },
                 loaded: true,
                 loading: false
@@ -112,16 +112,16 @@ describe('groupsReducer', () => {
             entities: {
               [groupId1]: {
                 entities: {
-                  [applicantId1]: { id: applicantId1, first_name: 'Bob' },
-                  [applicantId2]: { id: applicantId2, first_name: 'John'}
+                  [applicantId1]: { id: applicantId1, firstName: 'Bob' },
+                  [applicantId2]: { id: applicantId2, firstName: 'John'}
                 },
                 loaded: true,
                 loading: false
               },
               [groupId2]: {
                 entities: {
-                  [applicantId1]: { id: applicantId1, first_name: 'Bob' },
-                  [applicantId2]: { id: applicantId2, first_name: 'John'}
+                  [applicantId1]: { id: applicantId1, firstName: 'Bob' },
+                  [applicantId2]: { id: applicantId2, firstName: 'John'}
                 },
                 loaded: true,
                 loading: false
@@ -148,7 +148,7 @@ describe('groupsReducer', () => {
         });
 
         it("adds applicant to group members", () => {
-          expect(actual.accepted.entities[groupId1].members).toContain({ id: applicantId1, first_name: 'Bob'})
+          expect(actual.accepted.entities[groupId1].members).toContain({ id: applicantId1, firstName: 'Bob'})
         })
       })
     })

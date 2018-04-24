@@ -11,6 +11,7 @@ import * as fromGroupsActions from "../../../+state/groups.actions";
 })
 export class AcceptedGroupItemComponent implements OnInit {
   @Input() group: Group;
+
   constructor(private store: Store<GroupsState>) {}
 
   ngOnInit() {}

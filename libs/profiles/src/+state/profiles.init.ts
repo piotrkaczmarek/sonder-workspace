@@ -5,7 +5,7 @@ export const profilesInitialState: Profiles = {
   my: {
     data: {
       id: undefined,
-      first_name: undefined
+      firstName: undefined
     },
     loaded: false,
     loading: false

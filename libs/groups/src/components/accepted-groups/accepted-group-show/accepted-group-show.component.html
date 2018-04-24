@@ -8,7 +8,7 @@
     <mat-list>
       <h3 mat-groupheader>Members</h3>
       <mat-list-item *ngFor="let member of (group$ | async).members">
-        <h4 mat-line>{{ member.first_name }}</h4>
+        <h4 mat-line>{{ member.firstName }}</h4>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
