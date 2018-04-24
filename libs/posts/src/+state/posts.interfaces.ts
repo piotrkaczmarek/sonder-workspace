@@ -34,10 +34,6 @@ export const getPostsByGroups = createSelector(getAllPostsState, (postsState: Po
   return postsState.postsByGroups;
 });
 
-export const getCommentsByPosts = createSelector(getAllPostsState, (postsState: PostsState) => {
-  return postsState.commentsByPosts;
-})
-
 export const getGroupPosts = createSelector(
   getPostsByGroups,
   fromAppRouter.getRouterState,
@@ -45,6 +41,41 @@ export const getGroupPosts = createSelector(
     return (
       router && router.state && postsByGroups.entities[router.state.params.groupId]
     );
+  }
+);
+
+export const getGroupPostsEntities = createSelector(
+  getGroupPosts,
+  (groupPosts: any) => {
+    if (groupPosts) {
+      return Object.keys(groupPosts.entities).map(
+        id => groupPosts.entities[parseInt(id, 10)]
+      );
+    }
+  }
+);
+
+export const getGroupPostsLoaded = createSelector(
+  getGroupPosts,
+  groupPosts => (groupPosts === undefined ? false : groupPosts.loaded)
+);
+
+export const getGroupPostsByGroupId = groupId => {
+  return createSelector(getPostsByGroups, postsByGroups => {
+    return postsByGroups.entities[groupId];
+  });
+};
+
+export const getGroupPostsLoadedByGroupId = groupId => {
+  return createSelector(getGroupPostsByGroupId(groupId), groupPosts => {
+    return groupPosts === undefined ? false : groupPosts.loaded;
+  });
+};
+
+export const getCommentsByPosts = createSelector(
+  getAllPostsState,
+  (postsState: PostsState) => {
+    return postsState.commentsByPosts;
   }
 );
 
@@ -58,56 +89,30 @@ export const getPostComments = createSelector(
   }
 )
 
-export const getGroupPostsEntities = createSelector(
-  getGroupPosts,
-  (groupPosts: any) => {
-    if (groupPosts) {
-      return Object.keys(groupPosts.entities).map(
-        id => groupPosts.entities[parseInt(id, 10)]
-      );
-    }
-  }
-);
+export const getPostCommentsPost = createSelector(
+  getPostComments,
+  (postComments: PostCommentsState) => (postComments ? postComments.post : undefined)
+)
 
 export const getPostCommentsEntities = createSelector(
-  getCommentsByPosts,
-  (postComments: any) => {
+  getPostComments,
+  (postComments: PostCommentsState) => {
     return Object.keys(postComments.entities).map(
       id => postComments.entities[parseInt(id, 10)]
     );
   }
 )
 
-export const getGroupPostsLoaded = createSelector(
-  getGroupPosts,
-  groupPosts => (groupPosts === undefined ? false : groupPosts.loaded)
-);
-
 export const getPostCommentsLoaded = createSelector(
   getPostComments,
   postComments => (postComments === undefined ? false : postComments.loaded)
 );
-
-export const getGroupPostsByGroupId = groupId => {
-  return createSelector(getPostsByGroups, postsByGroups => {
-    return postsByGroups.entities[groupId];
-  });
-};
 
 export const getPostCommentsByPostId = postId => {
   return createSelector(getCommentsByPosts, commentsByPosts => {
     return commentsByPosts.entities[postId];
   });
 }
-
-export const getGroupPostsLoadedByGroupId = groupId => {
-  return createSelector(
-    getGroupPostsByGroupId(groupId),
-    groupPosts => {
-      return (groupPosts === undefined ? false : groupPosts.loaded)
-    }
-  );
-};
 
 export const getPostCommentsLoadedByPostId = postId => {
   return createSelector(

@@ -37,6 +37,18 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.POST_COMMENTS_LOADED: {
+      const { comments, ...post } = action.data;
+      let commentEntities;
+      if (comments.length > 0 ) {
+        commentEntities = comments.reduce(
+          (entities, comment) => {
+            return {
+              ...entities,
+              [comment.id]: comment
+            }
+          }
+        , {})
+      }
       return {
         ...state,
         commentsByPosts: {
@@ -45,8 +57,8 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
             ...state.commentsByPosts.entities,
             ...{
               [action.postId]: {
-                entities: [],
-                post: action.data,
+                entities: commentEntities,
+                post: post,
                 loaded: true,
                 loading: false
               }
