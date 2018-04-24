@@ -1,3 +1,6 @@
-<p>
-  comment-tree works!
-</p>
+<div *ngIf="(comments$ | async) as comments">
+  <div *ngFor="let comment of comments">
+    {{ comment.body }}
+    <comment-tree [postId]="postId" [parentIds]="comment.parentIds.concat(comment.id)"></comment-tree>
+  </div>
+</div>

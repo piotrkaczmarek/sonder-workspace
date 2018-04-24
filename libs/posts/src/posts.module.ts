@@ -9,9 +9,14 @@ import { PostShowComponent } from './components/post-show/post-show.component';
 import { CommentTreeComponent } from './components/comment-tree/comment-tree.component';
 
 @NgModule({
-  imports: [CommonModule, StoreModule.forFeature('posts', postsReducer, {initialState: postsInitialState}), EffectsModule.forFeature([PostsEffects])],
+  imports: [
+    CommonModule,
+    StoreModule.forFeature("posts", postsReducer, {
+      initialState: postsInitialState
+    }),
+    EffectsModule.forFeature([PostsEffects])
+  ],
   providers: [PostsEffects],
-  declarations: [PostShowComponent, CommentTreeComponent]
+  declarations: [CommentTreeComponent, PostShowComponent]
 })
-export class PostsModule {
-}
+export class PostsModule {}

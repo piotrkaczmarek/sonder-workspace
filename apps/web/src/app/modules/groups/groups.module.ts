@@ -9,8 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppBackendService } from "../auth/services";
 
 import {
-  SuggestedGroupItemComponent,
-  AcceptedGroupItemComponent,
+  components,
   NewGroupPageComponent,
   AcceptedGroupsComponent,
   SuggestedGroupsComponent,
@@ -88,11 +87,10 @@ export const groupsRoutes: Route[] = [
     EffectsModule.forFeature([GroupsEffects])
   ],
   declarations: [
+    ...components,
     NewGroupPageComponent,
     SuggestedGroupsComponent,
-    SuggestedGroupItemComponent,
     AcceptedGroupsComponent,
-    AcceptedGroupItemComponent,
     AcceptedGroupShowComponent,
     ApplicantsComponent,
   ],

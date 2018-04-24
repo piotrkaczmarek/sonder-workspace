@@ -1,6 +1,7 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
 import { Post, Comment } from "../models";
+import { isEqual } from "lodash";
 
 export interface PostsState {
   readonly postsByGroups: PostsByGroups;
@@ -122,3 +123,15 @@ export const getPostCommentsLoadedByPostId = postId => {
     }
   )
 }
+
+export const getPostCommentsChildren = (postId, parentIds) => {
+  return createSelector(
+    getPostCommentsByPostId(postId),
+    (postComments) => {
+      if (!postComments.entities) return;
+      return Object.keys(postComments.entities)
+        .filter((id) => isEqual(postComments.entities[parseInt(id, 10)].parentIds, parentIds))
+        .map((id) => postComments.entities[parseInt(id, 10)]);
+    }
+  )
+};

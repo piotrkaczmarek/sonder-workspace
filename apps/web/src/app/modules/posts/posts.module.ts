@@ -9,9 +9,7 @@ import { EffectsModule } from "@ngrx/effects";
 import {
   GroupPostsLoadedGuard,
   PostsService,
-  GroupPostsComponent,
-  NewPostFormComponent,
-  PostItemComponent,
+  components,
   PostShowComponent,
   postsReducer,
   postsInitialState,
@@ -53,18 +51,8 @@ export const postsRoutes: Route[] = [
     }),
     EffectsModule.forFeature([PostsEffects])
   ],
-  declarations: [
-    GroupPostsComponent,
-    NewPostFormComponent,
-    PostItemComponent,
-    PostShowComponent
-  ],
-  exports: [
-    GroupPostsComponent,
-    NewPostFormComponent,
-    PostItemComponent,
-    PostShowComponent
-  ],
+  declarations: [...components],
+  exports: [...components],
   providers: [
     PostsEffects,
     GroupPostsLoadedGuard,
