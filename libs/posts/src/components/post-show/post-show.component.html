@@ -1,5 +1,13 @@
 <div *ngIf="(post$ | async) as post">
-  <h1>{{ post.title }}</h1>
-  <p>{{ post.body }}</p>
-  <comment-tree [postId]="post.id" [parentIds]="[]"></comment-tree>
+  <mat-card class="parent">
+    <mat-card-title>
+      {{ post.title }}
+    </mat-card-title>
+    <mat-card-content>
+      {{ post.body }}
+    </mat-card-content>
+    <br><br>
+    <mat-card-subtitle>Comments</mat-card-subtitle>
+    <comment-tree [postId]="post.id" [parentIds]="[]"></comment-tree>
+  </mat-card>
 </div>
