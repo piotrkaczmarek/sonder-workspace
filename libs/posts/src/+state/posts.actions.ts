@@ -9,6 +9,9 @@ export const POST_CREATED = "[Posts] Post Created";
 export const LOAD_POST_COMMENTS = "[Posts] Load Post Comments";
 export const POST_COMMENTS_LOADED = "[Posts] Post Comments Loaded";
 
+export const CREATE_COMMENT = "[Posts] Create Comment";
+export const COMMENT_CREATED = "[Posts] Comment Created";
+
 export class LoadGroupPosts implements Action {
   readonly type = LOAD_GROUP_POSTS;
   constructor(public groupId: number) {}
@@ -39,10 +42,22 @@ export class PostCommentsLoaded implements Action {
   constructor(public data: any, public postId: number) {}
 }
 
+export class CreateComment implements Action {
+  readonly type = CREATE_COMMENT;
+  constructor(public payload: any, public postId: number) {}
+}
+
+export class CommentCreated implements Action {
+  readonly type = COMMENT_CREATED;
+  constructor(public data: any, public postId: number) {}
+}
+
 export type PostsAction =
   | LoadGroupPosts
   | GroupPostsLoaded
   | CreatePost
   | PostCreated
   | LoadPostComments
-  | PostCommentsLoaded;
+  | PostCommentsLoaded
+  | CreateComment
+  | CommentCreated;

@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { catchError } from "rxjs/operators";
 import "rxjs/add/observable/throw";
 
-import { Post } from "../models";
+import { Post, Comment } from "../models";
 import { BACKEND_SERVICE, BackendService } from "@sonder-workspace/auth";
 import { switchMap } from "rxjs/operators/switchMap";
 
@@ -30,6 +30,12 @@ export class PostsService {
   createPost(groupId: number, post: Post): Observable<Post> {
     return this.backend
       .post(`/groups/${groupId}/posts`, { post })
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  createComment(postId: number, comment: Comment): Observable<Post> {
+    return this.backend
+      .post(`/posts/${postId}/comments`, { comment })
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 }

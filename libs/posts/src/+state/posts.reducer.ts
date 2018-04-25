@@ -89,6 +89,28 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
         }
       }
     }
+    case fromPostsActions.COMMENT_CREATED: {
+      const postCommentsEntities = {
+        ...state.commentsByPosts.entities[action.postId].entities,
+        ...{ [action.data.id]: action.data }
+      }
+      const postComments = {
+        ...state.commentsByPosts.entities[action.postId],
+        ...{ entities: postCommentsEntities }
+      }
+      return {
+        ...state,
+        ...{
+          commentsByPosts: {
+            ...state.commentsByPosts,
+            entities: {
+              ...state.commentsByPosts.entities,
+              ...{ [action.postId]: postComments }
+            }
+          }
+        }
+      }
+    }
     default: {
       return state;
     }

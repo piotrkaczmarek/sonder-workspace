@@ -1,3 +1,13 @@
-<p>
-  comment-item works!
-</p>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    {{ comment.body }}
+  </mat-expansion-panel-header>
+  <form [formGroup]="commentForm" novalidate>
+    <div class="form-group">
+      <mat-form-field>
+        <textarea matInput placeholder="Leave a comment" class="form-control" formControlName="body"></textarea>
+      </mat-form-field>
+      <button mat-button (click)="postComment()">Post</button>
+    </div>
+  </form>
+</mat-expansion-panel>

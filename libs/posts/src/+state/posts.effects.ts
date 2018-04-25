@@ -39,12 +39,12 @@ export class PostsEffects {
   );
 
   @Effect()
-  loadPostComments = this.actions.ofType(fromPostActions.LOAD_POST_COMMENTS).pipe(
-    map((action: fromPostActions.LoadPostComments) => action),
-    switchMap(action => {
-      return this.postsService
-        .getPostComments(action.postId)
-        .pipe(
+  loadPostComments = this.actions
+    .ofType(fromPostActions.LOAD_POST_COMMENTS)
+    .pipe(
+      map((action: fromPostActions.LoadPostComments) => action),
+      switchMap(action => {
+        return this.postsService.getPostComments(action.postId).pipe(
           map((response: any) => response.data),
           map(
             (data: any) =>
@@ -55,7 +55,20 @@ export class PostsEffects {
             return of(error);
           })
         );
+      })
+    );
+
+  @Effect()
+  createComment = this.actions.ofType(fromPostActions.CREATE_COMMENT).pipe(
+    switchMap((action: fromPostActions.CreateComment) => {
+      return this.postsService
+        .createComment(action.postId, action.payload)
+        .pipe(
+          map((response: any) => response.data),
+          map(data => new fromPostActions.CommentCreated(data, action.postId))
+        );
     })
   );
+
   constructor(private actions: Actions, private postsService: PostsService) {}
 }
