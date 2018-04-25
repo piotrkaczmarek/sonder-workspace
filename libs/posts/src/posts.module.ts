@@ -7,6 +7,7 @@ import { postsInitialState } from './+state/posts.init';
 import { PostsEffects } from './+state/posts.effects';
 import { PostShowComponent } from './components/post-show/post-show.component';
 import { CommentTreeComponent } from './components/comment-tree/comment-tree.component';
+import { CommentItemComponent } from './components/comment-tree/comment-item/comment-item.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { CommentTreeComponent } from './components/comment-tree/comment-tree.com
     EffectsModule.forFeature([PostsEffects])
   ],
   providers: [PostsEffects],
-  declarations: [CommentTreeComponent, PostShowComponent]
+  declarations: [CommentTreeComponent, PostShowComponent, CommentItemComponent]
 })
 export class PostsModule {}
