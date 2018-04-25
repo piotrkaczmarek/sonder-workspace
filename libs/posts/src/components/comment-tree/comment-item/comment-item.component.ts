@@ -15,9 +15,11 @@ import * as postsStore from "../../../+state";
   styleUrls: ["./comment-item.component.css"]
 })
 export class CommentItemComponent implements OnInit {
-  @Input() comment: Comment;
+  @Input() body: string;
   @Input() postId: number;
+  @Input() parentIds: Array<number>;
 
+  expanded: boolean;
   commentForm: FormGroup;
 
   constructor(
@@ -39,9 +41,10 @@ export class CommentItemComponent implements OnInit {
     const payload = {
       ...this.commentForm.getRawValue(),
       ...{
-        parent_ids: this.comment.parentIds.concat(this.comment.id)
+        parent_ids: this.parentIds
       }
     }
     this.store.dispatch(new postsStore.CreateComment(payload, this.postId));
+    this.expanded = false;
   }
 }

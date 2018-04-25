@@ -1,7 +1,7 @@
 <div *ngIf="(comments$ | async) as comments">
   <div *ngFor="let comment of comments">
     <mat-card>
-      <comment-item [comment]="comment" [postId]="postId"></comment-item>
+      <comment-item [body]="comment.body" [parentIds]="comment.parentIds.concat(comment.id)" [postId]="postId"></comment-item>
       <mat-card-content class="children">
         <comment-tree [postId]="postId" [parentIds]="comment.parentIds.concat(comment.id)"></comment-tree>
       </mat-card-content>
