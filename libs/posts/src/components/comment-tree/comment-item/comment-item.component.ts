@@ -46,5 +46,6 @@ export class CommentItemComponent implements OnInit {
     }
     this.store.dispatch(new postsStore.CreateComment(payload, this.postId));
     this.expanded = false;
+    this.commentForm.reset();
   }
 }

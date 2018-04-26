@@ -24,12 +24,14 @@ export class NewPostFormComponent implements OnInit {
 
   createForm() {
     this.postForm = this.formBuilder.group({
-      body: ["", Validators.required]
+      title: ["", Validators.required],
+      body: [""]
     });
   }
 
   onPostButtonClick() {
     this.store.dispatch(new CreatePost(this.postForm.getRawValue(), this.groupId));
     this.postForm.controls.body.setValue("");
+    this.postForm.controls.title.setValue("");
   }
 }
