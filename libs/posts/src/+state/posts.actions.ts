@@ -12,6 +12,18 @@ export const POST_COMMENTS_LOADED = "[Posts] Post Comments Loaded";
 export const CREATE_COMMENT = "[Posts] Create Comment";
 export const COMMENT_CREATED = "[Posts] Comment Created";
 
+export const UPVOTE_COMMENT = "[Posts] Upvote Comment";
+export const COMMENT_UPVOTED = "[Posts] Comment Upvoted";
+
+export const DOWNVOTE_COMMENT = "[Posts] Downvote Comment";
+export const COMMENT_DOWNVOTED = "[Posts] Comment Downvoted";
+
+export const UPVOTE_POST = "[Posts] Upvote Post";
+export const POST_UPVOTED = "[Posts] Post Upvoted"
+
+export const DOWNVOTE_POST = "[Posts] Downvote Post";
+export const POST_DOWNVOTED = "[Posts] Post Downvoted";
+
 export class LoadGroupPosts implements Action {
   readonly type = LOAD_GROUP_POSTS;
   constructor(public groupId: number) {}
@@ -52,6 +64,46 @@ export class CommentCreated implements Action {
   constructor(public data: any, public postId: number) {}
 }
 
+export class UpvoteComment implements Action {
+  readonly type = UPVOTE_COMMENT;
+  constructor(public commentId: number, public postId: number) {}
+}
+
+export class CommentUpvoted implements Action {
+  readonly type = COMMENT_UPVOTED;
+  constructor(public commentId: number, public postId: number) {}
+}
+
+export class DownvoteComment implements Action {
+  readonly type = DOWNVOTE_COMMENT;
+  constructor(public commentId: number, public postId: number) {}
+}
+
+export class CommentDownvoted implements Action {
+  readonly type = COMMENT_DOWNVOTED;
+  constructor(public commentId: number, public postId: number) {}
+}
+
+export class UpvotePost implements Action {
+  readonly type = UPVOTE_POST;
+  constructor(public postId: number) {}
+}
+
+export class PostUpvoted implements Action {
+  readonly type = POST_UPVOTED;
+  constructor(public postId: number) {}
+}
+
+export class DownvotePost implements Action {
+  readonly type = DOWNVOTE_POST;
+  constructor(public postId: number) {}
+}
+
+export class PostDownvoted implements Action {
+  readonly type = POST_DOWNVOTED;
+  constructor(public postId: number) {}
+}
+
 export type PostsAction =
   | LoadGroupPosts
   | GroupPostsLoaded
@@ -60,4 +112,12 @@ export type PostsAction =
   | LoadPostComments
   | PostCommentsLoaded
   | CreateComment
-  | CommentCreated;
+  | CommentCreated
+  | UpvoteComment
+  | CommentUpvoted
+  | DownvoteComment
+  | CommentDownvoted
+  | UpvotePost
+  | PostUpvoted
+  | DownvotePost
+  | PostDownvoted;

@@ -70,5 +70,74 @@ export class PostsEffects {
     })
   );
 
+  @Effect()
+  upvoteComment = this.actions.ofType(fromPostActions.UPVOTE_COMMENT).pipe(
+    switchMap((action: fromPostActions.UpvoteComment) => {
+      return this.postsService
+        .upvote('comments', action.commentId)
+        .pipe(
+          map((response: any) => response.data),
+          map(
+            data =>
+              new fromPostActions.CommentUpvoted(
+                action.commentId,
+                action.postId
+              )
+          )
+        );
+    })
+  );
+
+  @Effect()
+  downvoteComment = this.actions.ofType(fromPostActions.DOWNVOTE_COMMENT).pipe(
+    switchMap((action: fromPostActions.DownvoteComment) => {
+      return this.postsService
+        .downvote('comments', action.commentId)
+        .pipe(
+          map((response: any) => response.data),
+          map(
+            data =>
+              new fromPostActions.CommentDownvoted(
+                action.commentId,
+                action.postId
+              )
+          )
+        );
+    })
+  );
+
+  @Effect()
+  upvotePost = this.actions.ofType(fromPostActions.UPVOTE_POST).pipe(
+    switchMap((action: fromPostActions.UpvotePost) => {
+      return this.postsService
+        .upvote('posts', action.postId)
+        .pipe(
+          map((response: any) => response.data),
+          map(
+            data =>
+              new fromPostActions.PostUpvoted(
+                action.postId
+              )
+          )
+        );
+    })
+  );
+
+  @Effect()
+  downvotePost = this.actions.ofType(fromPostActions.DOWNVOTE_POST).pipe(
+    switchMap((action: fromPostActions.DownvotePost) => {
+      return this.postsService
+        .downvote('posts', action.postId)
+        .pipe(
+          map((response: any) => response.data),
+          map(
+            data =>
+              new fromPostActions.PostDownvoted(
+                action.postId
+              )
+          )
+        );
+    })
+  );
   constructor(private actions: Actions, private postsService: PostsService) {}
 }

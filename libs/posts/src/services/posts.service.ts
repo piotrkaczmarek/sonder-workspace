@@ -33,9 +33,21 @@ export class PostsService {
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  createComment(postId: number, comment: Comment): Observable<Post> {
+  createComment(postId: number, comment: Comment): Observable<Comment> {
     return this.backend
       .post(`/posts/${postId}/comments`, { comment })
       .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  upvote(targetClass: string, targetId: number) {
+    return this.backend.post(`/${targetClass}/${targetId}/upvote`, {});
+  }
+
+  downvote(targetClass: string, targetId: number) {
+    return this.backend.post(`/${targetClass}/${targetId}/downvote`, {});
+  }
+
+  revoke_vote(targetClass: string, targetId: number) {
+    return this.backend.post(`/${targetClass}/${targetId}/revoke_vote`, {});
   }
 }
