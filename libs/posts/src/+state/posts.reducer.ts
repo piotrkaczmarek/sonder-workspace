@@ -5,6 +5,7 @@ import { Post } from '../models';
 export function postsReducer(state: PostsState, action: fromPostsActions.PostsAction): PostsState {
   switch (action.type) {
     case fromPostsActions.GROUP_POSTS_LOADED: {
+      const postIds = action.data.map((post: Post) => post.id);
       let groupPostsEntities = action.data;
       if (groupPostsEntities.length > 0) {
         groupPostsEntities = action.data.reduce(
@@ -21,6 +22,13 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
       return {
         ...state,
+        posts: {
+          ...state.posts,
+          entities: {
+            ...state.posts.entities,
+            ...groupPostsEntities
+          }
+        },
         postsByGroups: {
           ...state.postsByGroups,
           entities: {
@@ -29,7 +37,7 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
               [action.groupId]: {
                 loaded: true,
                 loading: false,
-                entities: groupPostsEntities
+                entities: postIds
               }
             }
           }
@@ -51,6 +59,13 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
       return {
         ...state,
+        posts: {
+          ...state.posts,
+          entities: {
+            ...state.posts.entities,
+            [post.id]: post
+          }
+        },
         commentsByPosts: {
           ...state.commentsByPosts,
           entities: {
@@ -58,7 +73,6 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
             ...{
               [action.postId]: {
                 entities: commentEntities,
-                post: post,
                 loaded: true,
                 loading: false
               }
@@ -68,16 +82,24 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.POST_CREATED: {
-      const groupPostsEntities = {
+      const post = action.payload;
+      const groupPostsEntities = [
         ...state.postsByGroups.entities[action.groupId].entities,
-        ...{ [action.payload.id]: action.payload }
-      }
+        post.id
+      ]
       const groupPosts = {
         ...state.postsByGroups.entities[action.groupId],
         ...{ entities: groupPostsEntities }
       }
       return {
         ...state,
+        posts: {
+          ...state.posts,
+          entities: {
+            ...state.posts.entities,
+            [post.id]: post
+          }
+        },
         ...{
           postsByGroups: {
             ...state.postsByGroups,

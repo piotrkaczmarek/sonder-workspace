@@ -17,19 +17,19 @@ describe('postsReducer', () => {
           ...postsInitialState,
           posts: {
             entities: {
+              [postId1]: { id: postId1, body: 'post 1 body', title: 'title 1', authorId: 1 },
+              [postId2]: { id: postId2, body: 'post 2 body', title: 'title 2', authorId: 2 }
+            }
+          },
+          postsByGroups: {
+            entities: {
               [groupId1]: {
-                entities: {
-                  [postId1]: { id: postId1, body: 'post 1 body' },
-                  [postId2]: { id: postId2, body: 'post 2 body'}
-                },
+                entities: [postId1, postId2],
                 loaded: true,
                 loading: false
               },
               [groupId2]: {
-                entities: {
-                  [postId1]: { id: postId1, body: 'post 3 body' },
-                  [postId2]: { id: postId2, body: 'post 4 body'}
-                },
+                entities: [postId1, postId2],
                 loaded: true,
                 loading: false
               }
@@ -50,9 +50,8 @@ describe('postsReducer', () => {
         });
 
         it('adds post to given group', () => {
-          const returnedPostIds = Object.keys(actual.posts.entities[groupId1].entities);
-          const expectedPostIds = [String(postId1), String(postId2), String(newPostId)];
-          expect(returnedPostIds).toEqual(expectedPostIds);
+          const returnedPostIds = actual.postsByGroups.entities[groupId1].entities;
+          expect(returnedPostIds).toEqual([postId1, postId2, newPostId]);
         })
       })
     })

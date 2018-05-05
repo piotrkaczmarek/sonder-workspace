@@ -6,14 +6,19 @@ import { isEqual } from "lodash";
 export interface PostsState {
   readonly postsByGroups: PostsByGroups;
   readonly commentsByPosts: CommentsByPost;
+  readonly posts: Posts
 }
 
 export interface PostsByGroups {
   entities: { [groupId: number]: GroupPostsState };
 }
 
+export interface Posts {
+  entities: { [postId: number]: Post }
+}
+
 export interface GroupPostsState {
-  entities: { [postId: number]: Post };
+  entities: Array<number>;
   loaded: boolean;
   loading: boolean;
 }
@@ -24,12 +29,15 @@ export interface CommentsByPost {
 
 export interface PostCommentsState {
   entities: { [commentId: number]: Comment };
-  post: Post;
   loaded: boolean;
   loading: boolean;
 }
 
 export const getAllPostsState = createSelector(createFeatureSelector<PostsState>("posts"), state => state);
+
+export const getPosts = createSelector(getAllPostsState, (postsState: PostsState) => {
+  return postsState.posts;
+})
 
 export const getPostsByGroups = createSelector(getAllPostsState, (postsState: PostsState) => {
   return postsState.postsByGroups;
@@ -46,12 +54,11 @@ export const getGroupPosts = createSelector(
 );
 
 export const getGroupPostsEntities = createSelector(
+  getPosts,
   getGroupPosts,
-  (groupPosts: any) => {
+  (posts: Posts, groupPosts: GroupPostsState) => {
     if (groupPosts) {
-      return Object.keys(groupPosts.entities).map(
-        id => groupPosts.entities[parseInt(id, 10)]
-      );
+      return groupPosts.entities.map(id => posts.entities[id]);
     }
   }
 );
@@ -90,9 +97,10 @@ export const getPostComments = createSelector(
   }
 )
 
-export const getPostCommentsPost = createSelector(
-  getPostComments,
-  (postComments: PostCommentsState) => (postComments ? postComments.post : undefined)
+export const getSelectedPost = createSelector(
+  getPosts,
+  fromAppRouter.getRouterState,
+  (posts: Posts, router) => router && router.state && posts.entities[router.state.params.postId]
 )
 
 export const getPostCommentsEntities = createSelector(

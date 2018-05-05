@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { PostsState, getPostCommentsPost } from "../../+state";
+import { PostsState, getSelectedPost } from "../../+state";
 import { Post, Comment } from '../../models';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,6 +15,6 @@ export class PostShowComponent implements OnInit {
   constructor(private store: Store<PostsState>) { }
 
   ngOnInit() {
-    this.post$ = this.store.select(getPostCommentsPost);
+    this.post$ = this.store.select(getSelectedPost);
   }
 }
