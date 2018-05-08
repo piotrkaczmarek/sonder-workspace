@@ -133,6 +133,36 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
         }
       }
     }
+    case fromPostsActions.POST_UPVOTED: {
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          entities: {
+            ...state.posts.entities,
+            [action.postId]: {
+              ...state.posts.entities[action.postId],
+              voted: 1
+            }
+          }
+        }
+      }
+    }
+    case fromPostsActions.POST_DOWNVOTED: {
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          entities: {
+            ...state.posts.entities,
+            [action.postId]: {
+              ...state.posts.entities[action.postId],
+              voted: -1
+            }
+          }
+        }
+      }
+    }
     default: {
       return state;
     }

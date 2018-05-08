@@ -25,6 +25,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from '@angular/material/icon';
 
 export const postsRoutes: Route[] = [
   {
@@ -44,6 +45,7 @@ export const postsRoutes: Route[] = [
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forFeature("posts", postsReducer, {
