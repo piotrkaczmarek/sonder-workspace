@@ -163,6 +163,21 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
         }
       }
     }
+    case fromPostsActions.POST_VOTE_REVOKED: {
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          entities: {
+            ...state.posts.entities,
+            [action.postId]: {
+              ...state.posts.entities[action.postId],
+              voted: 0
+            }
+          }
+        }
+      }
+    }
     default: {
       return state;
     }

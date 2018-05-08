@@ -19,7 +19,7 @@ export class BackendService {
     });
   }
 
-  post(path: string, data: any): Observable<any> {
+  post(path: string, data: any = {}): Observable<any> {
     return this.performAuthenticatedRequest(headers => {
       return this.http.post(this.url(path), data, headers);
     });
@@ -28,6 +28,12 @@ export class BackendService {
   put(path: string, data: any = {}): Observable<any> {
     return this.performAuthenticatedRequest(headers => {
       return this.http.put(this.url(path), data, headers);
+    });
+  }
+
+  delete(path: string): Observable<any> {
+    return this.performAuthenticatedRequest(headers => {
+      return this.http.delete(this.url(path), headers);
     });
   }
 

@@ -130,14 +130,21 @@ export class PostsEffects {
         .downvote('posts', action.postId)
         .pipe(
           map((response: any) => response.data),
-          map(
-            data =>
-              new fromPostActions.PostDownvoted(
-                action.postId
-              )
-          )
+          map(data => new fromPostActions.PostDownvoted(action.postId))
         );
     })
   );
+
+  @Effect()
+  revokePostVote = this.actions.ofType(fromPostActions.REVOKE_POST_VOTE).pipe(
+    switchMap((action: fromPostActions.RevokePostVote) => {
+      return this.postsService
+        .revokeVote('posts', action.postId)
+        .pipe(
+          map((response: any) => response.data),
+          map(data => new fromPostActions.PostVoteRevoked(action.postId))
+        )
+    })
+  )
   constructor(private actions: Actions, private postsService: PostsService) {}
 }

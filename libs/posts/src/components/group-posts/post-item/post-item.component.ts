@@ -15,10 +15,18 @@ export class PostItemComponent implements OnInit {
   ngOnInit() {}
 
   upvote() {
-    this.store.dispatch(new postsStore.UpvotePost(this.post.id));
+    if (this.post.voted > 0) {
+      this.store.dispatch(new postsStore.RevokePostVote(this.post.id))
+    } else {
+      this.store.dispatch(new postsStore.UpvotePost(this.post.id));
+    }
   }
 
   downvote() {
-    this.store.dispatch(new postsStore.DownvotePost(this.post.id));
+    if (this.post.voted < 0) {
+      this.store.dispatch(new postsStore.RevokePostVote(this.post.id));
+    } else {
+      this.store.dispatch(new postsStore.DownvotePost(this.post.id));
+    }
   }
 }

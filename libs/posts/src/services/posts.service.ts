@@ -40,14 +40,14 @@ export class PostsService {
   }
 
   upvote(targetClass: string, targetId: number) {
-    return this.backend.post(`/${targetClass}/${targetId}/upvote`, {});
+    return this.backend.post(`/${targetClass}/${targetId}/upvote`);
   }
 
   downvote(targetClass: string, targetId: number) {
-    return this.backend.post(`/${targetClass}/${targetId}/downvote`, {});
+    return this.backend.post(`/${targetClass}/${targetId}/downvote`);
   }
 
-  revoke_vote(targetClass: string, targetId: number) {
-    return this.backend.post(`/${targetClass}/${targetId}/revoke_vote`, {});
+  revokeVote(targetClass: string, targetId: number) {
+    return this.backend.post(`/${targetClass}/${targetId}/revoke_vote`);
   }
 }

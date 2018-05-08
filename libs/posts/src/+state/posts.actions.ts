@@ -24,6 +24,9 @@ export const POST_UPVOTED = "[Posts] Post Upvoted"
 export const DOWNVOTE_POST = "[Posts] Downvote Post";
 export const POST_DOWNVOTED = "[Posts] Post Downvoted";
 
+export const REVOKE_POST_VOTE = "[Posts] Revoke Post Vote";
+export const POST_VOTE_REVOKED = "[Posts] Post Vote Revoked";
+
 export class LoadGroupPosts implements Action {
   readonly type = LOAD_GROUP_POSTS;
   constructor(public groupId: number) {}
@@ -104,6 +107,16 @@ export class PostDownvoted implements Action {
   constructor(public postId: number) {}
 }
 
+export class RevokePostVote implements Action {
+  readonly type = REVOKE_POST_VOTE;
+  constructor(public postId: number) {}
+}
+
+export class PostVoteRevoked implements Action {
+  readonly type = POST_VOTE_REVOKED;
+  constructor(public postId: number) {}
+}
+
 export type PostsAction =
   | LoadGroupPosts
   | GroupPostsLoaded
@@ -120,4 +133,6 @@ export type PostsAction =
   | UpvotePost
   | PostUpvoted
   | DownvotePost
-  | PostDownvoted;
+  | PostDownvoted
+  | RevokePostVote
+  | PostVoteRevoked;
