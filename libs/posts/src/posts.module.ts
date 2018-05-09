@@ -8,6 +8,7 @@ import { PostsEffects } from './+state/posts.effects';
 import { PostShowComponent } from './components/post-show/post-show.component';
 import { CommentTreeComponent } from './components/comment-tree/comment-tree.component';
 import { CommentItemComponent } from './components/comment-tree/comment-item/comment-item.component';
+import { PostVoteButtonsComponent } from './components/vote-buttons/post-vote-buttons/post-vote-buttons.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { CommentItemComponent } from './components/comment-tree/comment-item/com
     EffectsModule.forFeature([PostsEffects])
   ],
   providers: [PostsEffects],
-  declarations: [CommentTreeComponent, PostShowComponent, CommentItemComponent]
+  declarations: [CommentTreeComponent, PostShowComponent, CommentItemComponent, PostVoteButtonsComponent]
 })
 export class PostsModule {}
