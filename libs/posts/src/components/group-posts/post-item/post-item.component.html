@@ -3,12 +3,7 @@
     {{ post.title }}
   </mat-card-header>
   <mat-card-content>
-    <button mat-icon-button (click)="upvote()" [color]="post.voted > 0 ? 'accent' : ''">
-      <mat-icon>thumb_up</mat-icon>
-    </button>
-    <button mat-icon-button (click)="downvote()" [color]="post.voted < 0 ? 'accent' : ''">
-      <mat-icon>thumb_down</mat-icon>
-    </button>
+    <post-vote-buttons [postId]="post.id" [voted]="post.voted"></post-vote-buttons>
     <button mat-button routerLink="/posts/{{post.id}}">Comments</button>
   </mat-card-content>
 </mat-card>
