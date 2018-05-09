@@ -18,17 +18,17 @@ export class CommentVoteButtonsComponent implements OnInit {
 
   upvote() {
     if (this.voted > 0) {
-      // this.store.dispatch(new postsStore.RevokeCommentVote(this.postId));
+      this.store.dispatch(new postsStore.RevokeCommentVote(this.commentId, this.postId));
     } else {
-      this.store.dispatch(new postsStore.UpvoteComment(this.postId, this.commentId));
+      this.store.dispatch(new postsStore.UpvoteComment(this.commentId, this.postId));
     }
   }
 
   downvote() {
     if (this.voted < 0) {
-      // this.store.dispatch(new postsStore.RevokeCommentVote(this.postId));
+      this.store.dispatch(new postsStore.RevokeCommentVote(this.commentId, this.postId));
     } else {
-      this.store.dispatch(new postsStore.DownvoteComment(this.postId, this.commentId));
+      this.store.dispatch(new postsStore.DownvoteComment(this.commentId, this.postId));
     }
   }
 }

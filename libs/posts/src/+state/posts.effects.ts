@@ -107,6 +107,18 @@ export class PostsEffects {
   );
 
   @Effect()
+  revokeCommentVote = this.actions.ofType(fromPostActions.REVOKE_COMMENT_VOTE).pipe(
+    switchMap((action: fromPostActions.RevokeCommentVote) => {
+      return this.postsService
+        .revokeVote('comments', action.commentId)
+        .pipe(
+          map((response: any) => response.data),
+          map(data => new fromPostActions.CommentVoteRevoked(action.commentId, action.postId))
+        )
+    })
+  )
+
+  @Effect()
   upvotePost = this.actions.ofType(fromPostActions.UPVOTE_POST).pipe(
     switchMap((action: fromPostActions.UpvotePost) => {
       return this.postsService

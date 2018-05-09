@@ -3,7 +3,7 @@
     <mat-card-title>
       {{ post.title }}
     </mat-card-title>
-    <comment-item [body]="post.body" [parentIds]="[]" [postId]="post.id"></comment-item>
+    {{ post.body }}
     <br><br>
     <mat-card-subtitle>Comments</mat-card-subtitle>
     <comment-tree [postId]="post.id" [parentIds]="[]"></comment-tree>

@@ -178,6 +178,72 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
         }
       }
     }
+    case fromPostsActions.COMMENT_UPVOTED: {
+      const postComments = {
+        ...state.commentsByPosts.entities[action.postId],
+        entities: {
+          ...state.commentsByPosts.entities[action.postId].entities,
+          [action.commentId]: {
+            ...state.commentsByPosts.entities[action.postId].entities[action.commentId],
+            voted: 1
+          }
+        }
+      }
+      return {
+        ...state,
+        commentsByPosts: {
+          ...state.commentsByPosts,
+          entities: {
+            ...state.commentsByPosts.entities,
+            [action.postId]: postComments
+          }
+        }
+      }
+    }
+    case fromPostsActions.COMMENT_DOWNVOTED: {
+      const postComments = {
+        ...state.commentsByPosts.entities[action.postId],
+        entities: {
+          ...state.commentsByPosts.entities[action.postId].entities,
+          [action.commentId]: {
+            ...state.commentsByPosts.entities[action.postId].entities[action.commentId],
+            voted: -1
+          }
+        }
+      }
+      return {
+        ...state,
+        commentsByPosts: {
+          ...state.commentsByPosts,
+          entities: {
+            ...state.commentsByPosts.entities,
+            [action.postId]: postComments
+          }
+        }
+      }
+    }
+    case fromPostsActions.COMMENT_VOTE_REVOKED: {
+      const postComments = {
+        ...state.commentsByPosts.entities[action.postId],
+        entities: {
+          ...state.commentsByPosts.entities[action.postId].entities,
+          [action.commentId]: {
+            ...state.commentsByPosts.entities[action.postId].entities[action.commentId],
+            voted: 0
+          }
+        }
+      }
+      return {
+        ...state,
+        commentsByPosts: {
+          ...state.commentsByPosts,
+          entities: {
+            ...state.commentsByPosts.entities,
+            [action.postId]: postComments
+          }
+        }
+      }
+    }
     default: {
       return state;
     }

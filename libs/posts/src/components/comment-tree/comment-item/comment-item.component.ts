@@ -17,6 +17,8 @@ import * as postsStore from "../../../+state";
 export class CommentItemComponent implements OnInit {
   @Input() body: string;
   @Input() postId: number;
+  @Input() voted: number;
+  @Input() commentId: number;
   @Input() parentIds: Array<number>;
 
   expanded: boolean;

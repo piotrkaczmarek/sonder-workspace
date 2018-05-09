@@ -11,6 +11,7 @@ import { Comment } from "../../models";
 })
 export class CommentTreeComponent implements OnInit {
   @Input() postId: number;
+  @Input() commentId: number;
   @Input() parentIds: Array<number>;
 
   comments$: Observable<Array<Comment>>;
