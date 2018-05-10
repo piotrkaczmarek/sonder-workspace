@@ -3,5 +3,6 @@ export interface Post {
   title: string;
   body: string;
   authorId: number;
+  points: number;
   voted: number;
 }
