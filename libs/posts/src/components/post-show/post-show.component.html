@@ -5,6 +5,15 @@
       {{ post.title }}
     </mat-card-title>
     {{ post.body }}
+
+    <form [formGroup]="commentForm" novalidate>
+      <div class="form-group">
+        <mat-form-field>
+          <textarea matInput placeholder="Leave a comment" class="form-control" formControlName="body"></textarea>
+        </mat-form-field>
+        <button mat-button (click)="postComment()">Post</button>
+      </div>
+    </form>
     <br><br>
     <mat-card-subtitle>Comments</mat-card-subtitle>
     <comment-tree [postId]="post.id" [parentIds]="[]"></comment-tree>
