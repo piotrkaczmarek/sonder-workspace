@@ -39,6 +39,12 @@ export const getPosts = createSelector(getAllPostsState, (postsState: PostsState
   return postsState.posts;
 })
 
+export const getPostLoadedByPostId = postId => {
+  return createSelector(getPosts, posts => {
+    return posts.entities[postId] === undefined ? false : true;
+  });
+};
+
 export const getPostsByGroups = createSelector(getAllPostsState, (postsState: PostsState) => {
   return postsState.postsByGroups;
 });

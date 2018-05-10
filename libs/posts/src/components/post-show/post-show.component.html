@@ -1,6 +1,7 @@
 <div *ngIf="(post$ | async) as post">
   <mat-card class="parent">
     <mat-card-title>
+      <post-vote-buttons [postId]="post.id" [voted]="post.voted"></post-vote-buttons>
       {{ post.title }}
     </mat-card-title>
     {{ post.body }}

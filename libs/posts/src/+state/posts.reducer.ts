@@ -44,8 +44,19 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
         }
       }
     }
+    case fromPostsActions.POST_LOADED: {
+      return {
+        ...state,
+        posts: {
+          entities: {
+            ...state.posts.entities,
+            [action.postId]: action.payload
+          }
+        }
+      }
+    }
     case fromPostsActions.POST_COMMENTS_LOADED: {
-      const { comments, ...post } = action.data;
+      const comments = action.data;
       let commentEntities;
       if (comments.length > 0 ) {
         commentEntities = comments.reduce(
@@ -59,13 +70,6 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
       return {
         ...state,
-        posts: {
-          ...state.posts,
-          entities: {
-            ...state.posts.entities,
-            [post.id]: post
-          }
-        },
         commentsByPosts: {
           ...state.commentsByPosts,
           entities: {

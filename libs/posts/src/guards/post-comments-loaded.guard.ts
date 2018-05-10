@@ -10,11 +10,14 @@ import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 import { tap, filter, take, switchMap, catchError } from "rxjs/operators";
 
-import { PostsState, getPostLoadedByPostId } from "../+state/posts.interfaces";
-import { LoadPost } from "../+state/posts.actions";
+import {
+  PostsState,
+  getPostCommentsLoadedByPostId
+} from "../+state/posts.interfaces";
+import { LoadPostComments } from "../+state/posts.actions";
 
 @Injectable()
-export class PostLoadedGuard implements CanActivate {
+export class PostCommentsLoadedGuard implements CanActivate {
   constructor(private store: Store<PostsState>) {}
 
   canActivate(
@@ -28,10 +31,10 @@ export class PostLoadedGuard implements CanActivate {
   }
 
   checkStore(postId: number): Observable<boolean> {
-    return this.store.select(getPostLoadedByPostId(postId)).pipe(
+    return this.store.select(getPostCommentsLoadedByPostId(postId)).pipe(
       tap(loaded => {
         if (!loaded) {
-          this.store.dispatch(new LoadPost(postId));
+          this.store.dispatch(new LoadPostComments(postId));
         }
       }),
       filter(loaded => loaded),

@@ -14,7 +14,8 @@ import {
   postsReducer,
   postsInitialState,
   PostsEffects,
-  PostLoadedGuard
+  PostLoadedGuard,
+  PostCommentsLoadedGuard
 } from "@sonder-workspace/posts";
 
 import { AuthenticatedGuard, BACKEND_SERVICE } from "@sonder-workspace/auth";
@@ -30,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
 export const postsRoutes: Route[] = [
   {
     path: ":postId",
-    canActivate: [AuthenticatedGuard, PostLoadedGuard],
+    canActivate: [AuthenticatedGuard, PostLoadedGuard, PostCommentsLoadedGuard],
     component: PostShowComponent
   },
 ];
@@ -59,6 +60,7 @@ export const postsRoutes: Route[] = [
     PostsEffects,
     GroupPostsLoadedGuard,
     PostLoadedGuard,
+    PostCommentsLoadedGuard,
     PostsService,
     AuthenticatedGuard
   ]

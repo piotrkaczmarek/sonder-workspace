@@ -27,6 +27,21 @@ export class PostsEffects {
   );
 
   @Effect()
+  loadPost = this.actions.ofType(fromPostActions.LOAD_POST).pipe(
+    map((action: fromPostActions.LoadPost) => action),
+    switchMap(action => {
+      return this.postsService.getPost(action.postId).pipe(
+        map((response: any) => response.data),
+        map((data: any) => new fromPostActions.PostLoaded(data, action.postId)),
+        catchError(error => {
+          console.error("Error", error);
+          return of(error);
+        })
+      )
+    })
+  )
+
+  @Effect()
   createPost = this.actions.ofType(fromPostActions.CREATE_POST).pipe(
     switchMap((action: fromPostActions.CreatePost) => {
       return this.postsService

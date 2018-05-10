@@ -3,6 +3,9 @@ import { Action } from "@ngrx/store";
 export const LOAD_GROUP_POSTS = "[Posts] Load Group Posts";
 export const GROUP_POSTS_LOADED = "[Posts] Group Posts Loaded";
 
+export const LOAD_POST = "[Posts] Load Post";
+export const POST_LOADED = "[Posts] Post Loaded";
+
 export const CREATE_POST = "[Posts] Create Post";
 export const POST_CREATED = "[Posts] Post Created";
 
@@ -38,6 +41,16 @@ export class LoadGroupPosts implements Action {
 export class GroupPostsLoaded implements Action {
   readonly type = GROUP_POSTS_LOADED;
   constructor(public data: any, public groupId: number) {}
+}
+
+export class LoadPost implements Action {
+  readonly type = LOAD_POST;
+  constructor(public postId: number) {}
+}
+
+export class PostLoaded implements Action {
+  readonly type = POST_LOADED;
+  constructor(public payload: any, public postId: number) {}
 }
 
 export class CreatePost implements Action {
@@ -133,6 +146,8 @@ export class CommentVoteRevoked implements Action {
 export type PostsAction =
   | LoadGroupPosts
   | GroupPostsLoaded
+  | LoadPost
+  | PostLoaded
   | CreatePost
   | PostCreated
   | LoadPostComments

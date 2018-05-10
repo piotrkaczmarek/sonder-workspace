@@ -21,9 +21,15 @@ export class PostsService {
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
-  getPostComments(postId: number): Observable<any> {
+  getPost(postId: number): Observable<any> {
     return this.backend
       .get(`/posts/${postId}`)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
+  getPostComments(postId: number): Observable<any> {
+    return this.backend
+      .get(`/posts/${postId}/comments`)
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
