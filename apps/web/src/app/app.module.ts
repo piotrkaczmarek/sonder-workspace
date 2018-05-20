@@ -28,6 +28,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 const routes: Route[] = [
   { path: "", pathMatch: "full", redirectTo: "groups" },
@@ -71,6 +72,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     GroupsModule,
     ProfilesModule,
     AppRouterModule,
+    FlexLayoutModule,
     StoreModule.forRoot(
       { app: appReducer, router: routerReducer },
       { metaReducers }
