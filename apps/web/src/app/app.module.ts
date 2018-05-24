@@ -31,7 +31,7 @@ import { MatListModule } from "@angular/material/list";
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 const routes: Route[] = [
-  { path: "", pathMatch: "full", redirectTo: "groups" },
+  { path: "", pathMatch: "full", redirectTo: "posts" },
   { path: "login", children: authRoutes },
   { path: "groups", children: groupsRoutes },
   { path: "posts", children: postsRoutes },

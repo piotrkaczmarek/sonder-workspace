@@ -21,6 +21,12 @@ export class PostsService {
       .pipe(catchError((error: any) => Observable.throw(error)));
   }
 
+  getPosts(): Observable<any> {
+    return this.backend
+      .get("/posts")
+      .pipe(catchError((error: any) => Observable.throw(error)));
+  }
+
   getPost(postId: number): Observable<any> {
     return this.backend
       .get(`/posts/${postId}`)

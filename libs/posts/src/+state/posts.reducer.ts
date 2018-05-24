@@ -48,9 +48,37 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       return {
         ...state,
         posts: {
+          ...state.posts,
           entities: {
             ...state.posts.entities,
             [action.postId]: action.payload
+          }
+        }
+      }
+    }
+    case fromPostsActions.POSTS_LOADED: {
+      const posts = action.payload;
+      let postsEntities;
+      if (posts.length > 0) {
+        postsEntities = posts.reduce(
+          (entities, post) => {
+            return {
+              ...entities,
+              [post.id]: post
+            }
+          },
+          {}
+        )
+      }
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          loaded: true,
+          loading: false,
+          entities: {
+            ...state.posts.entities,
+            ...postsEntities
           }
         }
       }

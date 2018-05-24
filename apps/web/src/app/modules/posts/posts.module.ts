@@ -7,14 +7,16 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
 import {
-  GroupPostsLoadedGuard,
-  PostsService,
   components,
+  guards,
+  PostsService,
   PostShowComponent,
+  PostsListComponent,
   postsReducer,
   postsInitialState,
   PostsEffects,
   PostLoadedGuard,
+  PostsLoadedGuard,
   PostCommentsLoadedGuard
 } from "@sonder-workspace/posts";
 
@@ -29,6 +31,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from '@angular/material/icon';
 
 export const postsRoutes: Route[] = [
+  {
+    path: '',
+    canActivate: [AuthenticatedGuard, PostsLoadedGuard],
+    component: PostsListComponent
+  },
   {
     path: ":postId",
     canActivate: [AuthenticatedGuard, PostLoadedGuard, PostCommentsLoadedGuard],
@@ -58,11 +65,8 @@ export const postsRoutes: Route[] = [
   exports: [...components],
   providers: [
     PostsEffects,
-    GroupPostsLoadedGuard,
-    PostLoadedGuard,
-    PostCommentsLoadedGuard,
     PostsService,
-    AuthenticatedGuard
+    ...guards
   ]
 })
 export class PostsModule {}
