@@ -1,15 +1,22 @@
-<div fxLayout="column">
-  <mat-toolbar color="primary">
-    <span>Sonder App</span>
-    <button mat-raised-button color="accent" routerLink="/profiles/me" routerLinkActive="active">Your profile</button>
-    <button mat-raised-button color="warn" (click)="logOut()" routerLinkActive="active">Log out</button>
-  </mat-toolbar>
-  <div fxLayout="row" fxLayoutAlign="space-between center" color="basic" *ngIf="(loggedIn$ | async)">
-    <button mat-raised-button color="accent" routerLink="/groups/suggested" routerLinkActive="active">Find groups</button>
-    <mat-divider [vertical]="true"></mat-divider>
-    <button mat-raised-button color="accent" routerLink="/groups/accepted" routerLinkActive="active">Your groups</button>
-    <mat-divider [vertical]="true"></mat-divider>
-    <mat-divider [vertical]="true"></mat-divider>
-  </div>
-</div>
-<router-outlet class="mat-app-background"></router-outlet>
+<mat-toolbar color="primary">
+  <button *ngIf="(loggedIn$ | async)" class="hamburger hamburger--spring" [ngClass]="{'is-active': sidenavOpened}" type="button" (click)="sidenav.toggle()">
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+  <span routerLink="/">Sonder App</span>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over" (openedStart)="sidenavOpened = true" (closedStart)="sidenavOpened = false">
+    <mat-list *ngIf="(loggedIn$ | async)">
+      <mat-list-item routerLink="/groups/suggested" routerLinkActive="selected">Find groups</mat-list-item>
+      <mat-list-item routerLink="/groups/accepted" routerLinkActive="selected">Your groups</mat-list-item>
+      <mat-list-item routerLink="/profiles/me" routerLinkActive="selected">Profile</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item color="warn" (click)="logOut()" routerLinkActive="selected">Log out</mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet class="mat-app-background"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

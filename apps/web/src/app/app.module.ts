@@ -24,10 +24,13 @@ import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 import { authRoutes, AuthModule } from './modules/auth/auth.module';
 import { profilesRoutes, ProfilesModule } from "./modules/profiles/profiles.module";
 
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatButtonModule } from "@angular/material/button";
-import { MatDividerModule } from "@angular/material/divider";
-import { MatListModule } from "@angular/material/list";
+import {
+  MatSidenavModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatDividerModule,
+  MatListModule
+} from "@angular/material";
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 const routes: Route[] = [
@@ -61,6 +64,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
     MatDividerModule,
