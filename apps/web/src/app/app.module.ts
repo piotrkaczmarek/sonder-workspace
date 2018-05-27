@@ -29,7 +29,8 @@ import {
   MatToolbarModule,
   MatButtonModule,
   MatDividerModule,
-  MatListModule
+  MatListModule,
+  MatTabsModule
 } from "@angular/material";
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -69,6 +70,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
     MatButtonModule,
     MatDividerModule,
     MatListModule,
+    MatTabsModule,
     NxModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: "enabled" }),
     AuthModule,

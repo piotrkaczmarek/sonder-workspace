@@ -1,22 +1,38 @@
-<mat-toolbar color="primary">
-  <button *ngIf="(loggedIn$ | async)" class="hamburger hamburger--spring" [ngClass]="{'is-active': sidenavOpened}" type="button" (click)="sidenav.toggle()">
-    <span class="hamburger-box">
-      <span class="hamburger-inner"></span>
-    </span>
-  </button>
-  <span routerLink="/">Sonder App</span>
-</mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav #sidenav mode="over" (openedStart)="sidenavOpened = true" (closedStart)="sidenavOpened = false">
-    <mat-list *ngIf="(loggedIn$ | async)">
-      <mat-list-item routerLink="/groups/suggested" routerLinkActive="selected">Find groups</mat-list-item>
-      <mat-list-item routerLink="/groups/accepted" routerLinkActive="selected">Your groups</mat-list-item>
-      <mat-list-item routerLink="/profiles/me" routerLinkActive="selected">Profile</mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item color="warn" (click)="logOut()" routerLinkActive="selected">Log out</mat-list-item>
-    </mat-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet class="mat-app-background"></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div flex fxLayout="column">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row flex fxLayout="row" fxLayoutAlign="start center">
+      <button *ngIf="(loggedIn$ | async)" class="hamburger hamburger--spring" [ngClass]="{'is-active': sidenavOpened}" type="button"
+        (click)="sidenav.toggle()">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
+      <div flex fxFill fxLayoutAlign="center center" routerLink="/">Sonder App</div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div>
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav mode="over" (openedStart)="sidenavOpened = true" (closedStart)="sidenavOpened = false">
+        <mat-list *ngIf="(loggedIn$ | async)">
+          <mat-list-item routerLink="/profiles/me">Profile</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item color="warn" (click)="logOut()">Log out</mat-list-item>
+        </mat-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <nav mat-tab-nav-bar *ngIf="(loggedIn$ | async)">
+          <a mat-tab-link [routerLink]="'/posts'" routerLinkActive #postsRouterLinkActive="routerLinkActive" [active]="postsRouterLinkActive.isActive">
+            Posts
+          </a>
+          <a mat-tab-link [routerLink]="'/groups/suggested'" routerLinkActive #suggestedGroupsRouterLinkActive="routerLinkActive" [active]="suggestedGroupsRouterLinkActive.isActive">
+            Find Groups
+          </a>
+          <a mat-tab-link [routerLink]="'/groups/accepted'" routerLinkActive #acceptedGroupsRouterLinkActive="routerLinkActive" [active]="acceptedGroupsRouterLinkActive.isActive">
+            Your Groups
+          </a>
+        </nav>
+        <router-outlet fxFlex="100vh" fxLayout="column" class="mat-app-background"></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>
