@@ -1,2 +1,8 @@
-<h1>Profile</h1>
-<h2>{{ (myProfile$ | async).firstName }}</h2>
+<mat-card class="page">
+  <mat-card-title>
+    Your Profile
+  </mat-card-title>
+  <mat-card-content>
+    {{ (myProfile$ | async).firstName }}
+  </mat-card-content>
+</mat-card>
