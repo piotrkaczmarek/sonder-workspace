@@ -116,7 +116,7 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
     case fromPostsActions.POST_CREATED: {
       const post = action.payload;
       const groupPostsEntities = [
-        ...state.postsByGroups.entities[action.groupId].entities,
+        ...(state.postsByGroups.entities[action.groupId] && state.postsByGroups.entities[action.groupId].entities || []),
         post.id
       ]
       const groupPosts = {

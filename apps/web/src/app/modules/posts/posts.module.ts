@@ -12,6 +12,7 @@ import {
   PostsService,
   PostShowComponent,
   PostsListComponent,
+  NewPostFormComponent,
   postsReducer,
   postsInitialState,
   PostsEffects,
@@ -19,16 +20,21 @@ import {
   PostsLoadedGuard,
   PostCommentsLoadedGuard
 } from "@sonder-workspace/posts";
+import {
+  AcceptedGroupsLoadedGuard
+} from "@sonder-workspace/groups";
 
 import { AuthenticatedGuard, BACKEND_SERVICE } from "@sonder-workspace/auth";
-
-import { MatExpansionModule } from "@angular/material/expansion";
-import { MatButtonModule } from "@angular/material/button";
-import { MatListModule } from "@angular/material/list";
-import { MatCardModule } from "@angular/material/card";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatIconModule } from '@angular/material/icon';
+import {
+  MatExpansionModule,
+  MatButtonModule,
+  MatListModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatSelectModule
+} from "@angular/material";
 
 export const postsRoutes: Route[] = [
   {
@@ -37,10 +43,15 @@ export const postsRoutes: Route[] = [
     component: PostsListComponent
   },
   {
+    path: "new",
+    canActivate: [AuthenticatedGuard, AcceptedGroupsLoadedGuard],
+    component: NewPostFormComponent
+  },
+  {
     path: ":postId",
     canActivate: [AuthenticatedGuard, PostLoadedGuard, PostCommentsLoadedGuard],
     component: PostShowComponent
-  },
+  }
 ];
 
 @NgModule({
@@ -54,6 +65,7 @@ export const postsRoutes: Route[] = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSelectModule,
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forFeature("posts", postsReducer, {

@@ -1,0 +1,29 @@
+<mat-card>
+  <form [formGroup]="postForm" novalidate>
+
+    <mat-card-title>
+      New Post in
+    </mat-card-title>
+    <mat-card-content flex fxLayout="column">
+      <div>
+        <mat-select placeholder="Choose group..." formControlName="groupId" required>
+          <mat-option *ngFor="let group of (groups$ | async)" [value]="group.id">{{group.name}}</mat-option>
+        </mat-select>
+      </div>
+      <br/>
+      <div>
+        <mat-form-field class="form-group">
+          <input matInput placeholder="Title..." class="form-control" formControlName="title" required/>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="form-group">
+          <textarea matInput placeholder="What's on your mind..." class="form-control" formControlName="body" required></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button (click)="onPostButtonClick()">Post</button>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>

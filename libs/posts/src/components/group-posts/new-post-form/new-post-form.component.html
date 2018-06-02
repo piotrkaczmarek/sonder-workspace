@@ -1,9 +1,0 @@
-<form [formGroup]="postForm" novalidate>
-  <mat-form-field class="form-group">
-      <input matInput placeholder="Post title..." class="form-control" formControlName="title"/>
-  </mat-form-field>
-  <mat-form-field class="form-group">
-    <textarea matInput placeholder="What's on your mind..." class="form-control" formControlName="body"></textarea>
-  </mat-form-field>
-  <button mat-raised-button (click)="onPostButtonClick()">Post</button>
-</form>

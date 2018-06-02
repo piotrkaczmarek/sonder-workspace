@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterModule, Route } from "@angular/router";
-
+import {
+  MatCardModule
+} from "@angular/material";
 import {
   profilesReducer,
   profilesInitialState,
@@ -32,6 +34,7 @@ export const profilesRoutes: Route[] = [
 @NgModule({
   imports: [
     CommonModule,
+    MatCardModule,
     StoreModule.forFeature("profiles", profilesReducer, {
       initialState: profilesInitialState
     }),
