@@ -20,6 +20,7 @@ import {
   PostsLoadedGuard,
   PostCommentsLoadedGuard
 } from "@sonder-workspace/posts";
+import { BottomActionButtonComponent } from "@sonder-workspace/web-ui";
 import {
   AcceptedGroupsLoadedGuard
 } from "@sonder-workspace/groups";
@@ -73,7 +74,7 @@ export const postsRoutes: Route[] = [
     }),
     EffectsModule.forFeature([PostsEffects])
   ],
-  declarations: [...components],
+  declarations: [...components, BottomActionButtonComponent],
   exports: [...components],
   providers: [
     PostsEffects,

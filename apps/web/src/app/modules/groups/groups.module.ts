@@ -57,14 +57,14 @@ export const groupsRoutes: Route[] = [
     component: AcceptedGroupsComponent
   },
   {
-    path: "accepted/:groupId",
-    canActivate: [AuthenticatedGuard, AcceptedGroupsLoadedGuard, GroupPostsLoadedGuard],
-    component: AcceptedGroupShowComponent
-  },
-  {
-    path: "accepted/:groupId/applicants",
+    path: ":groupId/applicants",
     canActivate: [AuthenticatedGuard, AcceptedGroupsLoadedGuard, ApplicantsLoadedGuard],
     component: ApplicantsComponent
+  },
+  {
+    path: ":groupId",
+    canActivate: [AuthenticatedGuard, AcceptedGroupsLoadedGuard, GroupPostsLoadedGuard],
+    component: AcceptedGroupShowComponent
   }
 ];
 

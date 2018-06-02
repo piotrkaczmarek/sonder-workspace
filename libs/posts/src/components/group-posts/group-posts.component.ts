@@ -15,7 +15,7 @@ import { map, filter } from 'rxjs/operators';
 })
 export class GroupPostsComponent implements OnInit {
   public groupPosts$: Observable<any>;
-  public groupId: number;
+  public groupId$: Observable<number>;
 
   constructor(
     private store: Store<PostsState>,
@@ -27,8 +27,9 @@ export class GroupPostsComponent implements OnInit {
       filter(posts => posts ? true : false),
       map((posts) => posts.sort((a, b) => b.points - a.points))
     );
-    this.route.paramMap.subscribe(
-      route => (this.groupId = parseInt(route["params"].groupId, 10))
-    );
+    this.groupId$ = this.route.paramMap.pipe(
+      map(route => route["params"].groupId),
+      map((groupId: string) => parseInt(groupId, 10))
+    )
   }
 }

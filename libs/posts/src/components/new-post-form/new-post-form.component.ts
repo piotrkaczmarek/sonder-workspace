@@ -2,6 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
+import { map } from "rxjs/operators"
+import { combineLatest } from "rxjs/observable/combineLatest";
+import { ActivatedRoute } from "@angular/router";
+
 import { PostsState } from "../../+state/posts.interfaces";
 import { CreatePost } from "../../+state/posts.actions";
 import {
@@ -22,12 +26,23 @@ export class NewPostFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store<PostsState>
+    private store: Store<PostsState>,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.createForm();
     this.groups$ = this.store.select(getAcceptedGroupsEntities);
+
+    const groupId$ = this.route.paramMap.pipe(
+      map(route => route["params"].groupId),
+      map((groupId: string) => parseInt(groupId, 10))
+    )
+    combineLatest(this.groups$, groupId$).subscribe(([groups, groupId]) => {
+      if (groupId) {
+        this.postForm.controls.groupId.setValue(groupId);
+      }
+    });
   }
 
   createForm() {
@@ -39,7 +54,9 @@ export class NewPostFormComponent implements OnInit {
   }
 
   onPostButtonClick() {
-    if(!this.postForm.valid) { return; };
+    if (!this.postForm.valid) {
+      return;
+    }
     const { groupId, ...postAttrs } = this.postForm.getRawValue();
     this.store.dispatch(new CreatePost(postAttrs, groupId));
     this.postForm.controls.body.setValue("");

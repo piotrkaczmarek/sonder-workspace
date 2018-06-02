@@ -1,4 +1,3 @@
-<p>
-  <new-post-form [groupId]="groupId"></new-post-form>
-  <post-item *ngFor="let post of (groupPosts$ | async)" [post]="post"></post-item>
-</p>
+<post-item *ngFor="let post of (groupPosts$ | async)" [post]="post"></post-item>
+
+<bottom-action-button [routerLink]="['/posts/new', {groupId: (groupId$ | async)}]"></bottom-action-button>
