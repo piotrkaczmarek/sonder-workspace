@@ -10,6 +10,7 @@ import * as postsStore from "../../../+state";
 export class CommentVoteButtonsComponent implements OnInit {
   @Input() postId: number;
   @Input() commentId: number;
+  @Input() points: number;
   @Input() voted: number;
 
   constructor(private store: Store<postsStore.PostsState>) {}

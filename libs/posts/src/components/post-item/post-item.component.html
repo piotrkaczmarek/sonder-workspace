@@ -3,7 +3,7 @@
     {{ post.title }}
   </mat-card-header>
   <mat-card-content>
-    <post-vote-buttons [postId]="post.id" [voted]="post.voted"></post-vote-buttons>
+    <post-vote-buttons [postId]="post.id" [points]="post.points" [voted]="post.voted"></post-vote-buttons>
     <button mat-button routerLink="/posts/{{post.id}}">Comments</button>
   </mat-card-content>
 </mat-card>

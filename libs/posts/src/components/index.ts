@@ -1,5 +1,5 @@
 import { GroupPostsComponent } from "./group-posts/group-posts.component";
-import { PostItemComponent } from "./group-posts/post-item/post-item.component";
+import { PostItemComponent } from "./post-item/post-item.component";
 import { NewPostFormComponent } from "./new-post-form/new-post-form.component";
 import { PostShowComponent } from "./post-show/post-show.component";
 import { PostsListComponent } from "./posts-list/posts-list.component";
@@ -21,7 +21,7 @@ export const components: any[] = [
 ];
 
 export * from "./group-posts/group-posts.component";
-export * from "./group-posts/post-item/post-item.component";
+export * from "./post-item/post-item.component";
 export * from "./new-post-form/new-post-form.component";
 export * from "./post-show/post-show.component";
 export * from "./posts-list/posts-list.component";

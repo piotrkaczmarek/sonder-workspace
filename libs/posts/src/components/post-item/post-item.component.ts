@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { Post } from "../../../models";
-import * as postsStore from "../../../+state";
+import { Post } from "../../models";
+import * as postsStore from "../../+state";
 
 @Component({
   selector: "post-item",

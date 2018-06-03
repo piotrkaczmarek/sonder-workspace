@@ -166,6 +166,7 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.POST_UPVOTED: {
+      const post = state.posts.entities[action.postId];
       return {
         ...state,
         posts: {
@@ -173,7 +174,8 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
           entities: {
             ...state.posts.entities,
             [action.postId]: {
-              ...state.posts.entities[action.postId],
+              ...post,
+              points: (post.points - post.voted) + 1,
               voted: 1
             }
           }
@@ -181,6 +183,7 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.POST_DOWNVOTED: {
+      const post = state.posts.entities[action.postId];
       return {
         ...state,
         posts: {
@@ -188,7 +191,8 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
           entities: {
             ...state.posts.entities,
             [action.postId]: {
-              ...state.posts.entities[action.postId],
+              ...post,
+              points: (post.points - post.voted) - 1,
               voted: -1
             }
           }
@@ -196,6 +200,7 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.POST_VOTE_REVOKED: {
+      const post = state.posts.entities[action.postId];
       return {
         ...state,
         posts: {
@@ -203,7 +208,8 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
           entities: {
             ...state.posts.entities,
             [action.postId]: {
-              ...state.posts.entities[action.postId],
+              ...post,
+              points: post.points - post.voted,
               voted: 0
             }
           }
@@ -211,12 +217,14 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.COMMENT_UPVOTED: {
+      const comment = state.commentsByPosts.entities[action.postId].entities[action.commentId];
       const postComments = {
         ...state.commentsByPosts.entities[action.postId],
         entities: {
           ...state.commentsByPosts.entities[action.postId].entities,
           [action.commentId]: {
-            ...state.commentsByPosts.entities[action.postId].entities[action.commentId],
+            ...comment,
+            points: (comment.points - comment.voted) + 1,
             voted: 1
           }
         }
@@ -233,12 +241,14 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.COMMENT_DOWNVOTED: {
+      const comment = state.commentsByPosts.entities[action.postId].entities[action.commentId];
       const postComments = {
         ...state.commentsByPosts.entities[action.postId],
         entities: {
           ...state.commentsByPosts.entities[action.postId].entities,
           [action.commentId]: {
-            ...state.commentsByPosts.entities[action.postId].entities[action.commentId],
+            ...comment,
+            points: (comment.points - comment.voted) - 1,
             voted: -1
           }
         }
@@ -255,12 +265,14 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
       }
     }
     case fromPostsActions.COMMENT_VOTE_REVOKED: {
+      const comment = state.commentsByPosts.entities[action.postId].entities[action.commentId];
       const postComments = {
         ...state.commentsByPosts.entities[action.postId],
         entities: {
           ...state.commentsByPosts.entities[action.postId].entities,
           [action.commentId]: {
-            ...state.commentsByPosts.entities[action.postId].entities[action.commentId],
+            ...comment,
+            points: comment.points - comment.voted,
             voted: 0
           }
         }
