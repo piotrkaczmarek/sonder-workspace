@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
@@ -23,11 +24,13 @@ export class NewPostFormComponent implements OnInit {
   @Input() groupId: number;
   postForm: FormGroup;
   groups$: Observable<Array<Group>>;
+  groupRequiredError = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<PostsState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -55,11 +58,11 @@ export class NewPostFormComponent implements OnInit {
 
   onPostButtonClick() {
     if (!this.postForm.valid) {
+      this.groupRequiredError = true;
       return;
     }
     const { groupId, ...postAttrs } = this.postForm.getRawValue();
     this.store.dispatch(new CreatePost(postAttrs, groupId));
-    this.postForm.controls.body.setValue("");
-    this.postForm.controls.title.setValue("");
+    this.location.back(); // TODO: prevent to navigating away from app when url is pasted
   }
 }

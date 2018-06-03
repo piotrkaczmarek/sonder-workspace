@@ -7,8 +7,9 @@
     <mat-card-content flex fxLayout="column">
       <div>
         <mat-select placeholder="Choose group..." formControlName="groupId" required>
-          <mat-option *ngFor="let group of (groups$ | async)" [value]="group.id">{{group.name}}</mat-option>
+          <mat-option *ngFor="let group of (groups$ | async)" [value]="group.id" (click)="groupRequiredError = false">{{group.name}}</mat-option>
         </mat-select>
+        <mat-error *ngIf="groupRequiredError">Please choose a group</mat-error>
       </div>
       <br/>
       <div>
