@@ -5,4 +5,5 @@ export interface Post {
   authorId: number;
   points: number;
   voted: number;
+  commentCount: number;
 }

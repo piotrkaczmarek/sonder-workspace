@@ -4,6 +4,6 @@
   </mat-card-header>
   <mat-card-content>
     <post-vote-buttons [postId]="post.id" [points]="post.points" [voted]="post.voted"></post-vote-buttons>
-    <button mat-button routerLink="/posts/{{post.id}}">Comments</button>
+    <button mat-button routerLink="/posts/{{post.id}}">{{ post.commentCount }} comments</button>
   </mat-card-content>
 </mat-card>
