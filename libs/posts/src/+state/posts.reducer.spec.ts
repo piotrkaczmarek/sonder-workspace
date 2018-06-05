@@ -17,9 +17,26 @@ describe('postsReducer', () => {
           ...postsInitialState,
           posts: {
             entities: {
-              [postId1]: { id: postId1, body: 'post 1 body', title: 'title 1', authorId: 1, voted: 0 },
-              [postId2]: { id: postId2, body: 'post 2 body', title: 'title 2', authorId: 2, voted: 1 }
-            }
+              [postId1]: {
+                id: postId1,
+                body: 'post 1 body',
+                title: 'title 1',
+                authorId: 1,
+                voted: 0,
+                points: 5,
+                commentCount: 0 },
+              [postId2]: {
+                id: postId2,
+                body: 'post 2 body',
+                title: 'title 2',
+                authorId: 2,
+                voted: 1,
+                points: 3,
+                commentCount: 0
+              }
+            },
+            loaded: true,
+            loading: false
           },
           postsByGroups: {
             entities: {

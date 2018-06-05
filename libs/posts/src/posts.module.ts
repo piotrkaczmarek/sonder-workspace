@@ -11,7 +11,6 @@ import { CommentItemComponent } from './components/comment-tree/comment-item/com
 import { PostVoteButtonsComponent } from './components/vote-buttons/post-vote-buttons/post-vote-buttons.component';
 import { CommentVoteButtonsComponent } from './components/vote-buttons/comment-vote-buttons/comment-vote-buttons.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
-import { NewPostPageComponent } from './components/new-post-page/new-post-page.component';
 
 @NgModule({
   imports: [
@@ -22,6 +21,6 @@ import { NewPostPageComponent } from './components/new-post-page/new-post-page.c
     EffectsModule.forFeature([PostsEffects])
   ],
   providers: [PostsEffects],
-  declarations: [CommentTreeComponent, PostShowComponent, CommentItemComponent, PostVoteButtonsComponent, CommentVoteButtonsComponent, PostsListComponent, NewPostPageComponent]
+  declarations: [CommentTreeComponent, PostShowComponent, CommentItemComponent, PostVoteButtonsComponent, CommentVoteButtonsComponent, PostsListComponent]
 })
 export class PostsModule {}
