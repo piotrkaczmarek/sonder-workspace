@@ -1,18 +1,20 @@
-import {Groups} from './groups.interfaces';
+import { GroupsState } from './groups.interfaces';
 
-export const groupsInitialState: Groups = {
-  // fill it initial state here
-  suggested: {
-    entities: {},
+export const groupsInitialState: GroupsState = {
+  groups: {
+    entities: {}
+  },
+  suggestedGroups: {
+    entities: [],
     loaded: false,
     loading: false
   },
-  accepted: {
-    entities: {},
+  acceptedGroups: {
+    entities: [],
     loaded: false,
     loading: false
   },
-  applicants: {
+  groupApplicants: {
     entities: {
     }
   }

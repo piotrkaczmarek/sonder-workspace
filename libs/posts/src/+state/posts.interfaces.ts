@@ -39,7 +39,7 @@ export const getAllPostsState = createSelector(createFeatureSelector<PostsState>
 
 export const getPosts = createSelector(getAllPostsState, (postsState: PostsState) => {
   return postsState.posts;
-})
+});
 
 export const getPostsEntities = createSelector(getPosts, (posts) => {
   if(posts) {

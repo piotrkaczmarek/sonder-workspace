@@ -75,13 +75,13 @@ export class GroupsEffects {
     map((action: fromGroupsActions.ApplyToGroup) => action),
     map(action => action.payload),
     switchMap(groupId => {
-      return this.groupsService.applyToGroup(groupId).pipe(
-        map((response: any) => response.data),
-        map((data: any) => new fromGroupsActions.GroupAppliedTo(data)),
-        catchError(error => {
-          console.error("Error", error);
-          return of(error);
-        })
+      return this.groupsService
+        .applyToGroup(groupId).pipe(
+          map((data: any) => new fromGroupsActions.GroupAppliedTo(groupId)),
+          catchError(error => {
+            console.error("Error", error);
+            return of(error);
+          })
       );
     })
   );

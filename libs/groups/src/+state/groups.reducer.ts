@@ -1,27 +1,31 @@
-import {Groups} from './groups.interfaces';
+import { GroupsState } from './groups.interfaces';
 import { Group, Person } from '../models';
 
 import * as fromGroupsActions from './groups.actions';
 
-export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAction): Groups {
+export function groupsReducer(state: GroupsState, action: fromGroupsActions.GroupsAction): GroupsState {
   switch (action.type) {
     case fromGroupsActions.SUGGESTED_GROUPS_LOADED: {
-      const suggestedEntities = action.payload.reduce(
+      const groupIds = action.payload.map((group: Group) => group.id);
+      const suggestedGroupsEntities = action.payload.reduce(
         (entities: { [id: number]: Group }, group: Group) => {
           return {
             ...entities,
             [group.id]: group
           };
-        },
-        {
-          ...state.suggested.entities
-        }
-      );
+        }, {});
       return {
         ...state,
+        groups: {
+          ...state.groups,
+          entities: {
+            ...state.groups.entities,
+            ...suggestedGroupsEntities
+          }
+        },
         ...{
-          suggested: {
-            entities: suggestedEntities,
+          suggestedGroups: {
+            entities: groupIds,
             loaded: true,
             loading: false
           }
@@ -32,30 +36,34 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
       return {
         ...state,
         ...{
-          suggested: {
-            ...state.suggested,
+          suggestedGroups: {
+            ...state.suggestedGroups,
             loading: true
           }
         }
       };
     }
     case fromGroupsActions.ACCEPTED_GROUPS_LOADED: {
-      const acceptedEntities = action.payload.reduce(
+      const groupIds = action.payload.map((group: Group) => group.id);
+      const acceptedGroupsEntities = action.payload.reduce(
         (entities: { [id: number]: Group}, group: Group) => {
           return {
             ...entities,
             [group.id]: group
           };
-        },
-        {
-          ...state.accepted.entities
-        }
-      );
+        }, {});
       return {
         ...state,
+        groups: {
+          ...state.groups,
+          entities: {
+            ...state.groups.entities,
+            ...acceptedGroupsEntities
+          }
+        },
         ...{
-          accepted: {
-            entities: acceptedEntities,
+          acceptedGroups: {
+            entities: groupIds,
             loaded: true,
             loading: false
           }
@@ -66,8 +74,8 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
       return {
         ...state,
         ...{
-          accepted: {
-            ...state.accepted,
+          acceptedGroups: {
+            ...state.acceptedGroups,
             loading: true
           }
         }
@@ -76,41 +84,49 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
     case fromGroupsActions.GROUP_CREATED: {
       return {
         ...state,
+        groups: {
+          ...state.groups,
+          entities: {
+            ...state.groups.entities,
+            [action.payload.id]: action.payload
+          }
+        },
         ...{
-          accepted: {
-            ...state.accepted,
-            entities: { ...state.accepted.entities, ...{ [action.payload.id]: action.payload } }
+          acceptedGroups: {
+            ...state.acceptedGroups,
+            entities: [...state.acceptedGroups.entities, action.payload.id]
           }
         }
       }
     }
     case fromGroupsActions.GROUP_DISMISSED: {
-      const { [action.payload]: removed, ...entities } = state.suggested.entities;
+      const suggestedGroupsEntities = state.suggestedGroups.entities.filter(id => id !== action.payload);
       return {
         ...state,
-        suggested: {
-          ...state.suggested,
-          entities: entities
+        suggestedGroups: {
+          ...state.suggestedGroups,
+          entities: suggestedGroupsEntities
         }
       }
     }
     case fromGroupsActions.GROUP_LEFT: {
-      const { [action.payload]: removed, ...entities } = state.accepted.entities;
+      const acceptedGroupsEntities = state.acceptedGroups.entities.filter(id => id !== action.payload);
       return {
         ...state,
-        accepted: {
-          ...state.accepted,
-          entities: entities
+        acceptedGroups: {
+          ...state.acceptedGroups,
+          entities: acceptedGroupsEntities
         }
       }
     }
     case fromGroupsActions.GROUP_APPLIED_TO: {
-      const { [action.payload]: removed, ...entities } = state.suggested.entities;
+      const suggestedGroupsEntities = state.suggestedGroups.entities.filter(id => id !== action.payload);
+      debugger;
       return {
         ...state,
-        suggested: {
-          ...state.suggested,
-          entities: entities
+        suggestedGroups: {
+          ...state.suggestedGroups,
+          entities: suggestedGroupsEntities
         }
       }
     }
@@ -130,10 +146,10 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
       }
       return {
         ...state,
-        applicants: {
-          ...state.applicants,
+        groupApplicants: {
+          ...state.groupApplicants,
           entities: {
-            ...state.applicants.entities,
+            ...state.groupApplicants.entities,
             ...{
               [action.groupId]: {
                 loaded: true,
@@ -151,15 +167,15 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
       const {
         [applicantId]: removed,
         ...remainingApplicants
-      } = state.applicants.entities[groupId].entities;
+      } = state.groupApplicants.entities[groupId].entities;
       return {
         ...state,
-        applicants: {
-          ...state.applicants,
+        groupApplicants: {
+          ...state.groupApplicants,
           entities: {
-            ...state.applicants.entities,
+            ...state.groupApplicants.entities,
             [groupId]: {
-              ...state.applicants.entities[groupId],
+              ...state.groupApplicants.entities[groupId],
               entities: remainingApplicants
             }
           }
@@ -172,28 +188,28 @@ export function groupsReducer(state: Groups, action: fromGroupsActions.GroupsAct
       const {
         [applicantId]: acceptedApplicant,
         ...remainingApplicants
-      } = state.applicants.entities[groupId].entities;
+      } = state.groupApplicants.entities[groupId].entities;
       return {
         ...state,
-        accepted: {
-          ...state.accepted,
+        groups: {
+          ...state.groups,
           entities: {
-            ...state.accepted.entities,
+            ...state.groups.entities,
             [groupId]: {
-              ...state.accepted.entities[groupId],
+              ...state.groups.entities[groupId],
               members: [
-                ...state.accepted.entities[groupId].members,
+                ...state.groups.entities[groupId].members,
                 acceptedApplicant
               ]
             }
           }
         },
-        applicants: {
-          ...state.applicants,
+        groupApplicants: {
+          ...state.groupApplicants,
           entities: {
-            ...state.applicants.entities,
+            ...state.groupApplicants.entities,
             [groupId]: {
-              ...state.applicants.entities[groupId],
+              ...state.groupApplicants.entities[groupId],
               entities: remainingApplicants
             }
           }

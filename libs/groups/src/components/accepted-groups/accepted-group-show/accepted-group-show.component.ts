@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { Group } from "../../../models/group.model";
-import { GroupsState, getSelectedAcceptedGroup } from "../../../+state/groups.interfaces";
+import { GroupsState, getSelectedGroup } from "../../../+state/groups.interfaces";
 import * as fromGroupsActions from "../../../+state/groups.actions";
 
 @Component({
@@ -16,6 +16,6 @@ export class AcceptedGroupShowComponent implements OnInit {
   constructor(private store: Store<GroupsState>) { }
 
   ngOnInit() {
-    this.group$ = this.store.select(getSelectedAcceptedGroup);
+    this.group$ = this.store.select(getSelectedGroup);
   }
 }

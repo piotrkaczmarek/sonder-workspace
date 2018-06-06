@@ -14,11 +14,7 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
               ...entities,
               [post.id]: post
             };
-          },
-          {
-            // replace instead of appending
-          }
-        );
+          }, {});
       }
       return {
         ...state,

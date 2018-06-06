@@ -4,19 +4,20 @@ import { Group, Person } from "../models"
 
 export interface GroupsState {
   readonly groups: Groups;
+  readonly acceptedGroups: AcceptedGroupsState;
+  readonly suggestedGroups: SuggestedGroupsState;
+  readonly groupApplicants: ApplicantsState;
 }
 export interface Groups {
-  suggested: SuggestedGroupsState;
-  accepted: AcceptedGroupsState;
-  applicants: ApplicantsState;
+  entities: { [id: number]: Group };
 }
 export interface SuggestedGroupsState {
-  entities: { [id: number]: Group };
+  entities: Array<number>;
   loaded: boolean;
   loading: boolean;
 }
 export interface AcceptedGroupsState {
-  entities: { [id: number]: Group };
+  entities: Array<number>;
   loaded: boolean;
   loading: boolean;
 }
@@ -31,27 +32,41 @@ export interface GroupApplicantsState {
 
 export const getAllGroups = createSelector(createFeatureSelector<GroupsState>("groups"), state => state);
 
-export const getSuggestedGroups = createSelector(getAllGroups, (groups: any) => groups.suggested);
+export const getGroups = createSelector(getAllGroups, (groupsState: GroupsState) => {
+  return groupsState.groups;
+});
+
+export const getSuggestedGroups = createSelector(getAllGroups, (groups: any) => groups.suggestedGroups);
 export const getSuggestedGroupsLoaded = createSelector(getSuggestedGroups, suggestedGroups => suggestedGroups.loaded);
-export const getSuggestedGroupsEntities = createSelector(getSuggestedGroups, (suggestedGroups: any) => {
-  return Object.keys(suggestedGroups.entities).map(id => suggestedGroups.entities[parseInt(id, 10)]);
-})
+export const getSuggestedGroupsEntities = createSelector(
+  getGroups,
+  getSuggestedGroups,
+  (groups: Groups, suggestedGroups: SuggestedGroupsState) => {
+    if (suggestedGroups) {
+      return suggestedGroups.entities.map(id => groups.entities[id]);
+    }
+});
 
-export const getAcceptedGroups = createSelector(getAllGroups, (groups: any) => groups.accepted);
+export const getAcceptedGroups = createSelector(getAllGroups, (groups: any) => groups.acceptedGroups);
 export const getAcceptedGroupsLoaded = createSelector(getAcceptedGroups, acceptedGroups => acceptedGroups.loaded);
-export const getAcceptedGroupsEntities = createSelector(getAcceptedGroups, (acceptedGroups: any) => {
-  return Object.keys(acceptedGroups.entities).map(id => acceptedGroups.entities[parseInt(id, 10)]);
-})
-
-export const getSelectedAcceptedGroup = createSelector(
+export const getAcceptedGroupsEntities = createSelector(
+  getGroups,
   getAcceptedGroups,
+  (groups: Groups, acceptedGroups: AcceptedGroupsState) => {
+    if (acceptedGroups) {
+      return acceptedGroups.entities.map(id => groups.entities[id]);
+    }
+});
+
+export const getSelectedGroup = createSelector(
+  getGroups,
   fromAppRouter.getRouterState,
-  (groups, router) => {
+  (groups: Groups, router) => {
     return router && router.state && groups.entities[router.state.params.groupId];
   }
 )
 
-export const getApplicants = createSelector(getAllGroups, (groups: any) => groups.applicants);
+export const getApplicants = createSelector(getAllGroups, (groups: GroupsState) => groups.groupApplicants);
 
 export const getGroupApplicants = createSelector(
   getApplicants,
