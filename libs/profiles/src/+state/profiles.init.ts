@@ -1,13 +1,12 @@
-import {Profiles} from './profiles.interfaces';
+import { ProfilesState } from "./profiles.interfaces";
 
-export const profilesInitialState: Profiles = {
-  // fill it initial state here
-  my: {
-    data: {
-      id: undefined,
-      firstName: undefined
-    },
+export const profilesInitialState: ProfilesState = {
+  myProfile: {
+    entity: undefined,
     loaded: false,
     loading: false
+  },
+  profiles: {
+    entities: {}
   }
 };

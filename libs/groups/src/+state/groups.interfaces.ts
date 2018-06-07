@@ -30,13 +30,13 @@ export interface GroupApplicantsState {
   loading: boolean;
 }
 
-export const getAllGroups = createSelector(createFeatureSelector<GroupsState>("groups"), state => state);
+export const getGroupsState = createSelector(createFeatureSelector<GroupsState>("groups"), state => state);
 
-export const getGroups = createSelector(getAllGroups, (groupsState: GroupsState) => {
+export const getGroups = createSelector(getGroupsState, (groupsState: GroupsState) => {
   return groupsState.groups;
 });
 
-export const getSuggestedGroups = createSelector(getAllGroups, (groups: any) => groups.suggestedGroups);
+export const getSuggestedGroups = createSelector(getGroupsState, (groups: any) => groups.suggestedGroups);
 export const getSuggestedGroupsLoaded = createSelector(getSuggestedGroups, suggestedGroups => suggestedGroups.loaded);
 export const getSuggestedGroupsEntities = createSelector(
   getGroups,
@@ -47,7 +47,7 @@ export const getSuggestedGroupsEntities = createSelector(
     }
 });
 
-export const getAcceptedGroups = createSelector(getAllGroups, (groups: any) => groups.acceptedGroups);
+export const getAcceptedGroups = createSelector(getGroupsState, (groups: any) => groups.acceptedGroups);
 export const getAcceptedGroupsLoaded = createSelector(getAcceptedGroups, acceptedGroups => acceptedGroups.loaded);
 export const getAcceptedGroupsEntities = createSelector(
   getGroups,
@@ -66,7 +66,7 @@ export const getSelectedGroup = createSelector(
   }
 )
 
-export const getApplicants = createSelector(getAllGroups, (groups: GroupsState) => groups.groupApplicants);
+export const getApplicants = createSelector(getGroupsState, (groups: GroupsState) => groups.groupApplicants);
 
 export const getGroupApplicants = createSelector(
   getApplicants,

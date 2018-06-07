@@ -35,9 +35,9 @@ export interface PostCommentsState {
   loading: boolean;
 }
 
-export const getAllPostsState = createSelector(createFeatureSelector<PostsState>("posts"), state => state);
+export const getPostsState = createSelector(createFeatureSelector<PostsState>("posts"), state => state);
 
-export const getPosts = createSelector(getAllPostsState, (postsState: PostsState) => {
+export const getPosts = createSelector(getPostsState, (postsState: PostsState) => {
   return postsState.posts;
 });
 
@@ -57,7 +57,7 @@ export const getPostLoadedByPostId = postId => {
   });
 };
 
-export const getPostsByGroups = createSelector(getAllPostsState, (postsState: PostsState) => {
+export const getPostsByGroups = createSelector(getPostsState, (postsState: PostsState) => {
   return postsState.postsByGroups;
 });
 
@@ -99,7 +99,7 @@ export const getGroupPostsLoadedByGroupId = groupId => {
 };
 
 export const getCommentsByPosts = createSelector(
-  getAllPostsState,
+  getPostsState,
   (postsState: PostsState) => {
     return postsState.commentsByPosts;
   }

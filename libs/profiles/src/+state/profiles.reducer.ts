@@ -1,13 +1,19 @@
-import {Profiles} from './profiles.interfaces';
+import { ProfilesState } from './profiles.interfaces';
 import * as fromActions from './profiles.actions';
 
-export function profilesReducer(state: Profiles, action: fromActions.ProfilesAction): Profiles {
+export function profilesReducer(state: ProfilesState, action: fromActions.ProfilesAction): ProfilesState {
   switch (action.type) {
     case fromActions.MY_PROFILE_LOADED: {
       return {
         ...state,
-        my: {
-          data: action.payload.data,
+        profiles: {
+          entities: {
+            ...state.profiles.entities,
+            [action.payload.data.id]: action.payload.data
+          }
+        },
+        myProfile: {
+          entity: action.payload.data.id,
           loaded: true,
           loading: false
         }
