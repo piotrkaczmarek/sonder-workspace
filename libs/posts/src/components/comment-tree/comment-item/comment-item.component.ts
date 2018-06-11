@@ -5,9 +5,9 @@ import {
   FormGroup,
   Validators
 } from "@angular/forms";
-import { Store } from "@ngrx/store";
+import { MatDialog } from "@angular/material";
 import { Comment } from "../../../models";
-import * as postsStore from "../../../+state";
+import { NewCommentFormComponent } from "../../new-comment-form/new-comment-form.component";
 
 @Component({
   selector: "comment-item",
@@ -15,39 +15,20 @@ import * as postsStore from "../../../+state";
   styleUrls: ["./comment-item.component.css"]
 })
 export class CommentItemComponent implements OnInit {
-  @Input() body: string;
+  @Input() comment: Comment;
   @Input() postId: number;
-  @Input() voted: number;
-  @Input() commentId: number;
-  @Input() parentIds: Array<number>;
 
-  expanded: boolean;
-  commentForm: FormGroup;
+  selected = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private store: Store<postsStore.PostsState>
-  ) {}
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit() {
-    this.createForm();
-  }
+  ngOnInit() {}
 
-  createForm() {
-    this.commentForm = this.formBuilder.group({
-      body: ["", Validators.required]
+  openNewCommentDialog() {
+    const dialogRef = this.dialog.open(NewCommentFormComponent, {
+      data: { comment: this.comment, postId: this.postId }
     });
-  }
-
-  postComment() {
-    const payload = {
-      ...this.commentForm.getRawValue(),
-      ...{
-        parent_ids: this.parentIds
-      }
-    }
-    this.store.dispatch(new postsStore.CreateComment(payload, this.postId));
-    this.expanded = false;
-    this.commentForm.reset();
+    this.selected = true;
+    dialogRef.afterClosed().subscribe(() => this.selected = false);
   }
 }

@@ -18,7 +18,8 @@ import {
   PostsEffects,
   PostLoadedGuard,
   PostsLoadedGuard,
-  PostCommentsLoadedGuard
+  PostCommentsLoadedGuard,
+  NewCommentFormComponent
 } from "@sonder-workspace/posts";
 import { BottomActionButtonComponent } from "@sonder-workspace/web-ui";
 import {
@@ -34,7 +35,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 } from "@angular/material";
 
 export const postsRoutes: Route[] = [
@@ -68,6 +70,7 @@ export const postsRoutes: Route[] = [
     MatIconModule,
     MatSelectModule,
     HttpClientModule,
+    MatDialogModule,
     ReactiveFormsModule,
     StoreModule.forFeature("posts", postsReducer, {
       initialState: postsInitialState
@@ -76,10 +79,7 @@ export const postsRoutes: Route[] = [
   ],
   declarations: [...components, BottomActionButtonComponent],
   exports: [...components],
-  providers: [
-    PostsEffects,
-    PostsService,
-    ...guards
-  ]
+  entryComponents: [NewCommentFormComponent],
+  providers: [PostsEffects, PostsService, ...guards]
 })
 export class PostsModule {}

@@ -7,6 +7,7 @@ import { CommentTreeComponent } from "./comment-tree/comment-tree.component";
 import { CommentItemComponent } from "./comment-tree/comment-item/comment-item.component";
 import { PostVoteButtonsComponent } from "./vote-buttons/post-vote-buttons/post-vote-buttons.component";
 import { CommentVoteButtonsComponent } from "./vote-buttons/comment-vote-buttons/comment-vote-buttons.component";
+import { NewCommentFormComponent } from "./new-comment-form/new-comment-form.component";
 
 export const components: any[] = [
   GroupPostsComponent,
@@ -17,7 +18,8 @@ export const components: any[] = [
   CommentTreeComponent,
   CommentItemComponent,
   PostVoteButtonsComponent,
-  CommentVoteButtonsComponent
+  CommentVoteButtonsComponent,
+  NewCommentFormComponent
 ];
 
 export * from "./group-posts/group-posts.component";
@@ -29,3 +31,4 @@ export * from "./comment-tree/comment-tree.component";
 export * from "./comment-tree/comment-item/comment-item.component";
 export * from "./vote-buttons/post-vote-buttons/post-vote-buttons.component";
 export * from "./vote-buttons/comment-vote-buttons/comment-vote-buttons.component";
+export * from "./new-comment-form/new-comment-form.component";

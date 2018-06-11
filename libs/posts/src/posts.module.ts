@@ -11,6 +11,7 @@ import { CommentItemComponent } from './components/comment-tree/comment-item/com
 import { PostVoteButtonsComponent } from './components/vote-buttons/post-vote-buttons/post-vote-buttons.component';
 import { CommentVoteButtonsComponent } from './components/vote-buttons/comment-vote-buttons/comment-vote-buttons.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
+import { NewCommentFormComponent } from './components/new-comment-form/new-comment-form.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { PostsListComponent } from './components/posts-list/posts-list.component
     EffectsModule.forFeature([PostsEffects])
   ],
   providers: [PostsEffects],
-  declarations: [CommentTreeComponent, PostShowComponent, CommentItemComponent, PostVoteButtonsComponent, CommentVoteButtonsComponent, PostsListComponent]
+  declarations: [CommentTreeComponent, PostShowComponent, CommentItemComponent, PostVoteButtonsComponent, CommentVoteButtonsComponent, PostsListComponent, NewCommentFormComponent]
 })
 export class PostsModule {}

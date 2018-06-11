@@ -63,6 +63,6 @@ export class NewPostFormComponent implements OnInit {
     }
     const { groupId, ...postAttrs } = this.postForm.getRawValue();
     this.store.dispatch(new CreatePost(postAttrs, groupId));
-    this.location.back(); // TODO: prevent to navigating away from app when url is pasted
+    this.location.back(); // TODO: prevent navigating away from app when back leads outside of the app
   }
 }
