@@ -1,7 +1,9 @@
+import { ShortProfile } from "@sonder-workspace/profiles";
+
 export interface Comment {
   id: number;
   body: string;
-  authorId: number;
+  author: ShortProfile;
   parentIds: Array<number>;
   points: number;
   voted: number;

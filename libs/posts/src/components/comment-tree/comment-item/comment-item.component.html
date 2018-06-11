@@ -2,7 +2,8 @@
   <mat-card-header>
     {{ comment.body }}
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content><span>
+    by {{ comment.author.username }}</span>
     <comment-vote-buttons [postId]="postId" [commentId]="comment.id" [voted]="comment.voted"></comment-vote-buttons>
     <button mat-button (click)="openNewCommentDialog()">Add comment</button>
   </mat-card-content>
