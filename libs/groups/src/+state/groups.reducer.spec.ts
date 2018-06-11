@@ -1,12 +1,12 @@
 import { groupsReducer } from './groups.reducer';
 import { groupsInitialState } from './groups.init';
-import { Groups } from './groups.interfaces';
+import { GroupsState } from './groups.interfaces';
 import * as fromActions from './groups.actions';
 
 describe('groupsReducer', () => {
   describe('SuggestedGroupsLoaded', () => {
     describe('when initial state was empty', () => {
-      let state: Groups;
+      let state: GroupsState;
       beforeEach(() => {
         state = groupsInitialState;
       })
@@ -20,16 +20,17 @@ describe('groupsReducer', () => {
         })
 
         it('adds new suggested groups', () => {
-          expect(Object.keys(actual.suggested.entities)).toEqual(["1", "2"]);
-          expect(Object.values(actual.suggested.entities)).toEqual(payload);
+          expect(actual.suggestedGroups.entities).toEqual([1, 2]);
+          expect(Object.keys(actual.groups.entities)).toEqual(["1", "2"]);
+          expect(Object.values(actual.groups.entities)).toEqual(payload);
         })
 
         it('sets loaded flag to true', () => {
-          expect(actual.suggested.loaded).toEqual(true);
+          expect(actual.suggestedGroups.loaded).toEqual(true);
         })
 
         it("sets loading flag to false", () => {
-          expect(actual.suggested.loading).toEqual(false);
+          expect(actual.suggestedGroups.loading).toEqual(false);
         });
       })
     })
@@ -37,7 +38,7 @@ describe('groupsReducer', () => {
 
   describe('RejectApplicant', () => {
     describe('when intial state has applicants', () => {
-      let state: Groups;
+      let state: GroupsState;
       const groupId1 = 1;
       const groupId2 = 2;
       const applicantId1 = 2;
@@ -45,7 +46,7 @@ describe('groupsReducer', () => {
       beforeEach(() => {
         state = {
           ...groupsInitialState,
-          applicants: {
+          groupApplicants: {
             entities: {
               [groupId1]: {
                 entities: {
@@ -77,11 +78,11 @@ describe('groupsReducer', () => {
         });
 
         it('removes applicant from given group', () => {
-          expect(Object.keys(actual.applicants.entities[groupId1].entities)).toEqual([String(applicantId2)]);
+          expect(Object.keys(actual.groupApplicants.entities[groupId1].entities)).toEqual([String(applicantId2)]);
         })
 
         it("does not remove applicant from other group", () => {
-          expect(Object.keys(actual.applicants.entities[groupId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
+          expect(Object.keys(actual.groupApplicants.entities[groupId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
         });
       })
     })
@@ -89,7 +90,7 @@ describe('groupsReducer', () => {
 
   describe('AcceptApplicant', () => {
     describe('when intial state has applicants', () => {
-      let state: Groups;
+      let state: GroupsState;
       const groupId1 = 1;
       const groupId2 = 2;
       const applicantId1 = 2;
@@ -97,8 +98,7 @@ describe('groupsReducer', () => {
       beforeEach(() => {
         state = {
           ...groupsInitialState,
-          accepted: {
-            ...groupsInitialState.accepted,
+          groups: {
             entities: {
               [groupId1]: {
                 id: groupId1,
@@ -108,7 +108,11 @@ describe('groupsReducer', () => {
               }
             }
           },
-          applicants: {
+          acceptedGroups: {
+            ...groupsInitialState.acceptedGroups,
+            entities: [groupId1]
+          },
+          groupApplicants: {
             entities: {
               [groupId1]: {
                 entities: {
@@ -140,15 +144,15 @@ describe('groupsReducer', () => {
         });
 
         it('removes applicant from given group', () => {
-          expect(Object.keys(actual.applicants.entities[groupId1].entities)).toEqual([String(applicantId2)]);
+          expect(Object.keys(actual.groupApplicants.entities[groupId1].entities)).toEqual([String(applicantId2)]);
         })
 
         it("does not remove applicant from other group", () => {
-          expect(Object.keys(actual.applicants.entities[groupId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
+          expect(Object.keys(actual.groupApplicants.entities[groupId2].entities)).toEqual([String(applicantId1), String(applicantId2)])
         });
 
         it("adds applicant to group members", () => {
-          expect(actual.accepted.entities[groupId1].members).toContain({ id: applicantId1, firstName: 'Bob'})
+          expect(actual.groups.entities[groupId1].members).toContain({ id: applicantId1, firstName: 'Bob'})
         })
       })
     })

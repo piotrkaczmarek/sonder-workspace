@@ -121,7 +121,6 @@ export function groupsReducer(state: GroupsState, action: fromGroupsActions.Grou
     }
     case fromGroupsActions.GROUP_APPLIED_TO: {
       const suggestedGroupsEntities = state.suggestedGroups.entities.filter(id => id !== action.payload);
-      debugger;
       return {
         ...state,
         suggestedGroups: {
