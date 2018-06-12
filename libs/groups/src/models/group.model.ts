@@ -1,8 +1,11 @@
-import { Person } from "./person.model";
+import { Profile } from "@sonder-workspace/profiles";
 
 export interface Group {
   id: number;
-  size: number;
   name: string;
-  members: Array<Person>;
+}
+
+export interface GroupFull extends Group {
+  size: number;
+  members: Array<Profile>;
 }

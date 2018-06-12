@@ -10,13 +10,19 @@ import * as postsStore from "../../+state";
 })
 export class PostItemComponent implements OnInit {
   @Input() post: Post;
+  @Input() showGroup: boolean;
+
+  showGroupFlag = true;
+
   constructor(private store: Store<postsStore.PostsState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.showGroup !== undefined) this.showGroupFlag = this.showGroup;
+  }
 
   upvote() {
     if (this.post.voted > 0) {
-      this.store.dispatch(new postsStore.RevokePostVote(this.post.id))
+      this.store.dispatch(new postsStore.RevokePostVote(this.post.id));
     } else {
       this.store.dispatch(new postsStore.UpvotePost(this.post.id));
     }

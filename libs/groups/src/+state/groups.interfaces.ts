@@ -1,6 +1,6 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
 import * as fromAppRouter from "@sonder-workspace/router";
-import { Group, Person } from "../models"
+import { GroupFull, Person } from "../models"
 
 export interface GroupsState {
   readonly groups: Groups;
@@ -9,7 +9,7 @@ export interface GroupsState {
   readonly groupApplicants: ApplicantsState;
 }
 export interface Groups {
-  entities: { [id: number]: Group };
+  entities: { [id: number]: GroupFull };
 }
 export interface SuggestedGroupsState {
   entities: Array<number>;
