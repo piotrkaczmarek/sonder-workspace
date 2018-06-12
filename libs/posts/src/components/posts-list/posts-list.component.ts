@@ -3,7 +3,7 @@ import { Store } from "@ngrx/store";
 import { Observable } from 'rxjs/Observable';
 import {
   PostsState,
-  getPostsEntities
+  getPostsFromAcceptedGroupsEntities
 } from "../../+state/posts.interfaces";
 import { map, filter } from "rxjs/operators";
 
@@ -20,10 +20,6 @@ export class PostsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.posts$ = this.store.select(getPostsEntities).pipe(
-      filter(posts => posts ? true : false),
-      map((posts) => posts.sort((a,b) => b.points - a.points))
-    );
+    this.posts$ = this.store.select(getPostsFromAcceptedGroupsEntities);
   }
-
 }

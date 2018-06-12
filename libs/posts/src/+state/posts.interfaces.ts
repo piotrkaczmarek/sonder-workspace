@@ -5,6 +5,7 @@ import { isEqual } from "lodash";
 
 export interface PostsState {
   readonly postsByGroups: PostsByGroups;
+  readonly postsFromAcceptedGroups: PostsFromAcceptedGroups;
   readonly commentsByPosts: CommentsByPost;
   readonly posts: Posts;
 }
@@ -15,6 +16,10 @@ export interface PostsByGroups {
 
 export interface Posts {
   entities: { [postId: number]: Post };
+}
+
+export interface PostsFromAcceptedGroups {
+  ids: Array<number>;
   loaded: boolean;
   loading: boolean;
 }
@@ -41,15 +46,25 @@ export const getPosts = createSelector(getPostsState, (postsState: PostsState) =
   return postsState.posts;
 });
 
-export const getPostsEntities = createSelector(getPosts, (posts) => {
-  if(posts) {
-    return Object.keys(posts.entities).map(
-      id => posts.entities[parseInt(id, 10)]
-    );
-  }
+
+export const getPostsFromAcceptedGroups = createSelector(getPostsState, (postsState: PostsState) => postsState.postsFromAcceptedGroups);
+export const getPostsFromAcceptedIds = createSelector(getPostsFromAcceptedGroups, (postsFromAcceptedGroups) => {
+  return postsFromAcceptedGroups.ids;
 });
 
-export const getPostsLoaded = createSelector(getPosts, (posts) => posts.loaded);
+export const getPostsFromAcceptedGroupsLoaded = createSelector(getPostsFromAcceptedGroups, (postsFromAcceptedGroups) => {
+  return postsFromAcceptedGroups.loaded;
+});
+
+export const getPostsFromAcceptedGroupsEntities = createSelector(
+  getPosts,
+  getPostsFromAcceptedIds,
+  (posts, ids) => {
+    if (posts) {
+      return ids.map(id => posts.entities[id]);
+    }
+  }
+);
 
 export const getPostLoadedByPostId = postId => {
   return createSelector(getPosts, posts => {

@@ -10,7 +10,10 @@ import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 import { tap, filter, take, switchMap, catchError } from "rxjs/operators";
 
-import { PostsState, getPostsLoaded } from "../+state/posts.interfaces";
+import {
+  PostsState,
+  getPostsFromAcceptedGroupsLoaded
+} from "../+state/posts.interfaces";
 import { LoadPosts } from "../+state/posts.actions";
 
 @Injectable()
@@ -28,7 +31,7 @@ export class PostsLoadedGuard implements CanActivate {
   }
 
   checkStore(postId: number): Observable<boolean> {
-    return this.store.select(getPostsLoaded).pipe(
+    return this.store.select(getPostsFromAcceptedGroupsLoaded).pipe(
       tap(loaded => {
         if (!loaded) {
           this.store.dispatch(new LoadPosts());

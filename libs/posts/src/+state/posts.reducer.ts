@@ -70,12 +70,16 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
         ...state,
         posts: {
           ...state.posts,
-          loaded: true,
-          loading: false,
           entities: {
             ...state.posts.entities,
             ...postsEntities
           }
+        },
+        postsFromAcceptedGroups: {
+          ...state.postsFromAcceptedGroups,
+          loaded: true,
+          loading: false,
+          ids: posts.map(post => post.id)
         }
       }
     }

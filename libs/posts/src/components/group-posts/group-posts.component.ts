@@ -23,10 +23,7 @@ export class GroupPostsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.groupPosts$ = this.store.select(getGroupPostsEntities).pipe(
-      filter(posts => posts ? true : false),
-      map((posts) => posts.sort((a, b) => b.points - a.points))
-    );
+    this.groupPosts$ = this.store.select(getGroupPostsEntities);
     this.groupId$ = this.route.paramMap.pipe(
       map(route => route["params"].groupId),
       map((groupId: string) => parseInt(groupId, 10))
