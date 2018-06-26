@@ -56,7 +56,7 @@ export class BackendService {
       switchMap((token: string) => {
         return requestMethod(this.headers(token)).pipe(
           catchError(error => {
-            if (error.status === "401") {
+            if (error.status == "401") {
               this.store.dispatch(new AuthenticationFailed());
             }
             return Observable.throw(error);
