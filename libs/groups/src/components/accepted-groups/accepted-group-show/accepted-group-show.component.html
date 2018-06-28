@@ -1,6 +1,7 @@
 <mat-card *ngIf="(group$ | async)">
   <mat-card-header>
     <mat-card-title><h1>{{ (group$ | async).name }}</h1></mat-card-title>
+    <button mat-button (click)="leaveGroup()">Leave...</button>
   </mat-card-header>
   <mat-card-content>
     <group-posts></group-posts>

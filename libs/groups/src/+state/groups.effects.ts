@@ -75,13 +75,12 @@ export class GroupsEffects {
     map((action: fromGroupsActions.ApplyToGroup) => action),
     map(action => action.payload),
     switchMap(groupId => {
-      return this.groupsService
-        .applyToGroup(groupId).pipe(
-          map((data: any) => new fromGroupsActions.GroupAppliedTo(groupId)),
-          catchError(error => {
-            console.error("Error", error);
-            return of(error);
-          })
+      return this.groupsService.applyToGroup(groupId).pipe(
+        map((data: any) => new fromGroupsActions.GroupAppliedTo(groupId)),
+        catchError(error => {
+          console.error("Error", error);
+          return of(error);
+        })
       );
     })
   );
@@ -130,6 +129,18 @@ export class GroupsEffects {
     })
   );
 
+  @Effect({ dispatch: false })
+  groupLeft = this.actions.ofType(fromGroupsActions.GROUP_LEFT).pipe(
+    map((action: fromGroupsActions.GroupLeft) => action.payload),
+    tap(({ path, query: queryParams, extras }) =>
+      this.store.dispatch(
+        new fromAppRouter.Go({
+          path: ["/"]
+        })
+      )
+    )
+  );
+
   @Effect()
   loadApplicants = this.actions.ofType(fromGroupsActions.LOAD_APPLICANTS).pipe(
     map((action: fromGroupsActions.LoadApplicants) => action),
@@ -147,7 +158,6 @@ export class GroupsEffects {
       );
     })
   );
-
 
   constructor(
     private actions: Actions,

@@ -72,17 +72,11 @@ export class AuthEffects {
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   authenticationFailed = this.actions
     .ofType(fromAuthActions.AUTHENTICATION_FAILED)
     .pipe(
-      map((action: fromAuthActions.LoggedIn) => action.payload),
-      tap(
-        ({ path, query: queryParams, extras }) =>
-          new fromAppRouter.Go({
-            path: ["/login"]
-          })
-      )
+      tap(() => new fromAppRouter.Go({ path: ["/login"] }))
     );
 
   private backend: BackendService;

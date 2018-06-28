@@ -18,4 +18,10 @@ export class AcceptedGroupShowComponent implements OnInit {
   ngOnInit() {
     this.group$ = this.store.select(getSelectedGroup);
   }
+
+  leaveGroup() {
+    this.group$.subscribe((group) => {
+      if(group) this.store.dispatch(new fromGroupsActions.LeaveGroup(group.id));
+    })
+  }
 }

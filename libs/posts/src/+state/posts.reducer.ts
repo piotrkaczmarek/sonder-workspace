@@ -1,6 +1,7 @@
 import {PostsState} from './posts.interfaces';
 import * as fromPostsActions from './posts.actions';
 import { Post } from '../models';
+import { getPostsFromAcceptedGroups } from '@sonder-workspace/posts';
 
 export function postsReducer(state: PostsState, action: fromPostsActions.PostsAction): PostsState {
   switch (action.type) {
@@ -132,13 +133,15 @@ export function postsReducer(state: PostsState, action: fromPostsActions.PostsAc
             [post.id]: post
           }
         },
-        ...{
-          postsByGroups: {
-            ...state.postsByGroups,
-            entities: {
-              ...state.postsByGroups.entities,
-              ...{ [action.groupId]: groupPosts }
-            }
+        postsFromAcceptedGroups: {
+          ...state.postsFromAcceptedGroups,
+          ids: [post.id, ...state.postsFromAcceptedGroups.ids]
+        },
+        postsByGroups: {
+          ...state.postsByGroups,
+          entities: {
+            ...state.postsByGroups.entities,
+            ...{ [action.groupId]: groupPosts }
           }
         }
       }
