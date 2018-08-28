@@ -24,6 +24,8 @@ import { AppRouterModule, CustomSerializer } from "@sonder-workspace/router";
 import { authRoutes, AuthModule } from './modules/auth/auth.module';
 import { profilesRoutes, ProfilesModule } from "./modules/profiles/profiles.module";
 
+import { TopNavBarComponent } from "@sonder-workspace/web-ui";
+
 import {
   MatSidenavModule,
   MatToolbarModule,
@@ -89,7 +91,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [
       stateKey: "router"
     })
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, TopNavBarComponent],
   bootstrap: [AppComponent],
   providers: [
     AppEffects,

@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row flex fxLayout="row" fxLayoutAlign="start center">
+    <button *ngIf="loggedIn" class="hamburger hamburger--spring" [ngClass]="{'is-active': sidenavOpened}" type="button"
+      (click)="sidenav.toggle()">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div flex fxFill fxLayoutAlign="center center" routerLink="/">Sonder App</div>
+  </mat-toolbar-row>
+</mat-toolbar>
